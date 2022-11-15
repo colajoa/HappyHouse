@@ -4,20 +4,20 @@
 <mapper namespace="com.ssafy.happyhouse.dao.AreaDao">
     <insert id="registArea" parameterType="AreaDto">
         <![CDATA[ 
-        insert into interestArea(userId, dongcode)
+        insert into area(userId, dongcode)
         values(#{userId}, #{dongcode})
         ]]>
     </insert>
     <select id="getList" parameterType="string" resultType="AreaDto">
         <![CDATA[ 
         select i.idx, i.userId, i.dongcode, concat(d.sidoName," ", d.gugunName," ", d.dongName) as address
-        from interestarea i left join dongcode d 
+        from area i left join dongcode d 
         on i.dongcode=d.dongCode where userId=#{userId}
         ]]>
     </select>
     <delete id="removeArea" parameterType="AreaDto">
         <![CDATA[ 
-        delete from interestArea where userId=#{userId} and dongcode=#{dongcode}
+        delete from area where userId=#{userId} and dongcode=#{dongcode}
         ]]>
     </delete>
 </mapper>
