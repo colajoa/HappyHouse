@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.dao.BoardDao">
+    <insert id="insertPost" parameterType="BoardDto">
+        <![CDATA[ 
+        insert into post(title, author, content, created_at)
+        values(#{title}, #{writer}, #{content}, now())
+        ]]>
+    </insert>
+    <select id="listPost" resultType="BoardDto">
+        <![CDATA[ 
+        select * from post
+        ]]>
+    </select>
+    <select id="detailPost" resultType="BoardDto">
+        <![CDATA[ 
+        select * from post where id=#{id}
+        ]]>
+    </select>
+    <update id="updatePost" parameterType="BoardDto">
+        <![CDATA[ 
+        update post
+        set title=#{title}, content=#{content}
+        where id=#{id}
+        ]]>
+    </update>
+    <delete id="deletePost" parameterType="int">
+        <![CDATA[ 
+        delete from post where id=#{id}
+        ]]>
+    </delete>
+</mapper>

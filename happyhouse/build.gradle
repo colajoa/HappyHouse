@@ -25,6 +25,16 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.7.5'
+	// Datasource
+	implementation 'org.apache.commons:commons-dbcp2:2.9.0'
+	// https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+	runtimeOnly 'org.aspectj:aspectjweaver:1.9.9.1'
+	// https://mvnrepository.com/artifact/org.aspectj/aspectjrt
+	runtimeOnly 'org.aspectj:aspectjrt:1.9.9.1'
+	// https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload
+	implementation 'commons-fileupload:commons-fileupload:1.4'
 }
 
 tasks.named('test') {

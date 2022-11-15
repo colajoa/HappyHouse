@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.dao.QnaDao">
+    <insert id="insertQna" parameterType="QnaDto">
+        <![CDATA[ 
+        insert into qna(title, writer, content, created_at)
+        values(#{title}, #{writer}, #{content}, now())
+        ]]>
+    </insert>
+    <select id="listQna" resultType="QnaDto">
+        <![CDATA[ 
+        select * from qna
+        ]]>
+    </select>
+    <select id="detailQna" resultType="QnaDto">
+        <![CDATA[ 
+        select * from qna where id=#{id}
+        ]]>
+    </select>
+    <update id="updateQna" parameterType="QnaDto">
+        <![CDATA[ 
+        update qna
+        set title=#{title}, content=#{content}
+        where id=#{id}
+        ]]>
+    </update>
+    <delete id="deleteQna" parameterType="int">
+        <![CDATA[ 
+        delete from qna where id=#{id}
+        ]]>
+    </delete>
+</mapper>
