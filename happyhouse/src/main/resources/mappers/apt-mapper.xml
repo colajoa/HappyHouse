@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.dao.AptDao">
+    <select id="getSido" resultType="CodeDto">
+        <![CDATA[ 
+        select sidoname as name, left(dongCode, 2) as code from dongcode where right(dongcode, 8) = '00000000'
+        ]]>
+    </select>
+
+    <select id="getGugun" resultType="CodeDto">
+        <![CDATA[ 
+        select gugunname as name, left(dongCode, 4) as code from dongcode where right(dongcode, 5) = '00000' and left(dongcode, 2) = #{code} and gugunname is not null
+        ]]>
+    </select>
+
+    <select id="getDong" resultType="CodeDto">
+        <![CDATA[ 
+        select dongcode as code, dongname as name from dongcode where left(dongcode, 4) = #{code} and dongname is not null
+        ]]>
+    </select>
+
+    <select id="getAptList" parameterType="AptDeal" resultType="AptDeal">
+        <![CDATA[ 
+        select * from housedeal hd left join houseinfo hi on hd.aptCode = hi.aptCode where hi.dongCode=#{code} and hd.dealYear=#{dealYear} and hd.dealMonth=#{dealMonth} order by dealDay
+        ]]>
+    </select>
+</mapper>

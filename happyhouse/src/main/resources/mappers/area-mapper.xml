@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.dao.AreaDao">
+    <insert id="registArea" parameterType="AreaDto">
+        <![CDATA[ 
+        insert into interestArea(userId, dongcode)
+        values(#{userId}, #{dongcode})
+        ]]>
+    </insert>
+    <select id="getList" parameterType="string" resultType="AreaDto">
+        <![CDATA[ 
+        select i.idx, i.userId, i.dongcode, concat(d.sidoName," ", d.gugunName," ", d.dongName) as address
+        from interestarea i left join dongcode d 
+        on i.dongcode=d.dongCode where userId=#{userId}
+        ]]>
+    </select>
+    <delete id="removeArea" parameterType="AreaDto">
+        <![CDATA[ 
+        delete from interestArea where userId=#{userId} and dongcode=#{dongcode}
+        ]]>
+    </delete>
+</mapper>
