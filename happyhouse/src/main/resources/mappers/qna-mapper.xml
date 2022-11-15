@@ -4,7 +4,7 @@
 <mapper namespace="com.ssafy.happyhouse.dao.QnaDao">
     <insert id="insertQna" parameterType="QnaDto">
         <![CDATA[ 
-        insert into qna(title, writer, content, created_at)
+        insert into qna(title, writer, content, createdat)
         values(#{title}, #{writer}, #{content}, now())
         ]]>
     </insert>
