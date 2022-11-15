@@ -75,7 +75,7 @@ public class AptController {
         @PathVariable("dealYear") int dealYear,
         @PathVariable("dealMonth") int dealMonth) throws Exception{
         
-            List<AptDeal> list = aptService.getAptList(code, dealYear, dealMonth);
+        List<AptDeal> list = aptService.getAptList(code, dealYear, dealMonth);
 
         return ResponseEntity.ok(list);
     }
