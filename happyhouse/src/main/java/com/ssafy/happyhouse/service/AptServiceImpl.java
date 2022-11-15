@@ -1,5 +1,5 @@
 package com.ssafy.happyhouse.service;
 
-public interface AptService {
+public class AptServiceImpl {
     
 }
