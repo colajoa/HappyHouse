@@ -4,30 +4,30 @@
 <mapper namespace="com.ssafy.happyhouse.dao.QnaDao">
     <insert id="insertQna" parameterType="QnaDto">
         <![CDATA[ 
-        insert into post(title, author, content, created_at)
-        values(#{title}, #{author}, #{content}, now())
+        insert into qna(title, writer, content, created_at)
+        values(#{title}, #{writer}, #{content}, now())
         ]]>
     </insert>
     <select id="listQna" resultType="QnaDto">
         <![CDATA[ 
-        select * from post
+        select * from qna
         ]]>
     </select>
     <select id="detailQna" resultType="QnaDto">
         <![CDATA[ 
-        select * from post where id=#{id}
+        select * from qna where id=#{id}
         ]]>
     </select>
     <update id="updateQna" parameterType="QnaDto">
         <![CDATA[ 
-        update post
+        update qna
         set title=#{title}, content=#{content}
         where id=#{id}
         ]]>
     </update>
     <delete id="deleteQna" parameterType="int">
         <![CDATA[ 
-        delete from post where id=#{id}
+        delete from qna where id=#{id}
         ]]>
     </delete>
 </mapper>
