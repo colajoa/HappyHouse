@@ -63,7 +63,7 @@ CREATE TABLE `area` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 공지사항
-CREATE TABLE `post` (
+CREATE TABLE `board` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   `author` varchar(20) NOT NULL,
@@ -71,6 +71,16 @@ CREATE TABLE `post` (
   `created_at` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- QNA
+CREATE TABLE `qna` (
+  `id` int NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `content` varchar(511) NOT NULL,
+  `writer` varchar(45) NOT NULL,
+  `created_at` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 유저 정보
 CREATE TABLE `user` (
