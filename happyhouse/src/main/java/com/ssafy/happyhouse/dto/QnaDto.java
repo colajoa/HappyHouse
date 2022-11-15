@@ -12,16 +12,16 @@ public class QnaDto {
 	private String title;
 	private String writer;
 	private String content;
-	private String createdAt;
+	private String createdat;
 
 	@Builder
-	public QnaDto(int id, String title, String writer, String content, String createdAt) {
+	public QnaDto(int id, String title, String writer, String content, String createdat) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.writer = writer;
 		this.content = content;
-		this.createdAt = createdAt;
+		this.createdat = createdat;
 	}
 
 }

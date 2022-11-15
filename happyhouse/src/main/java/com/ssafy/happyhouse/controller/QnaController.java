@@ -24,6 +24,12 @@ public class QnaController {
     @Autowired
     private QnaService qnaService;
     
+    /**
+     * QNA 등록
+     * 
+     * @param qna
+     * @return
+     */
     @PostMapping("/register")
     public ResponseEntity<?> registQna(@RequestBody QnaDto qna){
         int n = qnaService.insertQna(qna);
@@ -31,6 +37,12 @@ public class QnaController {
         return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+
+    /**
+     * QNA 목록
+     * 
+     * @return
+     */
     @GetMapping("/list")
     public ResponseEntity<?> listQnas(){
         List<QnaDto> list = qnaService.listQna();
@@ -38,6 +50,12 @@ public class QnaController {
         return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * QNA 조회
+     * 
+     * @param id
+     * @return
+     */
     @GetMapping("/detail/{id}")
     public ResponseEntity<?> detailQna(@PathVariable("id") int id){
         QnaDto qna = qnaService.detailQna(id);
@@ -46,6 +64,12 @@ public class QnaController {
         return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * QNA 수정
+     * 
+     * @param qna
+     * @return
+     */
     @PutMapping("/post")
     public ResponseEntity<?> modifyQna(@RequestBody QnaDto qna){
         int n = qnaService.updateQna(qna);
@@ -53,6 +77,12 @@ public class QnaController {
         return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * QNA 삭제
+     * 
+     * @param id
+     * @return
+     */
     @DeleteMapping("/post/{id}")
     public ResponseEntity<?> deleteQna(@PathVariable("id") int id){
         int n = qnaService.deleteQna(id);

@@ -24,6 +24,12 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
     
+    /**
+     * 공지사항 등록
+     * 
+     * @param board
+     * @return
+     */
     @PostMapping("/register")
     public ResponseEntity<?> registBoard(@RequestBody BoardDto board){
         int n = boardService.insertBoard(board);
@@ -31,6 +37,11 @@ public class BoardController {
         return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * 공지사항 목록
+     * 
+     * @return
+     */
     @GetMapping("/list")
     public ResponseEntity<?> listBoard(){
         List<BoardDto> list = boardService.listBoard();
@@ -38,6 +49,12 @@ public class BoardController {
         return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * 공지사항 조회
+     * 
+     * @param id
+     * @return
+     */
     @GetMapping("/detail/{id}")
     public ResponseEntity<?> detailBoard(@PathVariable("id") int id){
         BoardDto board = boardService.detailBoard(id);
@@ -46,6 +63,12 @@ public class BoardController {
         return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * 공지사항 수정
+     * 
+     * @param board
+     * @return
+     */
     @PutMapping("/post")
     public ResponseEntity<?> modifyBoard(@RequestBody BoardDto board){
         int n = boardService.updateBoard(board);
@@ -53,6 +76,12 @@ public class BoardController {
         return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * 공지사항 삭제
+     * 
+     * @param id
+     * @return
+     */
     @DeleteMapping("/post/{id}")
     public ResponseEntity<?> deleteBoard(@PathVariable("id") int id){
         int n = boardService.deleteBoard(id);
