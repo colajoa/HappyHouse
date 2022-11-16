@@ -4,7 +4,9 @@
       <div class="container d-flex align-items-center justify-content-between">
         <div class="logo">
           <h1 class="text-light">
-            <a href="/"><span>HappyHouse</span></a>
+            <router-link :to="{ name: 'main' }"
+              ><span>HappyHouse</span></router-link
+            >
           </h1>
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
@@ -12,19 +14,27 @@
 
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto active" href="#hero">홈</a></li>
             <li>
-              <a class="nav-link scrollto" href="#about">아파트 거래 정보</a>
-            </li>
-            <li><a class="nav-link scrollto" href="#services">공지사항</a></li>
-            <li>
-              <a class="nav-link scrollto" href="#portfolio">질문받는다</a>
+              <router-link class="nav-link scrollto" :to="{ name: 'apt' }"
+                >아파트 거래정보</router-link
+              >
             </li>
             <li>
-              <a class="nav-link scrollto" href="#team">로그인 | 회원가입</a>
+              <router-link class="nav-link scrollto" :to="{ name: 'board' }"
+                >공지사항</router-link
+              >
+            </li>
+            <li>
+              <router-link class="nav-link scrollto" :to="{ name: 'qna' }"
+                >질문받는다</router-link
+              >
+            </li>
+            <li>
+              <router-link class="nav-link scrollto" :to="{ name: 'user' }"
+                >로그인 | 회원가입</router-link
+              >
             </li>
           </ul>
-          <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
         <!-- .navbar -->
       </div>
@@ -41,4 +51,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.header-transparent {
+  background: rgba(103, 176, 209, 0.8);
+}
+</style>

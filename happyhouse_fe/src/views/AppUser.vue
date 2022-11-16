@@ -1,13 +1,9 @@
 <template>
-<h2>회원</h2>
+  <h2>회원</h2>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>
