@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header-nav-bar></header-nav-bar>
+    <header-nav-bar :isBg="isBg"></header-nav-bar>
     <router-view></router-view>
   </div>
 </template>
@@ -12,6 +12,16 @@ export default {
   name: "App",
   components: {
     HeaderNavBar,
+  },
+  data() {
+    return {
+      isBg: true,
+    };
+  },
+  mounted() {
+    if (this.$route.name == "main") {
+      this.isBg = false;
+    }
   },
 };
 </script>

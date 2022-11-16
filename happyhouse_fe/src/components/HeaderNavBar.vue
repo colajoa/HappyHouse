@@ -1,6 +1,9 @@
 <template>
   <div>
-    <header id="header" class="fixed-top header-transparent">
+    <header
+      id="header"
+      :class="[isBg ? 'fixed-top' : 'fixed-top header-transparent']"
+    >
       <div class="container d-flex align-items-center justify-content-between">
         <div class="logo">
           <h1 class="text-light">
@@ -48,11 +51,8 @@ export default {
   data() {
     return {};
   },
+  props: ["isBg"],
 };
 </script>
 
-<style scoped>
-.header-transparent {
-  background: rgba(103, 176, 209, 0.8);
-}
-</style>
+<style scoped></style>
