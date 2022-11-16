@@ -50,10 +50,13 @@ export default {
   name: "HeaderNavBar",
   data() {
     return {
-      showBg: false,
+      showBg: true,
     };
   },
   props: ["isBg"],
+  created() {
+    this.showBg = this.isBg;
+  },
   watch: {
     isBg: function () {
       this.showBg = this.isBg;
