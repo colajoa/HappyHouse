@@ -2,7 +2,7 @@
   <div>
     <header
       id="header"
-      :class="[isBg ? 'fixed-top' : 'fixed-top header-transparent']"
+      :class="[showBg ? 'fixed-top' : 'fixed-top header-transparent']"
     >
       <div class="container d-flex align-items-center justify-content-between">
         <div class="logo">
@@ -49,9 +49,16 @@
 export default {
   name: "HeaderNavBar",
   data() {
-    return {};
+    return {
+      showBg: false,
+    };
   },
   props: ["isBg"],
+  watch: {
+    isBg: function () {
+      this.showBg = this.isBg;
+    },
+  },
 };
 </script>
 

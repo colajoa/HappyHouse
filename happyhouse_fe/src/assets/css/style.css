@@ -90,8 +90,8 @@ h6 {
 }
 
 #header.header-transparent {
-  /* background: transparent; */
-  background: rgba(55, 142, 181, 0.9);
+  background: transparent;
+  /* background: rgba(55, 142, 181, 0.9); */
 }
 
 #header.header-scrolled {

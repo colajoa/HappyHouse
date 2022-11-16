@@ -15,11 +15,13 @@ export default {
   },
   data() {
     return {
-      isBg: true,
+      isBg: false,
     };
   },
-  mounted() {
-    if (this.$route.name == "main") {
+  updated() {
+    if (this.$route.name != "main") {
+      this.isBg = true;
+    } else {
       this.isBg = false;
     }
   },
