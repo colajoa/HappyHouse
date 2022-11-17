@@ -1,16 +1,28 @@
 <template>
   <div>
-    <router-view></router-view>
-    <h2>아파트 정보</h2>
+    <div class="blank"></div>
+    <apt-area></apt-area>
+    <apt-map></apt-map>
   </div>
 </template>
 
 <script>
-export default {};
+import AptMap from "@/components/apt/AptMap.vue";
+import AptArea from "@/components/apt/AptArea.vue";
+
+export default {
+  name: "AppApt",
+  components: {
+    AptMap,
+    AptArea,
+  },
+};
 </script>
 
 <style scoped>
-.header-transparent {
-  background: rgba(103, 176, 209, 0.8);
+.blank {
+  position: relative;
+  width: fit-content;
+  height: 104px;
 }
 </style>
