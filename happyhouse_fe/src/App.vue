@@ -18,6 +18,11 @@ export default {
       isBg: false,
     };
   },
+  created() {
+    if (this.$route.name != "main") {
+      this.isBg = true;
+    }
+  },
   updated() {
     if (this.$route.name != "main") {
       this.isBg = true;
