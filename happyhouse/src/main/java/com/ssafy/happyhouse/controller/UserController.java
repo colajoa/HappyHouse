@@ -1,10 +1,17 @@
 package com.ssafy.happyhouse.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +20,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.happyhouse.config.JwtTokenProvider;
+import com.ssafy.happyhouse.config.UserAuthentication;
+import com.ssafy.happyhouse.dto.Token;
 import com.ssafy.happyhouse.dto.UserDto;
+import com.ssafy.happyhouse.dto.Token.Response;
+import com.ssafy.happyhouse.service.JwtServiceImpl;
 import com.ssafy.happyhouse.service.UserServiceImpl;
 
 @RestController
@@ -22,6 +34,8 @@ public class UserController {
     
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private JwtServiceImpl jwtService;
 
     /**
      * 회원 가입
@@ -47,14 +61,19 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserDto user, HttpSession session) {
-        UserDto loginUser = userService.getLoginUser(user);
-        if (loginUser != null) {
-            session.setAttribute("loginUser", loginUser);
-            return ResponseEntity.ok(loginUser);
-        } else {
-            return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<?> login(HttpServletRequest request, HttpServletResponse response, @Validated @RequestBody Token.Request user) {
+        UserDto findUser = userService.getLoginUser(UserDto.builder().id(user.getId()).pwd(user.getSecret()).build());
+
+        if(!user.getSecret().equals(findUser.getPwd())){
+            throw new IllegalArgumentException("비밀번호를 확인하세요.");
         }
+
+        Authentication authentication = new UserAuthentication(user.getId(), null, null);
+        String token = JwtTokenProvider.generateToken(authentication);
+
+        Response res = Response.builder().token(token).build();
+
+        return ResponseEntity.ok(res);
     }
 
     /**
@@ -101,7 +120,9 @@ public class UserController {
      */
     @GetMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {
-        session.invalidate();
+        /* session.invalidate();*/
+        Map<String, Object> map = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
         return ResponseEntity.ok(HttpStatus.OK);
     }
 

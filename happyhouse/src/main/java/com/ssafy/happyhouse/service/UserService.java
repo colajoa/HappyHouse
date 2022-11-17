@@ -3,15 +3,32 @@ package com.ssafy.happyhouse.service;
 import com.ssafy.happyhouse.dto.UserDto;
 
 public interface UserService {
-    public UserDto getLoginUser(UserDto user);
+	// 로그인 유저
+	UserDto getLoginUser(UserDto user);
 
-	public int insertUser(UserDto user);
+	// 리프레시토큰 발급
+	void saveRefreshToken(String userId, String refreshToken);
 
-	public int updateUser(UserDto user);
+	// 리프레시토큰 받기
+	Object getRefreshToken(String userId);
 
-	public int deleteUser(UserDto user);
+	// 리프레시토큰 삭제
+	void deleteRefreshToken(String userId);
 
-	public UserDto findPwd(UserDto user);
+	// 회원가입
+	int insertUser(UserDto user);
 
-	public int idCheck(UserDto user);
+	// 유저 정보 수정
+	int updateUser(UserDto user);
+
+	// 회원 탈퇴
+	int deleteUser(UserDto user);
+
+	UserDto findId(UserDto user);
+
+	// 비밀번호 찾기
+	UserDto findPwd(UserDto user);
+
+	// 중복 아이디 확인
+	int idCheck(UserDto user);
 }
