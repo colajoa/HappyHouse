@@ -18,6 +18,11 @@
         <nav id="navbar" class="navbar">
           <ul>
             <li>
+              <router-link class="nav-link scrollto" :to="{ name: 'test' }"
+                >테스트 페이지</router-link
+              >
+            </li>
+            <li>
               <router-link class="nav-link scrollto" :to="{ name: 'apt' }"
                 >아파트 거래정보</router-link
               >
@@ -33,7 +38,7 @@
               >
             </li>
             <li>
-              <router-link class="nav-link scrollto" :to="{ name: 'user' }"
+              <router-link class="nav-link scrollto" :to="{ name: 'login' }"
                 >로그인 | 회원가입</router-link
               >
             </li>

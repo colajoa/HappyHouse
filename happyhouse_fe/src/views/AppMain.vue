@@ -11,4 +11,10 @@
 export default {};
 </script>
 
-<style></style>
+<style scoped>
+.blank {
+  position: relative;
+  width: fit-content;
+  height: 104px;
+}
+</style>

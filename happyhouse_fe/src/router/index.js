@@ -11,7 +11,11 @@ const routes = [
     name: "main",
     component: AppMain,
   },
-
+  {
+    path: "/test",
+    name: "test",
+    component: () => import("@/views/AppTest"),
+  },
   {
     path: "/apt",
     name: "apt",
@@ -37,18 +41,23 @@ const routes = [
     path: "/user",
     name: "user",
     component: () => import("@/views/AppUser"),
-    // children: [
-    //   {
-    //     path: "join",
-    //     name: "join",
-    //     component: () => import("@/components/user/UserJoin"),
-    //   },
-    //   {
-    //     path: "join",
-    //     name: "join",
-    //     component: () => import("@/components/user/UserJoin"),
-    //   },
-    // ],
+    children: [
+      {
+        path: "login",
+        name: "login",
+        component: () => import("@/components/user/UserLogin"),
+      },
+      {
+        path: "join",
+        name: "join",
+        component: () => import("@/components/user/UserJoin"),
+      },
+      {
+        path: "find",
+        name: "find",
+        component: () => import("@/components/user/UserFind"),
+      },
+    ],
   },
   // {
   //   path: "/about",

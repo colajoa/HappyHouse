@@ -1,0 +1,152 @@
+<template>
+  <form>
+    <img
+      class="mb-4"
+      src="@/assets/img/building-logo.png"
+      alt=""
+      width="100"
+      height="100"
+    />
+    <h1 class="h3 mb-3 fw-normal">HappyHouse</h1>
+
+    <h2>아이디 비번 까먹음?</h2>
+
+    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link active"
+          id="id-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#id-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="id-tab-pane"
+          aria-selected="true"
+        >
+          아이디 찾기
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="password-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#password-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="password-tab-pane"
+          aria-selected="false"
+        >
+          비밀번호 찾기
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div
+        class="tab-pane fade show active"
+        id="id-tab-pane"
+        role="tabpanel"
+        aria-labelledby="id-tab"
+        tabindex="0"
+      >
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="find-first"
+            placeholder="이름"
+          />
+          <label for="floatingInput">이름</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="find-last"
+            placeholder="전화번호"
+          />
+          <label for="floatingIput">전화번호</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary">아이디 찾기</button>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="password-tab-pane"
+        role="tabpanel"
+        aria-labelledby="password-tab"
+        tabindex="0"
+      >
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="find-first"
+            placeholder="이름"
+          />
+          <label for="floatingInput">이름</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="find-middle"
+            placeholder="아이디"
+          />
+          <label for="floatingInput">아이디</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="find-last"
+            placeholder="전화번호"
+          />
+          <label for="floatingInput">전화번호</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary">비밀번호 찾기</button>
+      </div>
+    </div>
+  </form>
+</template>
+
+<script>
+export default {
+  name: "UserFind",
+  data() {
+    return {
+      isLoginError: false,
+      user: {
+        userid: null,
+        userpwd: null,
+      },
+    };
+  },
+};
+</script>
+
+<style scoped>
+.form-user .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-user input#find-first {
+  margin-top: 10px;
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-user input#find-middle {
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+.form-user input#find-last {
+  margin-bottom: 10px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+.span-inline {
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 10px;
+}
+</style>
