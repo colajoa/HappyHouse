@@ -1,9 +1,5 @@
 package com.ssafy.happyhouse.controller;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,7 +22,6 @@ import com.ssafy.happyhouse.config.UserAuthentication;
 import com.ssafy.happyhouse.dto.Token;
 import com.ssafy.happyhouse.dto.UserDto;
 import com.ssafy.happyhouse.dto.Token.Response;
-import com.ssafy.happyhouse.service.JwtServiceImpl;
 import com.ssafy.happyhouse.service.UserServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,8 +33,6 @@ public class UserController {
     
     @Autowired
     private UserServiceImpl userService;
-    @Autowired
-    private JwtServiceImpl jwtService;
 
     /**
      * 회원 가입
@@ -77,6 +70,7 @@ public class UserController {
 
         Response res = Response.builder().token(token).build();
 
+        // return ResponseEntity.ok().header("Authorization", "Bearer "+token).build();
         return ResponseEntity.ok(res);
     }
 
@@ -88,7 +82,6 @@ public class UserController {
         UserDto user = userService.getUser(userId);
 
         return ResponseEntity.ok(user);
-        // return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
@@ -99,10 +92,10 @@ public class UserController {
      * @return
      */
     @PutMapping("/update")
-    public ResponseEntity<?> updateUser(@RequestBody UserDto updateInfo, HttpSession session) {
+    public ResponseEntity<?> updateUser(@RequestBody UserDto updateInfo) {
         int n = userService.updateUser(updateInfo);
         if (n > 0) {
-            session.setAttribute("loginUser", updateInfo);
+            // Return Update User
             return ResponseEntity.ok(HttpStatus.OK);
         } else {
             return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -120,7 +113,6 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@RequestBody UserDto deleteInfo, HttpSession session) {
         int n = userService.deleteUser(deleteInfo);
         if (n > 0) {
-            session.invalidate();
             return ResponseEntity.ok(HttpStatus.OK);
         } else {
             return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -134,10 +126,11 @@ public class UserController {
      * @return
      */
     @GetMapping("/logout")
-    public ResponseEntity<?> logout(HttpSession session) {
-        /* session.invalidate();*/
-        Map<String, Object> map = new HashMap<>();
-        HttpStatus status = HttpStatus.ACCEPTED;
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring("Bearer ".length());
+        if(JwtTokenProvider.validateToken(token)){
+            return ResponseEntity.ok().header("Authorization", "").build();
+        }
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
