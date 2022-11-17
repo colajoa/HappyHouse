@@ -37,6 +37,18 @@ const routes = [
     path: "/user",
     name: "user",
     component: () => import("@/views/AppUser"),
+    // children: [
+    //   {
+    //     path: "join",
+    //     name: "join",
+    //     component: () => import("@/components/user/UserJoin"),
+    //   },
+    //   {
+    //     path: "join",
+    //     name: "join",
+    //     component: () => import("@/components/user/UserJoin"),
+    //   },
+    // ],
   },
   // {
   //   path: "/about",
