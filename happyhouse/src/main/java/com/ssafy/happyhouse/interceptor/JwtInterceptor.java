@@ -14,14 +14,14 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class JwtInterceptor implements HandlerInterceptor{
-  private static final String HEADE_AUTH = "auth-token";
+  private static final String HEADER_AUTH = "Authorization";
 
   @Autowired
   private JwtService jwtService;
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
-    final String token = request.getHeader(HEADE_AUTH);
+    final String token = request.getHeader(HEADER_AUTH);
 
     if(token != null && jwtService.checkToken(token)){
       return true;
