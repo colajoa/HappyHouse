@@ -18,6 +18,9 @@ public interface UserService {
 	// 회원가입
 	int insertUser(UserDto user);
 
+	// 유저 정보 조회
+	UserDto getUser(String userId);
+
 	// 유저 정보 수정
 	int updateUser(UserDto user);
 

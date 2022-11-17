@@ -41,6 +41,12 @@
         ]]>
     </insert>
 
+    <select id="getUser" parameterType="string" resultType="UserDto">
+        <![CDATA[ 
+            select * from user where id = #{userId}
+        ]]>
+    </select>
+
     <update id="updateUser" parameterType="UserDto">
         <![CDATA[
             update user

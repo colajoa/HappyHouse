@@ -18,6 +18,8 @@ public interface UserDao {
 
 	public int insertUser(UserDto user);
 
+	public UserDto getUser(String userId);
+
 	public int updateUser(UserDto user);
 
 	public int deleteUser(UserDto user);

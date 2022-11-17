@@ -1,5 +1,6 @@
 package com.ssafy.happyhouse.controller;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,8 +29,11 @@ import com.ssafy.happyhouse.dto.Token.Response;
 import com.ssafy.happyhouse.service.JwtServiceImpl;
 import com.ssafy.happyhouse.service.UserServiceImpl;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
     
     @Autowired
@@ -74,6 +78,17 @@ public class UserController {
         Response res = Response.builder().token(token).build();
 
         return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<?> userInfo(HttpServletRequest request){
+        String token = request.getHeader("Authorization").substring("Bearer ".length());
+        String userId = JwtTokenProvider.getUserIdFromJWT(token);
+
+        UserDto user = userService.getUser(userId);
+
+        return ResponseEntity.ok(user);
+        // return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
