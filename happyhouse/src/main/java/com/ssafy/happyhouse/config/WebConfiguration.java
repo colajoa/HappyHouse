@@ -52,7 +52,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
-        .antMatchers("/house/api/user/**")
+        .antMatchers("/house/user/**")
         .permitAll()
         .antMatchers("/house/**")
         .authenticated()
