@@ -1,11 +1,8 @@
 <template>
   <section id="hero">
-    <div class="hero-container" data-aos="fade-up">
-      <h1>Welcome to Squad</h1>
-      <h2>We are team of talented designers making websites with Bootstrap</h2>
-      <a href="#about" class="btn-get-started scrollto"
-        ><i class="bx bx-chevrons-down"></i
-      ></a>
+    <div class="hero-container">
+      <h1>Welcome to HappyHouse</h1>
+      <h2>원하는 집을 찾아보세요</h2>
     </div>
   </section>
 </template>
@@ -14,4 +11,10 @@
 export default {};
 </script>
 
-<style></style>
+<style scoped>
+.blank {
+  position: relative;
+  width: fit-content;
+  height: 104px;
+}
+</style>
