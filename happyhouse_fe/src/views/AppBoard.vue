@@ -1,12 +1,14 @@
 <template>
   <div>
     <div class="blank"></div>
-    <h2>게시판</h2>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "AppBoard",
+};
 </script>
 
 <style scoped>
