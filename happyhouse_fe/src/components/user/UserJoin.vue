@@ -8,7 +8,7 @@
       height="100"
     />
     <h1 class="h3 mb-3 fw-normal">HappyHouse</h1>
-    <h2>회원가입임</h2>
+
     <div class="form-floating">
       <input
         type="text"

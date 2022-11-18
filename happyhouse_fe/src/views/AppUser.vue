@@ -10,11 +10,15 @@
 
 <script>
 export default {
+  name: "AppUser",
   mounted() {},
 };
 </script>
 
 <style scoped>
+body {
+  margin: revert;
+}
 .blank {
   position: relative;
   width: fit-content;

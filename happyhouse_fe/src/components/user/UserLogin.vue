@@ -8,8 +8,6 @@
       height="100"
     />
     <h1 class="h3 mb-3 fw-normal">HappyHouse</h1>
-
-    <h2>가입 함?</h2>
     <div class="form-floating">
       <input
         type="text"

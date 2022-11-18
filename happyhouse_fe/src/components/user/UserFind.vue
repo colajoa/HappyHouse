@@ -8,9 +8,6 @@
       height="100"
     />
     <h1 class="h3 mb-3 fw-normal">HappyHouse</h1>
-
-    <h2>아이디 비번 까먹음?</h2>
-
     <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button
