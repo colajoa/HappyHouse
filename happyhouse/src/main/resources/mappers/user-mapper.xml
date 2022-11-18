@@ -10,18 +10,48 @@
         ]]>
     </select>
 
+    <update id="saveRefreshToken" parameterType="map">
+        <![CDATA[ 
+            update user
+            set token = #{token}
+            where id = #{userId}
+        ]]>
+    </update>
+
+    <select id="getRefreshToken" parameterType="string" resultType="string">
+        <![CDATA[ 
+            select token
+            from user
+            where id = #{userId}
+        ]]>
+    </select>
+
+    <update id="deleteRefreshToken" parameterType="map">
+        <![CDATA[ 
+            update user
+            set token = #{token, jdbcType=VARCHAR}
+            where id = #{userId}
+        ]]>
+    </update>
+
     <insert id="insertUser" parameterType="UserDto">
         <![CDATA[ 
-            insert into user(id, pwd, name, age) 
-            values(#{id}, #{pwd}, #{name}, #{age})
+            insert into user(id, pwd, name, phone_number) 
+            values(#{id}, #{pwd}, #{name}, #{phoneNumber})
         ]]>
     </insert>
+
+    <select id="getUser" parameterType="string" resultType="UserDto">
+        <![CDATA[ 
+            select * from user where id = #{userId}
+        ]]>
+    </select>
 
     <update id="updateUser" parameterType="UserDto">
         <![CDATA[
             update user
-            set pwd = #{pwd}, name = #{name}, age = #{age} 
-            where id = #{id}
+            set pwd = #{pwd}, name = #{name}, phone_number = #{phone_number}
+            where id = #{id} 
         ]]>
     </update>
 
@@ -33,11 +63,18 @@
         ]]>
     </delete>
 
+    <select id="findId" parameterType="UserDto" resultType="UserDto">
+        <![CDATA[ 
+            select * from user
+            where name = #{name} and phone_number = #{phone_number}
+        ]]>
+    </select>
+
     <select id="findPwd" parameterType="UserDto" resultType="UserDto">
         <![CDATA[
             select *
             from user
-            where id = #{id} and name = #{name}
+            where id = #{id} and name = #{name} and phone_number = #{phone_number}
         ]]>
     </select>
 

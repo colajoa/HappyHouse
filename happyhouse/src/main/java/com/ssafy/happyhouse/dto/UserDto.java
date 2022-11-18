@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserDto {
-    
-    private String id;
+
+	private String id;
 	private String pwd;
 	private String name;
-    private String phoneNumber;
-    private String role;
+	private String phone_number;
+	private String role;
 
 	@Builder
 	public UserDto(String id, String pwd, String name, String phoneNumber, String role) {
@@ -20,8 +20,8 @@ public class UserDto {
 		this.id = id;
 		this.pwd = pwd;
 		this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.role = role;
+		this.phone_number = phoneNumber;
+		this.role = role;
 	}
 
 }

@@ -1,10 +1,14 @@
 package com.ssafy.happyhouse.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,11 +17,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.happyhouse.config.JwtTokenProvider;
+import com.ssafy.happyhouse.config.UserAuthentication;
+import com.ssafy.happyhouse.dto.Token;
 import com.ssafy.happyhouse.dto.UserDto;
+import com.ssafy.happyhouse.dto.Token.Response;
 import com.ssafy.happyhouse.service.UserServiceImpl;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
     
     @Autowired
@@ -47,14 +58,30 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserDto user, HttpSession session) {
-        UserDto loginUser = userService.getLoginUser(user);
-        if (loginUser != null) {
-            session.setAttribute("loginUser", loginUser);
-            return ResponseEntity.ok(loginUser);
-        } else {
-            return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<?> login(HttpServletRequest request, HttpServletResponse response, @Validated @RequestBody Token.Request user) {
+        UserDto findUser = userService.getLoginUser(UserDto.builder().id(user.getId()).pwd(user.getSecret()).build());
+
+        if(!user.getSecret().equals(findUser.getPwd())){
+            throw new IllegalArgumentException("비밀번호를 확인하세요.");
         }
+
+        Authentication authentication = new UserAuthentication(user.getId(), null, null);
+        String token = JwtTokenProvider.generateToken(authentication);
+
+        Response res = Response.builder().token(token).build();
+
+        // return ResponseEntity.ok().header("Authorization", "Bearer "+token).build();
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<?> userInfo(HttpServletRequest request){
+        String token = request.getHeader("Authorization").substring("Bearer ".length());
+        String userId = JwtTokenProvider.getUserIdFromJWT(token);
+
+        UserDto user = userService.getUser(userId);
+
+        return ResponseEntity.ok(user);
     }
 
     /**
@@ -65,11 +92,11 @@ public class UserController {
      * @return
      */
     @PutMapping("/update")
-    public ResponseEntity<?> updateUser(@RequestBody UserDto updateInfo, HttpSession session) {
+    public ResponseEntity<?> updateUser(@RequestBody UserDto updateInfo) {
         int n = userService.updateUser(updateInfo);
         if (n > 0) {
-            session.setAttribute("loginUser", updateInfo);
-            return ResponseEntity.ok(HttpStatus.OK);
+            // 수정된 유저 정보 반환 
+            return ResponseEntity.ok(userService.getUser(updateInfo.getId()));
         } else {
             return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -86,7 +113,6 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@RequestBody UserDto deleteInfo, HttpSession session) {
         int n = userService.deleteUser(deleteInfo);
         if (n > 0) {
-            session.invalidate();
             return ResponseEntity.ok(HttpStatus.OK);
         } else {
             return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -100,8 +126,11 @@ public class UserController {
      * @return
      */
     @GetMapping("/logout")
-    public ResponseEntity<?> logout(HttpSession session) {
-        session.invalidate();
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring("Bearer ".length());
+        if(JwtTokenProvider.validateToken(token)){
+            return ResponseEntity.ok().header("Authorization", "").build();
+        }
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
