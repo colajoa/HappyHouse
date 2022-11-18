@@ -1,12 +1,14 @@
 <template>
   <div>
     <div class="blank"></div>
-    <h2>뿜</h2>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "AppQna",
+};
 </script>
 
 <style scoped>
