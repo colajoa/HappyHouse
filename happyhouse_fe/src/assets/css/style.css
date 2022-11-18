@@ -173,6 +173,7 @@ h6 {
 
 .navbar a:hover,
 .navbar .active,
+.navbar .router-link-active,
 .navbar .active:focus,
 .navbar li:hover > a {
   background: rgba(255, 255, 255, 0.2);
