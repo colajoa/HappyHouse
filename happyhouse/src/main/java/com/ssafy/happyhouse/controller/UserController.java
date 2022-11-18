@@ -95,8 +95,8 @@ public class UserController {
     public ResponseEntity<?> updateUser(@RequestBody UserDto updateInfo) {
         int n = userService.updateUser(updateInfo);
         if (n > 0) {
-            // Return Update User
-            return ResponseEntity.ok(HttpStatus.OK);
+            // 수정된 유저 정보 반환 
+            return ResponseEntity.ok(userService.getUser(updateInfo.getId()));
         } else {
             return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
         }
