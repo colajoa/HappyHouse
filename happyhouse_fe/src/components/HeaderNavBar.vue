@@ -38,7 +38,7 @@
               >
             </li>
             <li>
-              <router-link class="nav-link scrollto" :to="{ name: 'login' }"
+              <router-link class="nav-link scrollto" :to="{ name: 'user' }"
                 >로그인 | 회원가입</router-link
               >
             </li>
