@@ -23,7 +23,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
   throws ServletException, IOException{
     try{
       String jwt = getJwtFromRequest(request);
-      if(!jwt.isEmpty() && JwtTokenProvider.validateToken(jwt)){
+      if(jwt != null && JwtTokenProvider.validateToken(jwt)){
         String userId = JwtTokenProvider.getUserIdFromJWT(jwt);
 
         UserAuthentication authentication = new UserAuthentication(userId, null, null);
@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
       } else {
-        if(jwt.isEmpty()){
+        if(jwt == null){
           request.setAttribute("unauthorization", "401 인증키 없음");
         }
         if(JwtTokenProvider.validateToken(jwt)){
