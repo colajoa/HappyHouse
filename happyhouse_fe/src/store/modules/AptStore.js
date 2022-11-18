@@ -35,7 +35,7 @@ const aptStore = {
       state.apt = apt;
     },
   },
-  actions: {
+  /* actions: {
     getSido: ({ commit }) => {
       sidoList((data) => {
         commit("SET_SIDO_LIST", data);
@@ -76,7 +76,7 @@ const aptStore = {
     detailHouse: ({ commit }, apt) => {
       commit("SET_DETAIL_HOUSE", apt);
     },
-  },
+  }, */
 };
 
 export default aptStore;
