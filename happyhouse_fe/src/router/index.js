@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import AppMain from "@/views/AppMain.vue";
+import AppApt from "@/views/AppApt.vue";
 
 Vue.use(VueRouter);
 
@@ -10,15 +11,71 @@ const routes = [
     name: "main",
     component: AppMain,
   },
-  // {
-  //   path: "/about",
-  //   name: "about",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  // },
+  {
+    path: "/test",
+    name: "test",
+    component: () => import("@/views/AppTest"),
+  },
+  {
+    path: "/apt",
+    name: "apt",
+    component: AppApt,
+  },
+
+  {
+    path: "/area",
+    name: "area",
+    component: () => import("@/views/AppArea"),
+  },
+  {
+    path: "/board",
+    name: "board",
+    redirect: "/board/list",
+    component: () => import("@/views/AppBoard"),
+    children: [
+      {
+        path: "list",
+        name: "boardlist",
+        component: () => import("@/components/board/BoardList"),
+      },
+    ],
+  },
+  {
+    path: "/qna",
+    name: "qna",
+    redirect: "/qna/list",
+    component: () => import("@/views/AppQna"),
+    children: [
+      {
+        path: "list",
+        name: "qnalist",
+        component: () => import("@/components/qna/QnaList"),
+      },
+    ],
+  },
+  {
+    path: "/user",
+    name: "user",
+    redirect: "/user/login",
+    component: () => import("@/views/AppUser"),
+    children: [
+      {
+        path: "login",
+        name: "login",
+        component: () => import("@/components/user/UserLogin"),
+      },
+      {
+        path: "join",
+        name: "join",
+        component: () => import("@/components/user/UserJoin"),
+      },
+      {
+        path: "find",
+        name: "find",
+        component: () => import("@/components/user/UserFind"),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({
