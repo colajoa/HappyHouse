@@ -57,8 +57,10 @@ public class UserController {
      * @param session
      * @return
      */
-    @PostMapping("/login")
-    public ResponseEntity<?> login(HttpServletRequest request, HttpServletResponse response, @Validated @RequestBody Token.Request user) {
+    @PostMapping(value = "/login")
+    public ResponseEntity<?> login(@RequestBody @Validated Token.Request user) {
+        log.info("login");
+        log.info(user.getId());
         UserDto findUser = userService.getLoginUser(UserDto.builder().id(user.getId()).pwd(user.getSecret()).build());
 
         if(!user.getSecret().equals(findUser.getPwd())){
@@ -69,7 +71,6 @@ public class UserController {
         String token = JwtTokenProvider.generateToken(authentication);
 
         Response res = Response.builder().token(token).build();
-
         // return ResponseEntity.ok().header("Authorization", "Bearer "+token).build();
         return ResponseEntity.ok(res);
     }
