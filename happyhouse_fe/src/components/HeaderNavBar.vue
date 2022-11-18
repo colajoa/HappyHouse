@@ -56,6 +56,7 @@ export default {
   data() {
     return {
       showBg: true,
+      isActive: false,
     };
   },
   props: ["isBg"],
@@ -65,6 +66,12 @@ export default {
   watch: {
     isBg: function () {
       this.showBg = this.isBg;
+    },
+  },
+
+  methods: {
+    clicked: function () {
+      this.isActive = !this.isActive;
     },
   },
 };
