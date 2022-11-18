@@ -50,8 +50,8 @@
     <update id="updateUser" parameterType="UserDto">
         <![CDATA[
             update user
-            set pwd = #{pwd}, name = #{name}, phone_number = #{phoneNumber}
-            where id = #{id}
+            set pwd = #{pwd}, name = #{name}, phone_number = #{phone_number}
+            where id = #{id} 
         ]]>
     </update>
 
@@ -66,7 +66,7 @@
     <select id="findId" parameterType="UserDto" resultType="UserDto">
         <![CDATA[ 
             select * from user
-            where name = #{name} and phone_number = #{phoneNumber}
+            where name = #{name} and phone_number = #{phone_number}
         ]]>
     </select>
 
@@ -74,7 +74,7 @@
         <![CDATA[
             select *
             from user
-            where id = #{id} and name = #{name} and phone_number = #{phoneNumber}
+            where id = #{id} and name = #{name} and phone_number = #{phone_number}
         ]]>
     </select>
 
