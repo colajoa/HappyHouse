@@ -580,6 +580,12 @@ progress {
   margin-right: auto;
   margin-left: auto;
 }
+.themed-container {
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  background-color: rgba(0, 123, 255, 0.15);
+  border: 1px solid rgba(0, 123, 255, 0.2);
+}
 @media (min-width: 576px) {
   .container,
   .container-sm {
