@@ -7,7 +7,7 @@
       width="100"
       height="100"
     />
-    <h1 class="h3 mb-3 fw-normal">HappyHouse</h1>
+    <h1 class="h3 mb-3 fw-normal" style="color: #2f4d5a">HappyHouse</h1>
 
     <div class="form-floating">
       <input
@@ -46,7 +46,7 @@
       <label for="floatingInput">전화번호</label>
     </div>
 
-    <button class="w-100 btn btn-lg btn-primary">회원가입</button>
+    <button class="w-100 btn btn-lg btn-custom">회원가입</button>
   </form>
 </template>
 

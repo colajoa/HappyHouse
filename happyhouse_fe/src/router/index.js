@@ -38,6 +38,11 @@ const routes = [
         name: "boardlist",
         component: () => import("@/components/board/BoardList"),
       },
+      {
+        path: "write",
+        name: "boardwrite",
+        component: () => import("@/components/board/BoardWrite"),
+      },
     ],
   },
   {
@@ -50,6 +55,11 @@ const routes = [
         path: "list",
         name: "qnalist",
         component: () => import("@/components/qna/QnaList"),
+      },
+      {
+        path: "wrtie",
+        name: "qnawrite",
+        component: () => import("@/components/qna/QnaWrite"),
       },
     ],
   },

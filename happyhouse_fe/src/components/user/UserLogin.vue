@@ -7,7 +7,7 @@
       width="100"
       height="100"
     />
-    <h1 class="h3 mb-3 fw-normal">HappyHouse</h1>
+    <h1 class="h3 mb-3 fw-normal" style="color: #2f4d5a">HappyHouse</h1>
     <div class="form-floating">
       <input
         type="text"
@@ -29,14 +29,14 @@
       <label for="floatingPassword">비밀번호</label>
     </div>
 
-    <button type="button" class="w-100 btn btn-lg btn-primary" @click="login">
+    <button type="button" class="w-100 btn btn-lg btn-custom" @click="login">
       로그인
     </button>
     <router-link :to="{ name: 'join' }">
-      <span class="span-inline">회원가입</span>
+      <span id="custom-link" class="span-inline">회원가입</span>
     </router-link>
     <router-link :to="{ name: 'find' }">
-      <span class="span-inline">아이디 / 비밀번호 찾기</span>
+      <span id="custom-link" class="span-inline">아이디 / 비밀번호 찾기</span>
     </router-link>
   </form>
 </template>
@@ -89,5 +89,13 @@ export default {
   display: inline-block;
   padding: 10px 15px;
   margin: 10px;
+}
+
+#custom-link {
+  color: #2f4d5a;
+}
+
+#custom-link:hover {
+  color: #409cc5;
 }
 </style>
