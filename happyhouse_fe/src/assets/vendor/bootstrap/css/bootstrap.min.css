@@ -2792,6 +2792,23 @@ fieldset:disabled .btn {
   border-color: var(--bs-btn-disabled-border-color);
   opacity: var(--bs-btn-disabled-opacity);
 }
+
+#custom-btn-div {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.btn-custom {
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: white;
+  --bs-btn-bg: #67b0d1; /*연한거*/
+  --bs-btn-border-radius: 0.5rem;
+  --bs-btn-hover-color: white;
+  --bs-btn-hover-bg: #409cc5;
+  --bs-btn-active-color: var(--bs-btn-color);
+  --bs-btn-active-bg: var(--bs-btn-bg);
+}
+
 .btn-primary {
   --bs-btn-color: #fff;
   --bs-btn-bg: #0d6efd;
