@@ -108,7 +108,6 @@ public class UserController {
      * 회원정보 수정
      * 
      * @param updateInfo
-     * @param session
      * @return
      */
     @PutMapping("/update")
