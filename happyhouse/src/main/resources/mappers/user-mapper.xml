@@ -78,6 +78,14 @@
         ]]>
     </select>
 
+    <update id="modifyPwd" parameterType="UserDto">
+        <![CDATA[ 
+            update user
+            set pwd = #{pwd}
+            where id=#{id}
+        ]]>
+    </update>
+
     <select id="countById" parameterType="string" resultType="int">
         <![CDATA[ 
             select count(*)

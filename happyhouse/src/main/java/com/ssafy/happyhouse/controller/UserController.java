@@ -199,4 +199,10 @@ public class UserController {
             return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/changepwd")
+    public ResponseEntity<?> modifyPwd(@RequestBody UserDto user){
+        int n = userService.modifyPwd(user);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
 }

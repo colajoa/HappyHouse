@@ -85,6 +85,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public int modifyPwd(UserDto user){
+		return userDao.modifyPwd(user);
+	}
+
+	@Override
 	public int idCheck(String id) {
 		return userDao.countById(id);
 	}
