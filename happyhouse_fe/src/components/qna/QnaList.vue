@@ -104,7 +104,7 @@
 export default {};
 </script>
 
-<style scopeed>
+<style scoped>
 h2 {
   padding: 10px;
   margin-top: 50px;
