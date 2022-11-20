@@ -175,6 +175,21 @@ public class UserController {
     }
 
     /**
+     * 아이디 찾기
+     * 
+     * @param user
+     * @return
+     */
+    @PostMapping("/findId")
+    public ResponseEntity<?> findId(@RequestBody UserDto user){
+        UserDto findUser = userService.findId(user);
+        if(findUser != null){
+            return ResponseEntity.ok(findUser.getId());
+        }
+        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
      * 비밀번호 찾기
      * 
      * @param user
