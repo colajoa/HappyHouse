@@ -27,10 +27,13 @@ public interface UserService {
 	// 회원 탈퇴
 	int deleteUser(UserDto user);
 
-	String findId(UserDto user);
+	String findById(UserDto user);
 
 	// 비밀번호 찾기
-	String findPwd(UserDto user);
+	String findByPwd(UserDto user);
+
+	// 비밀번호 수정
+	int modifyPwd(UserDto user);
 
 	// 중복 아이디 확인
 	int idCheck(String id);

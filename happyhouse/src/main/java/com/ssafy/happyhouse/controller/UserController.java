@@ -177,7 +177,7 @@ public class UserController {
      */
     @PostMapping("/id")
     public ResponseEntity<?> findId(@RequestBody UserDto user){
-        String id = userService.findId(user);
+        String id = userService.findById(user);
         if(id != null){
             return ResponseEntity.ok(id);
         }
@@ -192,7 +192,7 @@ public class UserController {
      */
     @PostMapping("/pwd")
     public ResponseEntity<?> findPwd(@RequestBody UserDto user) {
-        String password = userService.findPwd(user);
+        String password = userService.findByPwd(user);
         if (password != null) {
             return ResponseEntity.ok(password);
         } else {
