@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-center fw-normal">질문 목록</h2>
+    <h2 class="text-center fw-normal" style="color: #2f4d5a">질문 목록</h2>
     <div class="table-responsive container">
       <table class="table table-hover table-fixed text-center">
         <thead class="table-light">
@@ -50,6 +50,13 @@
           </tr>
         </tbody>
       </table>
+      <div class="row">
+        <div id="custom-btn-div" class="col-md-12 d-flex justify-content-end">
+          <router-link class="btn btn-custom" :to="{ name: 'qnawrite' }"
+            >글쓰기</router-link
+          >
+        </div>
+      </div>
     </div>
   </div>
 </template>

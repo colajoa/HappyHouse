@@ -1,4 +1,5 @@
 import http from "@/api/axios.js";
+// import axios from "axios";
 
 const userStore = {
   namespaced: true,
@@ -40,6 +41,11 @@ const userStore = {
           commit("SET_IS_VALID_TOKEN", true);
           sessionStorage.setItem("token", token);
         }
+      });
+    },
+    async kakaoLogin() {
+      window.Kakao.Auth.authorize({
+        redirectUri: "http://localhost:8080/kakao/login",
       });
     },
   },
