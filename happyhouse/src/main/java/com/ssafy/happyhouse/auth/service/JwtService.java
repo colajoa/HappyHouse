@@ -1,4 +1,4 @@
-package com.ssafy.happyhouse.service;
+package com.ssafy.happyhouse.auth.service;
 
 import java.util.Map;
 
