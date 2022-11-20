@@ -12,6 +12,8 @@ public interface QnaDao {
 
 	List<QnaDto> listQna();
 
+	int visitQna(int id);
+
 	QnaDto detailQna(int id);
 
 	int updateQna(QnaDto post);

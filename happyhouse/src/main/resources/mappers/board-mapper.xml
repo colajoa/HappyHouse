@@ -4,8 +4,8 @@
 <mapper namespace="com.ssafy.happyhouse.dao.BoardDao">
     <insert id="insertPost" parameterType="BoardDto">
         <![CDATA[ 
-        insert into post(title, author, content, created_at)
-        values(#{title}, #{writer}, #{content}, now())
+        insert into post(title, author, content, hit, created_at)
+        values(#{title}, #{writer}, #{content}, 0, now())
         ]]>
     </insert>
     <select id="listPost" resultType="BoardDto">
@@ -13,6 +13,13 @@
         select * from post
         ]]>
     </select>
+    <update id="visitBoard" parameterType="int">
+        <![CDATA[ 
+            update post
+            set hit = hit+1
+            where id= #{id}
+        ]]>
+    </update>
     <select id="detailPost" resultType="BoardDto">
         <![CDATA[ 
         select * from post where id=#{id}

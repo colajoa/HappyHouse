@@ -12,15 +12,17 @@ public class QnaDto {
 	private String title;
 	private String writer;
 	private String content;
+	private int hit;
 	private String createdat;
 
 	@Builder
-	public QnaDto(int id, String title, String writer, String content, String createdat) {
+	public QnaDto(int id, String title, String writer, String content, int hit, String createdat) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.writer = writer;
 		this.content = content;
+		this.hit = hit;
 		this.createdat = createdat;
 	}
 

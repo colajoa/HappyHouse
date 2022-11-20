@@ -50,6 +50,19 @@ public class BoardController {
     }
 
     /**
+     * 공지사항 조회수 증가
+     * 
+     * @param id
+     * @return
+     */
+    @GetMapping("/hit/{id}")
+    public ResponseEntity<?> hitBoard(@PathVariable("id") int id){
+        int n = boardService.visitBoard(id);
+        if(n != 0)  return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
      * 공지사항 조회
      * 
      * @param id

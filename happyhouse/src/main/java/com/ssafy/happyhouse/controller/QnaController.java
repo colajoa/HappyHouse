@@ -51,6 +51,19 @@ public class QnaController {
     }
 
     /**
+     * QnA 조회수 증가
+     * 
+     * @param id
+     * @return
+     */
+    @GetMapping("/hit/{id}")
+    public ResponseEntity<?> hitQna(@PathVariable("id") int id){
+        int n = qnaService.visitQna(id);
+        if(n != 0)  return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
      * QNA 조회
      * 
      * @param id

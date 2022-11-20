@@ -23,6 +23,11 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardDto> listBoard() {
 		return boardDao.listBoard();
 	}
+
+	@Override
+	public int visitBoard(int id){
+		return boardDao.visitBoard(id);
+	}
 	
 	@Override
 	public BoardDto detailBoard(int id) {
