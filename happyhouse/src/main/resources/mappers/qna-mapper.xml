@@ -37,4 +37,11 @@
         delete from qna where id=#{id}
         ]]>
     </delete>
+    <update id="replyQna" parameterType="QnaDto">
+        <![CDATA[ 
+            update qna
+            set isReply = #{isReply}
+            where id = #{id}
+        ]]>
+    </update>
 </mapper>
