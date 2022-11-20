@@ -37,7 +37,7 @@
     <insert id="insertUser" parameterType="UserDto">
         <![CDATA[ 
             insert into user(id, pwd, name, phone_number) 
-            values(#{id}, #{pwd}, #{name}, #{phoneNumber})
+            values(#{id}, #{pwd}, #{name}, #{phone_number})
         ]]>
     </insert>
 
@@ -78,7 +78,7 @@
         ]]>
     </select>
 
-    <select id="idCheck" parameterType="UserDto" resultType="int">
+    <select id="idCheck" parameterType="string" resultType="int">
         <![CDATA[ 
             select count(*)
             from user

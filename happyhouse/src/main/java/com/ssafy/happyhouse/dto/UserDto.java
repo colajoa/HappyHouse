@@ -13,6 +13,7 @@ public class UserDto {
 	private String name;
 	private String phone_number;
 	private String role;
+	private Long kakaoId;
 
 	@Builder
 	public UserDto(String id, String pwd, String name, String phoneNumber, String role) {
@@ -22,6 +23,6 @@ public class UserDto {
 		this.name = name;
 		this.phone_number = phoneNumber;
 		this.role = role;
+		this.kakaoId = null;
 	}
-
 }
