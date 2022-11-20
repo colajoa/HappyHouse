@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.happyhouse.auth.UserAuthentication;
@@ -163,7 +162,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @GetMapping("/idCheck/{id}")
+    @GetMapping("/check/{id}")
     public ResponseEntity<?> idCheck(@PathVariable("id") String id) {
         int n = userService.idCheck(id);
         System.out.println("Call");
@@ -180,7 +179,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/findId")
+    @PostMapping("/id")
     public ResponseEntity<?> findId(@RequestBody UserDto user){
         String id = userService.findId(user);
         if(id != null){
@@ -195,7 +194,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/findPwd")
+    @PostMapping("/pwd")
     public ResponseEntity<?> findPwd(@RequestBody UserDto user) {
         String password = userService.findPwd(user);
         if (password != null) {
