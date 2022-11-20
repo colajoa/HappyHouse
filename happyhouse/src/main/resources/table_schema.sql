@@ -64,25 +64,25 @@ CREATE TABLE `area` (
 
 -- 공지사항
 CREATE TABLE `post` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `idx` int NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   `author` varchar(20) NOT NULL,
   `content` varchar(511) NOT NULL,
   `hit` int DEFAULT '0',
   `created_at` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- QNA
 CREATE TABLE `qna` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `idx` int NOT NULL AUTO_INCREMENT,
   `title` varchar(45) NOT NULL,
   `content` varchar(511) NOT NULL,
   `writer` varchar(45) NOT NULL,
   `hit` int DEFAULT '0',
   `isReply` tinyint DEFAULT '0',
   `createdat` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- QNA 답변
@@ -94,7 +94,7 @@ CREATE TABLE `replyqna` (
   `createdat` date DEFAULT NULL,
   PRIMARY KEY (`idx`),
   KEY `fk_qna_id_idx` (`qnaid`),
-  CONSTRAINT `fk_qna_id` FOREIGN KEY (`qnaid`) REFERENCES `qna` (`id`)
+  CONSTRAINT `fk_qna_id` FOREIGN KEY (`qnaid`) REFERENCES `qna` (`idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 유저 정보
