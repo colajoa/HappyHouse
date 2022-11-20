@@ -78,7 +78,7 @@
         ]]>
     </select>
 
-    <select id="idCheck" parameterType="string" resultType="int">
+    <select id="countById" parameterType="string" resultType="int">
         <![CDATA[ 
             select count(*)
             from user

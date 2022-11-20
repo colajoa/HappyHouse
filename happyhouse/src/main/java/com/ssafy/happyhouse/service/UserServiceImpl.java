@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int idCheck(String id) {
-		return userDao.idCheck(id);
+		return userDao.countById(id);
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
 		String id = userInfo.getNickname();
 		String password = userInfo.getId() + ADMIN_TOKEN;
 
-		int cnt = userDao.idCheck(id);
+		int cnt = userDao.countById(id);
 		if(cnt != 0)	return cnt;
 		String encodedPassword = passwordEncoder.encode(password);
 

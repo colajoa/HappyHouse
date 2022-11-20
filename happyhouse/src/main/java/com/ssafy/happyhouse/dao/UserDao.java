@@ -28,5 +28,5 @@ public interface UserDao {
 
 	public String findPwd(UserDto user);
 
-	public int idCheck(String id);
+	public int countById(String id);
 }
