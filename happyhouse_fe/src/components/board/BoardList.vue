@@ -14,9 +14,33 @@
             </tr>
           </thead>
           <tbody>
+            <tr v-for="board in boards" :key="board">
+              <td>{{ board.articleno }}</td>
+              <td>
+                <router-link
+                  :to="{
+                    name: 'boardview',
+                    params: { articleno: data.item.articleno },
+                  }"
+                  >{{ board.title }}</router-link
+                >
+              </td>
+              <td>{{ board.author }}</td>
+              <td>{{ board.date }}</td>
+              <td>{{ board.hit }}</td>
+            </tr>
             <tr>
               <th scope="row">1</th>
-              <td>김정은이 딸을 공개했다는데 사실인가?ㄹㅇ루다가</td>
+              <td>
+                <router-link
+                  class="view-btn"
+                  :to="{
+                    name: 'boardview',
+                    params: { articleno: 1 },
+                  }"
+                  >테스트 링크</router-link
+                >
+              </td>
               <td>koreakoreakorea</td>
               <td>2022.11.20</td>
               <td>1</td>
@@ -136,5 +160,14 @@ table {
 
 .row {
   width: 90%;
+}
+
+.view-btn {
+  color: #212529;
+  text-decoration: none;
+}
+
+.view-btn:hover {
+  text-decoration: underline !important;
 }
 </style>
