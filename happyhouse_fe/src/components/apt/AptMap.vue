@@ -46,15 +46,16 @@ export default {
 <style>
 #map {
   /* display: none; */
-  /* width: 100%;
-  height: 100vh; */
-
+  position: absolute;
   width: 100%;
+  height: 100%;
+
+  /* width: 100%;
   height: 100%;
   position: absolute;
   left: 0;
   top: 0;
   margin: 0;
-  padding: 0;
+  padding: 0; */
 }
 </style>
