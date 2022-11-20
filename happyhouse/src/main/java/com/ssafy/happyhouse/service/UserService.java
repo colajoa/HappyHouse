@@ -33,5 +33,7 @@ public interface UserService {
 	UserDto findPwd(UserDto user);
 
 	// 중복 아이디 확인
-	int idCheck(UserDto user);
+	int idCheck(String id);
+
+	int kakaoLogin(String code);
 }
