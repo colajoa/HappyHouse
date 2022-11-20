@@ -11,10 +11,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.ssafy.happyhouse.auth.filter.JwtAuthenticationFilter;
+import com.ssafy.happyhouse.auth.jwt.JwtAuthenticationEntryPoint;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,25 +50,26 @@ public class WebConfiguration implements WebMvcConfigurer {
         http.csrf().disable()
         .headers().frameOptions().disable()
         .and()
-        .exceptionHandling()
-        .authenticationEntryPoint(unauthorizedHandler)
+          .exceptionHandling()
+          .authenticationEntryPoint(unauthorizedHandler)
         .and()
-        .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+          .sessionManagement()
+          .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
-        .authorizeRequests()
-        .antMatchers("/house/user/**")
-        .permitAll()
-        .antMatchers("/house/**")
-        .authenticated()
+          .authorizeRequests()
+          .antMatchers("/house/user/login/**")
+          .permitAll()
+          .antMatchers("/house/**")
+          .authenticated()
         .and()
-        .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+          .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-  @Bean
-  public BCryptPasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+    @Bean
+    public PasswordEncoder getPasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
 }
