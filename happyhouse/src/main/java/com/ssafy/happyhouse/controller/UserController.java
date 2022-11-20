@@ -3,7 +3,6 @@ package com.ssafy.happyhouse.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,7 +55,6 @@ public class UserController {
      * 로그인
      * 
      * @param user
-     * @param session
      * @return
      */
     @PostMapping(value = "/login")
@@ -128,11 +126,10 @@ public class UserController {
      * 회원 탈퇴
      * 
      * @param deleteInfo
-     * @param session
      * @return
      */
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUser(@RequestBody UserDto deleteInfo, HttpSession session) {
+    public ResponseEntity<?> deleteUser(@RequestBody UserDto deleteInfo) {
         int n = userService.deleteUser(deleteInfo);
         if (n > 0) {
             return ResponseEntity.ok(HttpStatus.OK);
@@ -144,7 +141,7 @@ public class UserController {
     /**
      * 로그아웃
      * 
-     * @param session
+     * @param request
      * @return
      */
     @GetMapping("/logout")
