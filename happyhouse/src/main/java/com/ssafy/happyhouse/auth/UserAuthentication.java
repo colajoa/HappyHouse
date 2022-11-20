@@ -1,4 +1,4 @@
-package com.ssafy.happyhouse.config;
+package com.ssafy.happyhouse.auth;
 
 import java.util.List;
 

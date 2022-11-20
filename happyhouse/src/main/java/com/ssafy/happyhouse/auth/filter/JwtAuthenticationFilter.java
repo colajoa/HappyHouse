@@ -1,4 +1,4 @@
-package com.ssafy.happyhouse.config;
+package com.ssafy.happyhouse.auth.filter;
 
 import java.io.IOException;
 
@@ -11,6 +11,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.ssafy.happyhouse.auth.UserAuthentication;
+import com.ssafy.happyhouse.auth.jwt.JwtTokenProvider;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,6 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         }
       }
     }catch(Exception ex) {
+      ex.printStackTrace();
       log.error("Could not set user authentication in security context", ex);
     }
     filterChain.doFilter(request, response);
@@ -46,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
   
   private String getJwtFromRequest(HttpServletRequest request){
     String bearerToken = request.getHeader("Authorization");
-    if(!bearerToken.isEmpty() && bearerToken.startsWith("Bearer ")){
+    if(bearerToken != null && bearerToken.startsWith("Bearer ")){
       return bearerToken.substring("Bearer ".length());
     }
 
