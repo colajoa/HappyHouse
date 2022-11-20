@@ -63,24 +63,40 @@ CREATE TABLE `area` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 공지사항
-CREATE TABLE `board` (
+CREATE TABLE `post` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   `author` varchar(20) NOT NULL,
   `content` varchar(511) NOT NULL,
-  `created_at` date NOT NULL,
+  `hit` int DEFAULT '0',
+  `created_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+
 -- QNA
 CREATE TABLE `qna` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(45) NOT NULL,
   `content` varchar(511) NOT NULL,
   `writer` varchar(45) NOT NULL,
-  `created_at` date DEFAULT NULL,
+  `hit` int DEFAULT '0',
+  `createdat` date DEFAULT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- QNA 답변
+CREATE TABLE `replyqna` (
+  `idx` int NOT NULL AUTO_INCREMENT,
+  `postid` int NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `createat` date DEFAULT NULL,
+  PRIMARY KEY (`idx`),
+  KEY `fk_post_id_idx` (`postid`),
+  CONSTRAINT `fk_post_id` FOREIGN KEY (`postid`) REFERENCES `post` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 -- 유저 정보
 CREATE TABLE `user` (
