@@ -41,9 +41,9 @@
         ]]>
     </insert>
 
-    <select id="getUser" parameterType="string" resultType="UserDto">
+    <select id="getUserInfo" parameterType="string" resultType="UserDto">
         <![CDATA[ 
-            select * from user where id = #{userId}
+            select id, name, phone_number from user where id = #{userId}
         ]]>
     </select>
 
@@ -63,16 +63,16 @@
         ]]>
     </delete>
 
-    <select id="findId" parameterType="UserDto" resultType="UserDto">
+    <select id="findId" parameterType="UserDto" resultType="string">
         <![CDATA[ 
-            select * from user
+            select id from user
             where name = #{name} and phone_number = #{phone_number}
         ]]>
     </select>
 
-    <select id="findPwd" parameterType="UserDto" resultType="UserDto">
+    <select id="findPwd" parameterType="UserDto" resultType="string">
         <![CDATA[
-            select *
+            select pwd
             from user
             where id = #{id} and name = #{name} and phone_number = #{phone_number}
         ]]>

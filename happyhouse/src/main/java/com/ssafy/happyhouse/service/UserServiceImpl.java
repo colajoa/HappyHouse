@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto getUser(String userId){
-		return userDao.getUser(userId);
+	public UserDto getUserInfo(String userId){
+		return userDao.getUserInfo(userId);
 	}
 
 	@Override
@@ -75,12 +75,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto findId(UserDto user){
+	public String findId(UserDto user){
 		return userDao.findId(user);
 	}
 
 	@Override
-	public UserDto findPwd(UserDto user) {
+	public String findPwd(UserDto user) {
 		return userDao.findPwd(user);
 	}
 

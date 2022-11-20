@@ -102,7 +102,7 @@ public class UserController {
         String token = request.getHeader("Authorization").substring("Bearer ".length());
         String userId = JwtTokenProvider.getUserIdFromJWT(token);
 
-        UserDto user = userService.getUser(userId);
+        UserDto user = userService.getUserInfo(userId);
 
         return ResponseEntity.ok(user);
     }
@@ -119,7 +119,7 @@ public class UserController {
         int n = userService.updateUser(updateInfo);
         if (n > 0) {
             // 수정된 유저 정보 반환 
-            return ResponseEntity.ok(userService.getUser(updateInfo.getId()));
+            return ResponseEntity.ok(HttpStatus.OK);
         } else {
             return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -182,9 +182,9 @@ public class UserController {
      */
     @PostMapping("/findId")
     public ResponseEntity<?> findId(@RequestBody UserDto user){
-        UserDto findUser = userService.findId(user);
-        if(findUser != null){
-            return ResponseEntity.ok(findUser.getId());
+        String id = userService.findId(user);
+        if(id != null){
+            return ResponseEntity.ok(id);
         }
         return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -197,9 +197,9 @@ public class UserController {
      */
     @PostMapping("/findPwd")
     public ResponseEntity<?> findPwd(@RequestBody UserDto user) {
-        UserDto findUser = userService.findPwd(user);
-        if (findUser != null) {
-            return ResponseEntity.ok(findUser);
+        String password = userService.findPwd(user);
+        if (password != null) {
+            return ResponseEntity.ok(password);
         } else {
             return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
         }
