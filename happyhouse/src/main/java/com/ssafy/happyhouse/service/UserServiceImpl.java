@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,8 @@ import com.ssafy.happyhouse.dto.UserDto;
 @Service
 public class UserServiceImpl implements UserService {
 
-	private static final String ADMIN_TOKEN = "c53f772548ab6536333925aa2440cd6d";
+	@Value("${KAKAO_ADMIN_KEY}")
+	private static String ADMIN_TOKEN;
 
 	@Autowired
 	private UserDao userDao;
