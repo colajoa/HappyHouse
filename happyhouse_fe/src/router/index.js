@@ -12,6 +12,11 @@ const routes = [
     component: AppMain,
   },
   {
+    path: "/kakao/login",
+    name: "kakaoLogin",
+    component: () => import("@/views/KakaoAuth"),
+  },
+  {
     path: "/test",
     name: "test",
     component: () => import("@/views/AppTest"),

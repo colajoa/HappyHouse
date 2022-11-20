@@ -37,6 +37,7 @@
         href="javascript:void(0)"
         class="login-button__item login-button__item--kakao kakao-login-btn"
         id="loginWithKakao"
+        @click="kakaoLogin"
       >
         <svg
           width="30"
@@ -81,7 +82,7 @@ export default {
     ...mapState(userStore, ["isLogin", "isLoginError", "userInfo"]),
   },
   methods: {
-    ...mapActions(userStore, ["userConfirm"]),
+    ...mapActions(userStore, ["userConfirm", "kakaoLogin"]),
     async login() {
       await this.userConfirm({
         id: this.id,
