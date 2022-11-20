@@ -14,11 +14,35 @@
             </tr>
           </thead>
           <tbody>
+            <tr v-for="qna in qnas" :key="qna">
+              <td>{{ qna.articleno }}</td>
+              <td>
+                <router-link
+                  :to="{
+                    name: 'qnaview',
+                    params: { articleno: data.item.articleno },
+                  }"
+                  >{{ qna.title }}</router-link
+                >
+              </td>
+              <td>{{ qna.author }}</td>
+              <td>{{ qna.date }}</td>
+              <td>{{ qna.hit }}</td>
+            </tr>
             <tr>
               <th scope="row">1</th>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
+              <td>
+                <router-link
+                  class="view-btn"
+                  :to="{
+                    name: 'qnaview',
+                    params: { articleno: 1 },
+                  }"
+                  >테스트 링크</router-link
+                >
+              </td>
+              <td>koreakoreakorea</td>
+              <td>2022.11.20</td>
               <td>1</td>
             </tr>
             <tr>
@@ -136,5 +160,14 @@ table {
 
 .row {
   width: 90%;
+}
+
+.view-btn {
+  color: #212529;
+  text-decoration: none;
+}
+
+.view-btn:hover {
+  text-decoration: underline !important;
 }
 </style>

@@ -48,6 +48,11 @@ const routes = [
         name: "boardwrite",
         component: () => import("@/components/board/BoardWrite"),
       },
+      {
+        path: "view/:articleno",
+        name: "boardview",
+        component: () => import("@/components/board/BoardView"),
+      },
     ],
   },
   {
@@ -65,6 +70,11 @@ const routes = [
         path: "wrtie",
         name: "qnawrite",
         component: () => import("@/components/qna/QnaWrite"),
+      },
+      {
+        path: "view/:articleno",
+        name: "qnaview",
+        component: () => import("@/components/qna/QnaView"),
       },
     ],
   },
