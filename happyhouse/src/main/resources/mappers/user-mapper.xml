@@ -63,14 +63,14 @@
         ]]>
     </delete>
 
-    <select id="findId" parameterType="UserDto" resultType="string">
+    <select id="findById" parameterType="UserDto" resultType="string">
         <![CDATA[ 
             select id from user
             where name = #{name} and phone_number = #{phone_number}
         ]]>
     </select>
 
-    <select id="findPwd" parameterType="UserDto" resultType="string">
+    <select id="findByPwd" parameterType="UserDto" resultType="string">
         <![CDATA[
             select pwd
             from user
