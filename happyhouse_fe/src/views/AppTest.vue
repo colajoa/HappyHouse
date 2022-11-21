@@ -25,7 +25,7 @@
         </thead>
         <tbody>
           <tr>
-            <th scope="row" data-bs-toggle="collapse">1</th>
+            <th scope="row">1</th>
             <td>
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
@@ -98,20 +98,40 @@
             <td>@fat</td>
           </tr>
           <tr>
-            <th scope="row">3</th>
-            <td>Larry the Bird</td>
+            <th scope="row">1</th>
+            <td data-bs-toggle="collapse" data-bs-target="#test1">
+              Larry the Bird
+            </td>
             <td>As</td>
             <td>@twitter</td>
           </tr>
+          <tr
+            class="accordion-collapse collapse ani-test"
+            id="test1"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <td>Q</td>
+            <td colspan="4">테스트입니다.</td>
+          </tr>
+
           <tr>
-            <th scope="row">3</th>
-            <td>Larry the Bird</td>
+            <th scope="row">2</th>
+            <td data-bs-toggle="collapse" data-bs-target="#test2">Larry</td>
             <td>As</td>
             <td>@twitter</td>
           </tr>
+          <tr
+            class="accordion-collapse collapse ani-test"
+            id="test2"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <td>Q</td>
+            <td colspan="4">테스트입니다.</td>
+          </tr>
+
           <tr>
             <th scope="row">3</th>
-            <td>Larry the Bird</td>
+            <td>Larry the</td>
             <td>As</td>
             <td>@twitter</td>
           </tr>
@@ -578,5 +598,9 @@ export default {
   margin-top: -4px;
   margin-right: -4px;
   vertical-align: top;
+}
+
+.ani-test {
+  transition: none;
 }
 </style>
