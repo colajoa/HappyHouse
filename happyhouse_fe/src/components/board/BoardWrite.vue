@@ -21,8 +21,10 @@
       <div class="d-flex justify-content-center">
         <div class="row">
           <div id="custom-btn-div" class="d-flex justify-content-end gap-2">
-            <button class="btn btn-custom">작성</button>
-            <router-link class="btn btn-custom" :to="{ name: 'boardlist' }"
+            <button class="btn btn-custom btn-lg">작성</button>
+            <router-link
+              class="btn btn-custom btn-lg"
+              :to="{ name: 'boardlist' }"
               >취소</router-link
             >
           </div>
