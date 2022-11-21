@@ -15,7 +15,10 @@ import com.ssafy.happyhouse.dto.UserDto;
 import com.ssafy.happyhouse.exception.CustomException;
 import com.ssafy.happyhouse.exception.ErrorCode;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
 	@Value("${KAKAO_ADMIN_KEY}")
@@ -32,9 +35,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto getLoginUser(UserDto user) {
-		UserDto findUser = userDao.getLoginUser(user);
+		UserDto findUser = userDao.getLoginUser(user.getId());
+
+		// 아이디가 존재하지 않을 때
 		if (findUser == null)
 			throw new CustomException(ErrorCode.USER_NOT_FOUND);
+		// 비밀번호가 일치하지 않을 때
+		if (!passwordEncoder.matches(user.getPwd(), findUser.getPwd())){
+			throw new CustomException(ErrorCode.INVALID_PASSWORD);
+		}
+
 		return findUser;
 	}
 
@@ -151,7 +161,8 @@ public class UserServiceImpl implements UserService {
 				.build();
 
 		int n = userDao.insertUser(user);
-		if(n == 0)	throw new CustomException(ErrorCode.SERVER_ERROR);
+		if (n == 0)
+			throw new CustomException(ErrorCode.SERVER_ERROR);
 		return n;
 	}
 }

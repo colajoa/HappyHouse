@@ -55,13 +55,7 @@ public class UserController {
      */
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody @Validated Token.Request user) {
-        log.info("login");
-        log.info(user.getId());
         UserDto findUser = userService.getLoginUser(UserDto.builder().id(user.getId()).pwd(user.getSecret()).build());
-
-        if(!user.getSecret().equals(findUser.getPwd())){
-            throw new IllegalArgumentException("비밀번호를 확인하세요.");
-        }
 
         Authentication authentication = new UserAuthentication(user.getId(), null, null);
         String token = JwtTokenProvider.generateToken(authentication);

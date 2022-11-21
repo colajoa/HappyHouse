@@ -8,7 +8,7 @@ import com.ssafy.happyhouse.dto.UserDto;
 
 @Mapper
 public interface UserDao {
-	public UserDto getLoginUser(UserDto user);
+	public UserDto getLoginUser(String id);
 
 	public void saveRefreshToken(Map<String, String> map);
 
