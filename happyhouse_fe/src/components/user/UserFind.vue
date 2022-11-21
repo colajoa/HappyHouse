@@ -149,8 +149,10 @@ export default {
         if (e.response.data.code == "USER_NOT_FOUND")
           alert("일치하는 정보의 사용자가 없습니다.");
       });
-      alert(`찾으시는 사용자의 아이디는 ${this.id}입니다.`);
-      this.$router.replace("/user/login");
+      if (this.id !== undefined) {
+        alert(`찾으시는 사용자의 아이디는 ${this.id}입니다.`);
+        this.$router.replace("/user/login");
+      }
     },
     // 비밀번호 찾기
     async findPassword() {},
