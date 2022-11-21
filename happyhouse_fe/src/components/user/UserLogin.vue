@@ -89,7 +89,10 @@ export default {
         secret: this.password,
       });
 
-      this.$router.push({ name: "main" });
+      if (this.isLogin) {
+        await this.getUserInfo();
+        this.$router.push({ name: "main" });
+      }
     },
   },
 };
