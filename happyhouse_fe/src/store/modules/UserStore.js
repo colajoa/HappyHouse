@@ -47,7 +47,7 @@ const userStore = {
     // Kakao Login
     async kakaoLogin() {
       window.Kakao.Auth.authorize({
-        redirectUri: "http://localhost:8080/kakao/login",
+        redirectUri: process.env.VUE_APP_REDIRECT_URI,
       });
     },
     // Set kakao AccessToken
