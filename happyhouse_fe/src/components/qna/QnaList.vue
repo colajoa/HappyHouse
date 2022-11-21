@@ -3,7 +3,10 @@
     <h2 class="text-center fw-normal" style="color: #2f4d5a">질문 목록</h2>
     <div class="table-responsive container">
       <div class="d-flex justify-content-center">
-        <table class="table table-hover table-fixed text-center accordion">
+        <table
+          class="table table-hover table-fixed text-center accordion accordion-flush"
+          id="qna-table"
+        >
           <thead class="table-light">
             <tr>
               <th scope="col" class="table-index"></th>
@@ -17,21 +20,34 @@
             <template v-for="qna in qnas">
               <tr :key="qna">
                 <td>{{ qna.articleno }}</td>
-                <td>
-                  <router-link
+                <td
+                  class="view-btn accordion-item"
+                  data-bs-toggle="collapse"
+                  :data-bs-target="'qna' + qna.articleno"
+                >
+                  {{ qna.title }}
+                  <!-- <router-link
                     :to="{
                       name: 'qnaview',
                       params: { articleno: data.item.articleno },
                     }"
                     >{{ qna.title }}</router-link
-                  >
+                  > -->
                 </td>
                 <td>{{ qna.author }}</td>
                 <td>{{ qna.date }}</td>
                 <td>{{ qna.hit }}</td>
               </tr>
-              <tr :key="qna">
-                <td>{{ qna.content }}</td>
+
+              <!--QnA-->
+              <tr
+                class="accordion-collapse collapse delay-zero"
+                :key="qna"
+                :id="'qna' + qna.articleno"
+                data-bs-parent="#qna-table"
+              >
+                <td>Q</td>
+                <td colspan="4">{{ qna.content }}</td>
               </tr>
               <qna-reply :key="qna" :qnaid="qnaid"></qna-reply>
             </template>
@@ -182,5 +198,8 @@ table {
 
 .view-btn:hover {
   text-decoration: underline !important;
+}
+.delay-zero {
+  transition: none;
 }
 </style>
