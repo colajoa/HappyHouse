@@ -16,7 +16,20 @@
         </div>
 
         <nav id="navbar" class="navbar">
-          <ul>
+          <ul v-if="!isLogin">
+            <li>
+              <router-link class="nav-link scrollto" :to="{ name: 'board' }"
+                >공지사항</router-link
+              >
+            </li>
+            <li>
+              <router-link class="nav-link scrollto" :to="{ name: 'user' }"
+                >로그인 | 회원가입</router-link
+              >
+            </li>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </ul>
+          <ul v-else>
             <li>
               <router-link class="nav-link scrollto" :to="{ name: 'test' }"
                 >테스트 페이지</router-link
@@ -37,10 +50,15 @@
                 >질문받는다</router-link
               >
             </li>
-            <li>
-              <router-link class="nav-link scrollto" :to="{ name: 'user' }"
-                >로그인 | 회원가입</router-link
+            <li id="mypage">
+              <router-link class="nav-link scrollto" :to="{ name: 'mypage' }"
+                >{{ userInfo.name }}님</router-link
               >
+            </li>
+            <li>
+              <button class="nav-link scrollto" @click="logout">
+                로그아웃
+              </button>
             </li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
@@ -52,29 +70,30 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from "vuex";
+
+const userStore = "userStore";
 export default {
   name: "HeaderNavBar",
   data() {
     return {
       showBg: true,
-      isActive: false,
     };
   },
   props: ["isBg"],
   created() {
     this.showBg = this.isBg;
   },
+  computed: {
+    ...mapState(userStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
+  },
   watch: {
-    isBg: function () {
+    isBg() {
       this.showBg = this.isBg;
     },
   },
-
-  methods: {
-    clicked: function () {
-      this.isActive = !this.isActive;
-    },
-  },
+  methods: {},
 };
 </script>
 
