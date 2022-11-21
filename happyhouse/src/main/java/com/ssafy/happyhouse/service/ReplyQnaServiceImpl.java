@@ -7,6 +7,8 @@ import com.ssafy.happyhouse.dao.QnaDao;
 import com.ssafy.happyhouse.dao.ReplyQnaDao;
 import com.ssafy.happyhouse.dto.QnaDto;
 import com.ssafy.happyhouse.dto.ReplyQnaDto;
+import com.ssafy.happyhouse.exception.CustomException;
+import com.ssafy.happyhouse.exception.ErrorCode;
 
 @Service
 public class ReplyQnaServiceImpl implements ReplyQnaService{
@@ -21,20 +23,26 @@ public class ReplyQnaServiceImpl implements ReplyQnaService{
     public int replyQna(ReplyQnaDto reply) {
         int n = replyDao.replyQna(reply);
 
+        if(n == 0)  throw new CustomException(ErrorCode.SERVER_ERROR);
+
         // 답변 등록 시 qna 테이블에 isReply = true;
         QnaDto qna = QnaDto.builder().id(reply.getQnaid()).isReply(true).build();
-        if(n != 0)  qnaDao.replyQna(qna);
+        qnaDao.replyQna(qna);
         return n;
     }
 
     @Override
     public ReplyQnaDto detailReply(int idx) {
-        return replyDao.detailReply(idx);
+        ReplyQnaDto reply = replyDao.detailReply(idx);
+        if(reply == null)   throw new CustomException(ErrorCode.NULL_VALUE);
+        return reply;
     }
 
     @Override
     public int updateReply(ReplyQnaDto reply) {
-        return replyDao.updateReply(reply);
+        int n = replyDao.updateReply(reply);
+        if(n == 0)  throw new CustomException(ErrorCode.SERVER_ERROR);
+        return n;
     }
 
     @Override
@@ -42,8 +50,9 @@ public class ReplyQnaServiceImpl implements ReplyQnaService{
         ReplyQnaDto reply = detailReply(idx);
         int n = replyDao.deleteReply(idx);
 
-        QnaDto qna 
-        = QnaDto.builder().id(reply.getQnaid()).isReply(false).build();
+        if(n == 0)  throw new CustomException(ErrorCode.SERVER_ERROR);
+
+        QnaDto qna = QnaDto.builder().id(reply.getQnaid()).isReply(false).build();
         qnaDao.replyQna(qna);
         return n;
     }

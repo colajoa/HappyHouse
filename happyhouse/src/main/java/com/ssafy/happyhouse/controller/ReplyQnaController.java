@@ -23,18 +23,37 @@ public class ReplyQnaController {
     private ReplyQnaService replyService;
 
 
+    /**
+     * QnA 답변 등록
+     * 
+     * @param reply
+     * @return
+     */
     @PostMapping("/register")
     public ResponseEntity<?> replyQna(@RequestBody ReplyQnaDto reply){
         replyService.replyQna(reply);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
+    /**
+     * QnA 답변 상세조회
+     * 
+     * @param idx
+     * @return
+     */
     @GetMapping("/detail/{idx}")
     public ResponseEntity<?> detailReply(@PathVariable("idx") int idx){
         ReplyQnaDto reply = replyService.detailReply(idx);
         return ResponseEntity.ok(reply);
     }
 
+    /**
+     * QnA 답변 수정
+     * 
+     * @param idx
+     * @param reply
+     * @return
+     */
     @PutMapping("/{idx}")
     public ResponseEntity<?> updateReply(@PathVariable("idx") int idx, @RequestBody ReplyQnaDto reply){
         reply.setIdx(idx);
@@ -42,6 +61,12 @@ public class ReplyQnaController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
+    /**
+     * QnA 답변 삭제
+     * 
+     * @param idx
+     * @return
+     */
     @DeleteMapping("/{idx}")
     public ResponseEntity<?> deleteReply(@PathVariable("idx") int idx){
         replyService.deleteReply(idx);

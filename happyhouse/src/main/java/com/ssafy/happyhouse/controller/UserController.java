@@ -43,12 +43,8 @@ public class UserController {
      */
     @PostMapping("/join")
     public ResponseEntity<?> register(@RequestBody UserDto user) {
-        int n = userService.insertUser(user);
-        if (n > 0) {
-            return ResponseEntity.ok(HttpStatus.OK);
-        } else {
-            return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        userService.insertUser(user);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
@@ -71,7 +67,6 @@ public class UserController {
         String token = JwtTokenProvider.generateToken(authentication);
 
         Response res = Response.builder().token(token).build();
-        // return ResponseEntity.ok().header("Authorization", "Bearer "+token).build();
         return ResponseEntity.ok(res);
     }
 
@@ -83,9 +78,8 @@ public class UserController {
      */
     @PostMapping("/login/kakao")
     public ResponseEntity<?> kakaologin(@RequestBody Map<String, String> code){
-        int n = userService.kakaoLogin(code.get("code"));
-        if(n != 0)  return ResponseEntity.ok(HttpStatus.OK);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        userService.kakaoLogin(code.get("code"));
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
@@ -112,13 +106,8 @@ public class UserController {
      */
     @PutMapping("/update")
     public ResponseEntity<?> updateUser(@RequestBody UserDto updateInfo) {
-        int n = userService.updateUser(updateInfo);
-        if (n > 0) {
-            // 수정된 유저 정보 반환 
-            return ResponseEntity.ok(HttpStatus.OK);
-        } else {
-            return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        userService.updateUser(updateInfo);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
@@ -129,12 +118,8 @@ public class UserController {
      */
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteUser(@RequestBody UserDto deleteInfo) {
-        int n = userService.deleteUser(deleteInfo);
-        if (n > 0) {
-            return ResponseEntity.ok(HttpStatus.OK);
-        } else {
-            return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        userService.deleteUser(deleteInfo);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
@@ -160,13 +145,8 @@ public class UserController {
      */
     @GetMapping("/check/{id}")
     public ResponseEntity<?> idCheck(@PathVariable("id") String id) {
-        int n = userService.idCheck(id);
-        System.out.println("Call");
-        if (n == 0) {
-            return ResponseEntity.ok(HttpStatus.OK);
-        } else {
-            return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        userService.idCheck(id);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
@@ -178,10 +158,7 @@ public class UserController {
     @PostMapping("/id")
     public ResponseEntity<?> findId(@RequestBody UserDto user){
         String id = userService.findById(user);
-        if(id != null){
-            return ResponseEntity.ok(id);
-        }
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.ok(id);
     }
 
     /**
@@ -193,16 +170,12 @@ public class UserController {
     @PostMapping("/pwd")
     public ResponseEntity<?> findPwd(@RequestBody UserDto user) {
         String password = userService.findByPwd(user);
-        if (password != null) {
-            return ResponseEntity.ok(password);
-        } else {
-            return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return ResponseEntity.ok(password);
     }
 
     @PostMapping("/changepwd")
     public ResponseEntity<?> modifyPwd(@RequestBody UserDto user){
-        int n = userService.modifyPwd(user);
+        userService.modifyPwd(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }

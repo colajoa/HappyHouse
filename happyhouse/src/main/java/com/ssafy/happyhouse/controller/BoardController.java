@@ -32,9 +32,8 @@ public class BoardController {
      */
     @PostMapping("/register")
     public ResponseEntity<?> registBoard(@RequestBody BoardDto board){
-        int n = boardService.insertBoard(board);
-        if(n > 0)   return ResponseEntity.ok(HttpStatus.OK);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        boardService.insertBoard(board);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
@@ -45,8 +44,7 @@ public class BoardController {
     @GetMapping("/list")
     public ResponseEntity<?> listBoard(){
         List<BoardDto> list = boardService.listBoard();
-        if(list.size() > 0) return ResponseEntity.ok(list);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.ok(list);
     }
 
     /**
@@ -57,9 +55,8 @@ public class BoardController {
      */
     @GetMapping("/hit/{id}")
     public ResponseEntity<?> hitBoard(@PathVariable("id") int id){
-        int n = boardService.visitBoard(id);
-        if(n != 0)  return ResponseEntity.ok(HttpStatus.OK);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        boardService.visitBoard(id);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
@@ -71,9 +68,7 @@ public class BoardController {
     @GetMapping("/detail/{id}")
     public ResponseEntity<?> detailBoard(@PathVariable("id") int id){
         BoardDto board = boardService.detailBoard(id);
-
-        if(board != null)    return ResponseEntity.ok(board);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.ok(board);
     }
 
     /**
@@ -84,9 +79,8 @@ public class BoardController {
      */
     @PutMapping("/post")
     public ResponseEntity<?> modifyBoard(@RequestBody BoardDto board){
-        int n = boardService.updateBoard(board);
-        if(n > 0)   return ResponseEntity.ok(HttpStatus.OK);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        boardService.updateBoard(board);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
@@ -97,8 +91,7 @@ public class BoardController {
      */
     @DeleteMapping("/post/{id}")
     public ResponseEntity<?> deleteBoard(@PathVariable("id") int id){
-        int n = boardService.deleteBoard(id);
-        if(n > 0)   return ResponseEntity.ok(HttpStatus.OK);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        boardService.deleteBoard(id);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }
