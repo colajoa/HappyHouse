@@ -3,7 +3,6 @@ package com.ssafy.happyhouse.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.happyhouse.auth.jwt.JwtTokenProvider;
 import com.ssafy.happyhouse.dto.AreaDto;
-import com.ssafy.happyhouse.dto.UserDto;
 import com.ssafy.happyhouse.service.AreaServiceImpl;
 
 @RestController
@@ -33,37 +32,34 @@ public class AreaController {
      * @return ResponseEntity
      */
     @GetMapping("/area/{dongCode}")
-    public ResponseEntity<?> registerIArea(
-        @PathVariable("dongCode") String dongcode,
-        HttpServletRequest request){
+    public ResponseEntity<?> registerIArea(@PathVariable("dongCode") String dongcode, HttpServletRequest request){
 
         // Check Login
-        HttpSession session = request.getSession();
-        UserDto user = (UserDto) session.getAttribute("loginUser");
+        String token = request.getHeader("Authorization").substring("Bearer ".length());
+        String userId = JwtTokenProvider.getUserIdFromJWT(token);
 
         // Set InterestArea
         AreaDto areaDto = AreaDto.builder()
-                                            .userId(user.getId())
+                                            .userId(userId)
                                             .dongcode(dongcode)
                                             .build();
 
-        int n = iAreaService.registArea(areaDto);
+        iAreaService.registArea(areaDto);
         
-        if(n > 0)   return ResponseEntity.ok(HttpStatus.OK);
-        return ResponseEntity.ok(HttpStatus.FORBIDDEN);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
      * 관심지역 정보 불러오기
      * 
-     * @param session
+     * @param request
      * @return
      */
     @GetMapping("/list")
     public ResponseEntity<?> listIArea(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        UserDto user = (UserDto)session.getAttribute("loginUser");
-        List<AreaDto> list = iAreaService.getList(user.getId());
+        String token = request.getHeader("Authorization").substring("Bearer ".length());
+        String userId = JwtTokenProvider.getUserIdFromJWT(token);
+        List<AreaDto> list = iAreaService.getList(userId);
 
         if(list.size() > 0) return ResponseEntity.ok(list);
         return ResponseEntity.ok(HttpStatus.FORBIDDEN);
@@ -73,19 +69,19 @@ public class AreaController {
      * 관심지역 정보 삭제하기
      * 
      * @param dongcode
-     * @param session
+     * @param request
      * @return
      */
     @DeleteMapping("/area/{dongcode}")
-    public ResponseEntity<?> removeIArea(@PathVariable("dongcode") String dongcode, HttpSession session){
-        UserDto user = (UserDto) session.getAttribute("loginUser");
+    public ResponseEntity<?> removeIArea(@PathVariable("dongcode") String dongcode, HttpServletRequest request){
+        String token = request.getHeader("Authorization").substring("Bearer ".length());
+        String userId = JwtTokenProvider.getUserIdFromJWT(token);
         AreaDto iAreaDto = AreaDto.builder()
                                         .dongcode(dongcode)
-                                        .userId(user.getId())
+                                        .userId(userId)
                                         .build();
-        int n = iAreaService.removeArea(iAreaDto);
+        iAreaService.removeArea(iAreaDto);
 
-        if(n > 0) return ResponseEntity.ok(HttpStatus.OK);
-        return ResponseEntity.ok(HttpStatus.FORBIDDEN);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

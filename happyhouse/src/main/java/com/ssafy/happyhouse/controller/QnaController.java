@@ -32,9 +32,8 @@ public class QnaController {
      */
     @PostMapping("/register")
     public ResponseEntity<?> registQna(@RequestBody QnaDto qna){
-        int n = qnaService.insertQna(qna);
-        if(n > 0)   return ResponseEntity.ok(HttpStatus.OK);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        qnaService.insertQna(qna);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
 
@@ -46,8 +45,7 @@ public class QnaController {
     @GetMapping("/list")
     public ResponseEntity<?> listQnas(){
         List<QnaDto> list = qnaService.listQna();
-        if(list.size() > 0) return ResponseEntity.ok(list);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.ok(list);
     }
 
     /**
@@ -58,9 +56,8 @@ public class QnaController {
      */
     @GetMapping("/hit/{id}")
     public ResponseEntity<?> hitQna(@PathVariable("id") int id){
-        int n = qnaService.visitQna(id);
-        if(n != 0)  return ResponseEntity.ok(HttpStatus.OK);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        qnaService.visitQna(id);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
@@ -72,9 +69,7 @@ public class QnaController {
     @GetMapping("/detail/{id}")
     public ResponseEntity<?> detailQna(@PathVariable("id") int id){
         QnaDto qna = qnaService.detailQna(id);
-
-        if(qna != null)    return ResponseEntity.ok(qna);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.ok(qna);
     }
 
     /**
@@ -85,9 +80,8 @@ public class QnaController {
      */
     @PutMapping("/post")
     public ResponseEntity<?> modifyQna(@RequestBody QnaDto qna){
-        int n = qnaService.updateQna(qna);
-        if(n > 0)   return ResponseEntity.ok(HttpStatus.OK);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        qnaService.updateQna(qna);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     /**
@@ -98,8 +92,7 @@ public class QnaController {
      */
     @DeleteMapping("/post/{id}")
     public ResponseEntity<?> deleteQna(@PathVariable("id") int id){
-        int n = qnaService.deleteQna(id);
-        if(n > 0)   return ResponseEntity.ok(HttpStatus.OK);
-        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+        qnaService.deleteQna(id);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

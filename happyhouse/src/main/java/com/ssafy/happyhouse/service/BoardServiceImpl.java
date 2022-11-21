@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.happyhouse.dao.BoardDao;
 import com.ssafy.happyhouse.dto.BoardDto;
+import com.ssafy.happyhouse.exception.CustomException;
+import com.ssafy.happyhouse.exception.ErrorCode;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -16,31 +18,43 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public int insertBoard(BoardDto board) {
-		return boardDao.insertBoard(board);
+		int n = boardDao.insertBoard(board);
+		if(n == 0)	throw new CustomException(ErrorCode.SERVER_ERROR);
+		return n;
 	}
 
 	@Override
 	public List<BoardDto> listBoard() {
-		return boardDao.listBoard();
+		List<BoardDto> boards = boardDao.listBoard();
+		if(boards.size() == 0)	throw new CustomException(ErrorCode.NULL_VALUE);
+		return boards;
 	}
 
 	@Override
 	public int visitBoard(int id){
-		return boardDao.visitBoard(id);
+		int n = boardDao.visitBoard(id);
+		if(n == 0)	throw new CustomException(ErrorCode.SERVER_ERROR);
+		return n;
 	}
 	
 	@Override
 	public BoardDto detailBoard(int id) {
-		return boardDao.detailBoard(id);
+		BoardDto board = boardDao.detailBoard(id);
+		if(board == null)	throw new CustomException(ErrorCode.NULL_VALUE);
+		return board;
 	}
 
 	@Override
 	public int updateBoard(BoardDto board) {
-		return boardDao.updateBoard(board);
+		int n = boardDao.updateBoard(board);
+		if(n == 0)	throw new CustomException(ErrorCode.SERVER_ERROR);
+		return n;
 	}
 
 	@Override
 	public int deleteBoard(int id) {
-		return boardDao.deleteBoard(id);
+		int n = boardDao.deleteBoard(id);
+		if(n == 0)	throw new CustomException(ErrorCode.SERVER_ERROR);
+		return n;
 	}
 }
