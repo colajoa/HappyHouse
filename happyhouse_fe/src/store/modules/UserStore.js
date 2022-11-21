@@ -121,7 +121,7 @@ const userStore = {
       }
     },
     // Logout
-    async logout({ commit }) {
+    async userLogout({ commit }) {
       await http.get("/house/user/logout").then((res) => {
         if (res.data == "OK") {
           sessionStorage.removeItem("token");
@@ -150,9 +150,16 @@ const userStore = {
         });
     },
     // 아이디 찾기
-    async findId() {},
+    async getUserId(state, user) {
+      const id = await http.post("/house/user/id", user).then((res) => {
+        if (res.status == 200) {
+          return res.data;
+        }
+      });
+      return id;
+    },
     // 비밀번호 찾기
-    async findPassword() {},
+    async setNewPassword() {},
   },
 };
 

@@ -52,6 +52,7 @@
             class="form-control"
             id="find-first"
             placeholder="이름"
+            v-model="name"
           />
           <label for="floatingInput">이름</label>
         </div>
@@ -61,10 +62,17 @@
             class="form-control"
             id="find-last"
             placeholder="전화번호"
+            v-model="phoneNumber"
           />
           <label for="floatingIput">전화번호</label>
         </div>
-        <button class="w-100 btn btn-lg btn-custom">아이디 찾기</button>
+        <button
+          type="button"
+          class="w-100 btn btn-lg btn-custom"
+          @click="findId"
+        >
+          아이디 찾기
+        </button>
       </div>
       <div
         class="tab-pane fade"
@@ -79,6 +87,7 @@
             class="form-control"
             id="find-first"
             placeholder="이름"
+            v-model="name"
           />
           <label for="floatingInput">이름</label>
         </div>
@@ -88,6 +97,7 @@
             class="form-control"
             id="find-middle"
             placeholder="아이디"
+            v-model="id"
           />
           <label for="floatingInput">아이디</label>
         </div>
@@ -97,26 +107,53 @@
             class="form-control"
             id="find-last"
             placeholder="전화번호"
+            v-model="phoneNumber"
           />
           <label for="floatingInput">전화번호</label>
         </div>
-        <button class="w-100 btn btn-lg btn-custom">비밀번호 찾기</button>
+        <button
+          type="button"
+          class="w-100 btn btn-lg btn-custom"
+          @click="findPassword"
+        >
+          비밀번호 찾기
+        </button>
       </div>
     </div>
   </form>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
+const userStore = "userStore";
 export default {
   name: "UserFind",
   data() {
     return {
-      isLoginError: false,
-      user: {
-        userid: null,
-        userpwd: null,
-      },
+      id: null,
+      name: null,
+      phoneNumber: null,
     };
+  },
+  computed: {},
+  methods: {
+    ...mapActions(userStore, ["getUserId", "setNewPassword"]),
+    // 아이디 찾기
+    async findId() {
+      const user = {
+        name: this.name,
+        phone_number: this.phoneNumber,
+      };
+      this.id = await this.getUserId(user).catch((e) => {
+        if (e.response.data.code == "USER_NOT_FOUND")
+          alert("일치하는 정보의 사용자가 없습니다.");
+      });
+      alert(`찾으시는 사용자의 아이디는 ${this.id}입니다.`);
+      this.$router.replace("/user/login");
+    },
+    // 비밀번호 찾기
+    async findPassword() {},
   },
 };
 </script>
