@@ -3,7 +3,6 @@ package com.ssafy.happyhouse.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +25,7 @@ public class AptController {
     public ResponseEntity<?> getSido() throws Exception{
         List<CodeDto> list = aptService.getSido(null);
 
-        if(list.size() > 0) return ResponseEntity.ok(list);
-        // ERROR
-        return ResponseEntity.ok(HttpStatus.FORBIDDEN);
+        return ResponseEntity.ok(list);
     }
 
     /**
@@ -41,9 +38,7 @@ public class AptController {
     public ResponseEntity<?> getGugun(@PathVariable("code") String code) throws Exception{
         CodeDto data = CodeDto.builder().code(code).build();
         List<CodeDto> list = aptService.getGugun(data);
-        if(list.size() > 0) return ResponseEntity.ok(list);
-        // ERROR
-        return ResponseEntity.ok(HttpStatus.FORBIDDEN);
+        return ResponseEntity.ok(list);
     }
 
     /**
@@ -57,9 +52,7 @@ public class AptController {
         CodeDto data = CodeDto.builder().code(code).build();
         List<CodeDto> list = aptService.getDong(data);
 
-        if(list.size() > 0) return ResponseEntity.ok(list);
-        // ERROR
-        return ResponseEntity.ok(HttpStatus.FORBIDDEN);
+        return ResponseEntity.ok(list);
     }
 
     /**
