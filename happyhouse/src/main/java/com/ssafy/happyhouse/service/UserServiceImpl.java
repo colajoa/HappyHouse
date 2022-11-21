@@ -12,6 +12,8 @@ import com.ssafy.happyhouse.auth.service.KakaoOAuth2ServiceIml;
 import com.ssafy.happyhouse.dao.UserDao;
 import com.ssafy.happyhouse.dto.KakaoUserInfo;
 import com.ssafy.happyhouse.dto.UserDto;
+import com.ssafy.happyhouse.exception.CustomException;
+import com.ssafy.happyhouse.exception.ErrorCode;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,7 +32,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto getLoginUser(UserDto user) {
-		return userDao.getLoginUser(user);
+		UserDto findUser = userDao.getLoginUser(user);
+		if (findUser == null)
+			throw new CustomException(ErrorCode.USER_NOT_FOUND);
+		return findUser;
 	}
 
 	@Override
@@ -56,63 +61,93 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int insertUser(UserDto user) {
-		return userDao.insertUser(user);
+		int n = userDao.insertUser(user);
+		if (n == 0)
+			throw new CustomException(ErrorCode.SERVER_ERROR);
+		return n;
 	}
 
 	@Override
-	public UserDto getUserInfo(String userId){
-		return userDao.getUserInfo(userId);
+	public UserDto getUserInfo(String userId) {
+		UserDto user = userDao.getUserInfo(userId);
+		if (user == null)
+			throw new CustomException(ErrorCode.USER_NOT_FOUND);
+		return user;
 	}
 
 	@Override
 	public int updateUser(UserDto user) {
-		return userDao.updateUser(user);
+		int n = userDao.updateUser(user);
+		if (n == 0)
+			throw new CustomException(ErrorCode.SERVER_ERROR);
+		return n;
 	}
 
 	@Override
 	public int deleteUser(UserDto user) {
-		return userDao.deleteUser(user);
+		int n = userDao.deleteUser(user);
+		if (n == 0)
+			throw new CustomException(ErrorCode.SERVER_ERROR);
+		return n;
 	}
 
 	@Override
-	public String findById(UserDto user){
-		return userDao.findById(user);
+	public String findById(UserDto user) {
+		String id = userDao.findById(user);
+		if (id == null || id.equals(""))
+			throw new CustomException(ErrorCode.USER_NOT_FOUND);
+		return id;
 	}
 
 	@Override
 	public String findByPwd(UserDto user) {
-		return userDao.findByPwd(user);
+		String pwd = userDao.findByPwd(user);
+		if (pwd == null || pwd.equals(""))
+			throw new CustomException(ErrorCode.USER_NOT_FOUND);
+		return pwd;
 	}
 
 	@Override
-	public int modifyPwd(UserDto user){
-		return userDao.modifyPwd(user);
+	public int modifyPwd(UserDto user) {
+		int n = userDao.modifyPwd(user);
+		if (n == 0)
+			throw new CustomException(ErrorCode.SERVER_ERROR);
+		return n;
 	}
 
 	@Override
 	public int idCheck(String id) {
-		return userDao.countById(id);
+		int n = userDao.countById(id);
+		if (n == 0)
+			throw new CustomException(ErrorCode.SERVER_ERROR);
+		return n;
 	}
 
 	@Override
-	public int kakaoLogin(String code){
+	public int kakaoLogin(String code) {
 		KakaoUserInfo userInfo = kakaoOAuth2.getUserInfo(code);
 
 		String id = userInfo.getNickname();
 		String password = userInfo.getId() + ADMIN_TOKEN;
 
 		int cnt = userDao.countById(id);
-		if(cnt != 0)	return cnt;
+		// 이미 가입되어 있는 유저
+		if (cnt != 0)
+			return cnt;
+
+		// 미가입 시 회원 정보 저장
 		String encodedPassword = passwordEncoder.encode(password);
 
 		UserDto user = UserDto.builder()
-		.id(id)
-		.pwd(encodedPassword)
-		.name(id)
-		.phoneNumber(null)
-		.role("user")
-		.build();
+				.id(id)
+				.pwd(encodedPassword)
+				.name(id)
+				.phoneNumber(null)
+				.role("user")
+				.build();
 
-		return userDao.insertUser(user);
+		int n = userDao.insertUser(user);
+		if(n == 0)	throw new CustomException(ErrorCode.SERVER_ERROR);
+		return n;
 	}
 }
