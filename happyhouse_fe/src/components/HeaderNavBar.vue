@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 
 const userStore = "userStore";
 export default {
@@ -93,7 +93,12 @@ export default {
       this.showBg = this.isBg;
     },
   },
-  methods: {},
+  methods: {
+    ...mapActions(userStore, ["userLogout"]),
+    async logout() {
+      await this.userLogout();
+    },
+  },
 };
 </script>
 
