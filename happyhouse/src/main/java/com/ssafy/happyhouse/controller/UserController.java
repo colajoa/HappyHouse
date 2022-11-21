@@ -84,7 +84,7 @@ public class UserController {
      */
     @GetMapping("/info")
     public ResponseEntity<?> userInfo(HttpServletRequest request){
-        String token = request.getHeader("Authorization").substring("Bearer ".length());
+        String token = request.getHeader("Authorization");
         String userId = JwtTokenProvider.getUserIdFromJWT(token);
 
         UserDto user = userService.getUserInfo(userId);
@@ -124,10 +124,7 @@ public class UserController {
      */
     @GetMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
-        String token = request.getHeader("Authorization").substring("Bearer ".length());
-        if(JwtTokenProvider.validateToken(token)){
-            return ResponseEntity.ok().header("Authorization", "").build();
-        }
+        String token = request.getHeader("Authorization");
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -167,6 +164,12 @@ public class UserController {
         return ResponseEntity.ok(password);
     }
 
+    /**
+     * 비밀번호 수정
+     * 
+     * @param user
+     * @return
+     */
     @PostMapping("/changepwd")
     public ResponseEntity<?> modifyPwd(@RequestBody UserDto user){
         userService.modifyPwd(user);
