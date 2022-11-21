@@ -155,7 +155,14 @@ export default {
       }
     },
     // 비밀번호 찾기
-    async findPassword() {},
+    async findPassword() {
+      const user = {
+        name: this.name,
+        id: this.id,
+        phone_number: this.phoneNumber,
+      };
+      await this.setNewPassword(user);
+    },
   },
 };
 </script>

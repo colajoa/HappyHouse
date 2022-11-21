@@ -159,7 +159,9 @@ const userStore = {
       return id;
     },
     // 비밀번호 찾기
-    async setNewPassword() {},
+    async setNewPassword(user) {
+      await http.post("/house/user/pwd", user);
+    },
   },
 };
 
