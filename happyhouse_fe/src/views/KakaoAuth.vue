@@ -40,7 +40,7 @@ export default {
         const data = {
           grant_type: "authorization_code",
           client_id: process.env.VUE_APP_CLIENT_ID,
-          redirect_uri: "http://localhost:8080/kakao/login",
+          redirect_uri: process.env.VUE_APP_REDIRECT_URI,
           code,
         };
         const queryString = Object.keys(data)
