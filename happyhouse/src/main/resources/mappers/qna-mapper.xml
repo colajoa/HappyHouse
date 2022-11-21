@@ -13,6 +13,13 @@
         select * from qna
         ]]>
     </select>
+    <update id="visitQna" parameterType="int">
+        <![CDATA[ 
+            update qna
+            set hit = hit + 1
+            where id = #{id}
+        ]]>
+    </update>
     <select id="detailQna" resultType="QnaDto">
         <![CDATA[ 
         select * from qna where id=#{id}
@@ -30,4 +37,11 @@
         delete from qna where id=#{id}
         ]]>
     </delete>
+    <update id="replyQna" parameterType="QnaDto">
+        <![CDATA[ 
+            update qna
+            set isReply = #{isReply}
+            where id = #{id}
+        ]]>
+    </update>
 </mapper>

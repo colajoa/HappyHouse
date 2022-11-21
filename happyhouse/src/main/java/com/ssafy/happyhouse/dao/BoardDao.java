@@ -12,6 +12,8 @@ public interface BoardDao {
 
 	List<BoardDto> listBoard();
 
+	int visitBoard(int id);
+
 	BoardDto detailBoard(int id);
 
 	int updateBoard(BoardDto post);

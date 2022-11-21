@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,8 @@ import com.ssafy.happyhouse.dto.UserDto;
 @Service
 public class UserServiceImpl implements UserService {
 
-	private static final String ADMIN_TOKEN = "c53f772548ab6536333925aa2440cd6d";
+	@Value("${KAKAO_ADMIN_KEY}")
+	private static String ADMIN_TOKEN;
 
 	@Autowired
 	private UserDao userDao;
@@ -58,8 +60,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto getUser(String userId){
-		return userDao.getUser(userId);
+	public UserDto getUserInfo(String userId){
+		return userDao.getUserInfo(userId);
 	}
 
 	@Override
@@ -73,18 +75,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto findId(UserDto user){
-		return userDao.findId(user);
+	public String findById(UserDto user){
+		return userDao.findById(user);
 	}
 
 	@Override
-	public UserDto findPwd(UserDto user) {
-		return userDao.findPwd(user);
+	public String findByPwd(UserDto user) {
+		return userDao.findByPwd(user);
+	}
+
+	@Override
+	public int modifyPwd(UserDto user){
+		return userDao.modifyPwd(user);
 	}
 
 	@Override
 	public int idCheck(String id) {
-		return userDao.idCheck(id);
+		return userDao.countById(id);
 	}
 
 	@Override
@@ -94,7 +101,7 @@ public class UserServiceImpl implements UserService {
 		String id = userInfo.getNickname();
 		String password = userInfo.getId() + ADMIN_TOKEN;
 
-		int cnt = userDao.idCheck(id);
+		int cnt = userDao.countById(id);
 		if(cnt != 0)	return cnt;
 		String encodedPassword = passwordEncoder.encode(password);
 

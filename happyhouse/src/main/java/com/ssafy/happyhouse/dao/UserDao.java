@@ -18,15 +18,17 @@ public interface UserDao {
 
 	public int insertUser(UserDto user);
 
-	public UserDto getUser(String userId);
+	public UserDto getUserInfo(String userId);
 
 	public int updateUser(UserDto user);
 
 	public int deleteUser(UserDto user);
 
-	public UserDto findId(UserDto user);
+	public String findById(UserDto user);
 
-	public UserDto findPwd(UserDto user);
+	public String findByPwd(UserDto user);
 
-	public int idCheck(String id);
+	public int modifyPwd(UserDto user);
+
+	public int countById(String id);
 }

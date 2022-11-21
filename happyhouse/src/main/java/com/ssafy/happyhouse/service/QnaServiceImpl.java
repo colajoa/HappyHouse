@@ -23,6 +23,11 @@ public class QnaServiceImpl implements QnaService{
 	public List<QnaDto> listQna() {
 		return qnaDao.listQna();
 	}
+
+	@Override
+	public int visitQna(int id){
+		return qnaDao.visitQna(id);
+	}
 	
 	@Override
 	public QnaDto detailQna(int id) {

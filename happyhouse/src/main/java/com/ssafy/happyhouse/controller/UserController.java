@@ -3,7 +3,6 @@ package com.ssafy.happyhouse.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.happyhouse.auth.UserAuthentication;
@@ -57,7 +55,6 @@ public class UserController {
      * 로그인
      * 
      * @param user
-     * @param session
      * @return
      */
     @PostMapping(value = "/login")
@@ -102,7 +99,7 @@ public class UserController {
         String token = request.getHeader("Authorization").substring("Bearer ".length());
         String userId = JwtTokenProvider.getUserIdFromJWT(token);
 
-        UserDto user = userService.getUser(userId);
+        UserDto user = userService.getUserInfo(userId);
 
         return ResponseEntity.ok(user);
     }
@@ -111,7 +108,6 @@ public class UserController {
      * 회원정보 수정
      * 
      * @param updateInfo
-     * @param session
      * @return
      */
     @PutMapping("/update")
@@ -119,7 +115,7 @@ public class UserController {
         int n = userService.updateUser(updateInfo);
         if (n > 0) {
             // 수정된 유저 정보 반환 
-            return ResponseEntity.ok(userService.getUser(updateInfo.getId()));
+            return ResponseEntity.ok(HttpStatus.OK);
         } else {
             return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -129,11 +125,10 @@ public class UserController {
      * 회원 탈퇴
      * 
      * @param deleteInfo
-     * @param session
      * @return
      */
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUser(@RequestBody UserDto deleteInfo, HttpSession session) {
+    public ResponseEntity<?> deleteUser(@RequestBody UserDto deleteInfo) {
         int n = userService.deleteUser(deleteInfo);
         if (n > 0) {
             return ResponseEntity.ok(HttpStatus.OK);
@@ -145,7 +140,7 @@ public class UserController {
     /**
      * 로그아웃
      * 
-     * @param session
+     * @param request
      * @return
      */
     @GetMapping("/logout")
@@ -163,7 +158,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @GetMapping("/idCheck/{id}")
+    @GetMapping("/check/{id}")
     public ResponseEntity<?> idCheck(@PathVariable("id") String id) {
         int n = userService.idCheck(id);
         System.out.println("Call");
@@ -175,18 +170,39 @@ public class UserController {
     }
 
     /**
+     * 아이디 찾기
+     * 
+     * @param user
+     * @return
+     */
+    @PostMapping("/id")
+    public ResponseEntity<?> findId(@RequestBody UserDto user){
+        String id = userService.findById(user);
+        if(id != null){
+            return ResponseEntity.ok(id);
+        }
+        return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
      * 비밀번호 찾기
      * 
      * @param user
      * @return
      */
-    @PostMapping("/findPwd")
+    @PostMapping("/pwd")
     public ResponseEntity<?> findPwd(@RequestBody UserDto user) {
-        UserDto findUser = userService.findPwd(user);
-        if (findUser != null) {
-            return ResponseEntity.ok(findUser);
+        String password = userService.findByPwd(user);
+        if (password != null) {
+            return ResponseEntity.ok(password);
         } else {
             return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PostMapping("/changepwd")
+    public ResponseEntity<?> modifyPwd(@RequestBody UserDto user){
+        int n = userService.modifyPwd(user);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

@@ -8,13 +8,17 @@ import com.ssafy.happyhouse.dto.QnaDto;
 
 @Mapper
 public interface QnaDao {
-    int insertQna(QnaDto post);
+    int insertQna(QnaDto qna);
 
 	List<QnaDto> listQna();
 
+	int visitQna(int id);
+
 	QnaDto detailQna(int id);
 
-	int updateQna(QnaDto post);
+	int updateQna(QnaDto qna);
 
 	int deleteQna(int id);
+
+	int replyQna(QnaDto qna);
 }

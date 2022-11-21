@@ -19,7 +19,7 @@ public interface UserService {
 	int insertUser(UserDto user);
 
 	// 유저 정보 조회
-	UserDto getUser(String userId);
+	UserDto getUserInfo(String userId);
 
 	// 유저 정보 수정
 	int updateUser(UserDto user);
@@ -27,10 +27,13 @@ public interface UserService {
 	// 회원 탈퇴
 	int deleteUser(UserDto user);
 
-	UserDto findId(UserDto user);
+	String findById(UserDto user);
 
 	// 비밀번호 찾기
-	UserDto findPwd(UserDto user);
+	String findByPwd(UserDto user);
+
+	// 비밀번호 수정
+	int modifyPwd(UserDto user);
 
 	// 중복 아이디 확인
 	int idCheck(String id);

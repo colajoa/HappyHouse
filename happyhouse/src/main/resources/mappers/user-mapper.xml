@@ -41,9 +41,9 @@
         ]]>
     </insert>
 
-    <select id="getUser" parameterType="string" resultType="UserDto">
+    <select id="getUserInfo" parameterType="string" resultType="UserDto">
         <![CDATA[ 
-            select * from user where id = #{userId}
+            select id, name, phone_number from user where id = #{userId}
         ]]>
     </select>
 
@@ -63,22 +63,30 @@
         ]]>
     </delete>
 
-    <select id="findId" parameterType="UserDto" resultType="UserDto">
+    <select id="findById" parameterType="UserDto" resultType="string">
         <![CDATA[ 
-            select * from user
+            select id from user
             where name = #{name} and phone_number = #{phone_number}
         ]]>
     </select>
 
-    <select id="findPwd" parameterType="UserDto" resultType="UserDto">
+    <select id="findByPwd" parameterType="UserDto" resultType="string">
         <![CDATA[
-            select *
+            select pwd
             from user
             where id = #{id} and name = #{name} and phone_number = #{phone_number}
         ]]>
     </select>
 
-    <select id="idCheck" parameterType="string" resultType="int">
+    <update id="modifyPwd" parameterType="UserDto">
+        <![CDATA[ 
+            update user
+            set pwd = #{pwd}
+            where id=#{id}
+        ]]>
+    </update>
+
+    <select id="countById" parameterType="string" resultType="int">
         <![CDATA[ 
             select count(*)
             from user
