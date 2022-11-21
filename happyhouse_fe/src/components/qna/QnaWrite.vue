@@ -24,8 +24,8 @@
             id="custom-btn-div"
             class="col-md-12 d-flex justify-content-end gap-2"
           >
-            <button class="btn btn-custom">작성</button>
-            <router-link class="btn btn-custom" :to="{ name: 'qnalist' }"
+            <button class="btn btn-custom btn-lg">작성</button>
+            <router-link class="btn btn-custom btn-lg" :to="{ name: 'qnalist' }"
               >취소</router-link
             >
           </div>

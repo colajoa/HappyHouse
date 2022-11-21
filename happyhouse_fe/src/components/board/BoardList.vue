@@ -29,6 +29,7 @@
               <td>{{ board.date }}</td>
               <td>{{ board.hit }}</td>
             </tr>
+
             <tr>
               <th scope="row">1</th>
               <td>
@@ -114,7 +115,9 @@
       <div class="d-flex justify-content-center">
         <div class="row">
           <div id="custom-btn-div" class="col-md-12 d-flex justify-content-end">
-            <router-link class="btn btn-custom" :to="{ name: 'boardwrite' }"
+            <router-link
+              class="btn btn-custom btn-lg"
+              :to="{ name: 'boardwrite' }"
               >글쓰기</router-link
             >
           </div>
