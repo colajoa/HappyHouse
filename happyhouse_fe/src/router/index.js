@@ -106,6 +106,11 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/mypage",
+    name: "mypage",
+    component: () => import("@/views/AppMypage"),
+  },
 ];
 
 const router = new VueRouter({

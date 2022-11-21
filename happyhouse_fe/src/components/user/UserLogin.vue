@@ -15,6 +15,7 @@
         id="floatingInput"
         placeholder="아이디"
         v-model="id"
+        ref="id"
       />
       <label for="floatingInput">아이디</label>
     </div>
@@ -25,6 +26,7 @@
         id="floatingPassword"
         placeholder="비밀번호"
         v-model="password"
+        ref="password"
       />
       <label for="floatingPassword">비밀번호</label>
     </div>
@@ -82,14 +84,32 @@ export default {
     ...mapState(userStore, ["isLogin", "isLoginError", "userInfo"]),
   },
   methods: {
-    ...mapActions(userStore, ["userConfirm", "kakaoLogin"]),
+    ...mapActions(userStore, ["userConfirm", "kakaoLogin", "getUserInfo"]),
     async login() {
-      await this.userConfirm({
-        id: this.id,
-        secret: this.password,
-      });
-
-      this.$router.push({ name: "main" });
+      try {
+        await this.userConfirm({
+          id: this.id,
+          secret: this.password,
+        });
+        if (this.isLogin) {
+          await this.getUserInfo();
+          console.log(this.userInfo);
+          this.$router.push({ name: "main" });
+        }
+      } catch (e) {
+        console.log(e);
+        // ERROR
+        const errorCode = e.response.data.code;
+        if (errorCode === "USER_NOT_FOUND") {
+          alert("아이디가 존재하지 않습니다.");
+          this.$refs.id.focus();
+        } else if (errorCode === "INVALID_PASSWORD") {
+          alert("비밀번호가 일치하지 않습니다.");
+          this.$refs.password.focus();
+        } else {
+          alert("서버 오류");
+        }
+      }
     },
   },
 };

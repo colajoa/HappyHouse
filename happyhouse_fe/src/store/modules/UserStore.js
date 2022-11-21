@@ -27,12 +27,20 @@ const userStore = {
     SET_IS_VALID_TOKEN: (state, isValidToken) => {
       state.isValidToken = isValidToken;
     },
-    SET_USERINFO: (state, userInfo) => {
+    SET_USER_INFO: (state, userInfo) => {
+      state.isLogin = true;
       state.userInfo = userInfo;
     },
   },
   actions: {
     // 회원가입
+    async userJoin(state, user) {
+      await http.post("/house/user/join", user).then((res) => {
+        if (res.status == 200) {
+          return;
+        }
+      });
+    },
     // Login
     async userConfirm({ commit }, user) {
       await http.post("/house/user/login", user).then((res) => {
@@ -47,7 +55,7 @@ const userStore = {
     // Kakao Login
     async kakaoLogin() {
       window.Kakao.Auth.authorize({
-        redirectUri: "http://localhost:8080/kakao/login",
+        redirectUri: process.env.VUE_APP_REDIRECT_URI,
       });
     },
     // Set kakao AccessToken
@@ -113,7 +121,7 @@ const userStore = {
       }
     },
     // Logout
-    async logout({ commit }) {
+    async userLogout({ commit }) {
       await http.get("/house/user/logout").then((res) => {
         if (res.data == "OK") {
           sessionStorage.removeItem("token");
@@ -123,10 +131,37 @@ const userStore = {
         }
       });
     },
+    // 회원 정보 찾기
+    async getUserInfo({ commit }) {
+      await http
+        .get("/house/user/info")
+        .then((res) => {
+          if (res.status == 200) {
+            commit("SET_USER_INFO", res.data);
+          } else {
+            console.log("유저 정보 없음");
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          commit("SET_IS_LOGIN", false);
+          commit("SET_IS_VALID_TOKEN", false);
+          this.$router.push("/user/login");
+        });
+    },
     // 아이디 찾기
-    async findId() {},
+    async getUserId(state, user) {
+      const id = await http.post("/house/user/id", user).then((res) => {
+        if (res.status == 200) {
+          return res.data;
+        }
+      });
+      return id;
+    },
     // 비밀번호 찾기
-    async findPassword() {},
+    async setNewPassword(user) {
+      await http.post("/house/user/pwd", user);
+    },
   },
 };
 
