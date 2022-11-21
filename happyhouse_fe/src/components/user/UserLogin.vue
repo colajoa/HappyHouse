@@ -93,6 +93,7 @@ export default {
         });
         if (this.isLogin) {
           await this.getUserInfo();
+          console.log(this.userInfo);
           this.$router.push({ name: "main" });
         }
       } catch (e) {

@@ -27,7 +27,8 @@ const userStore = {
     SET_IS_VALID_TOKEN: (state, isValidToken) => {
       state.isValidToken = isValidToken;
     },
-    SET_USERINFO: (state, userInfo) => {
+    SET_USER_INFO: (state, userInfo) => {
+      state.isLogin = true;
       state.userInfo = userInfo;
     },
   },
@@ -132,23 +133,21 @@ const userStore = {
     },
     // 회원 정보 찾기
     async getUserInfo({ commit }) {
-      await http.get(
-        "/house/user/info",
-        ({ data }) => {
-          if (data.message === "success") {
-            // commit("SET_USERINFO", data.userInfo);
-            commit("SET_USERINFO", { id: "aaa", name: "동그라미" });
+      await http
+        .get("/house/user/info")
+        .then((res) => {
+          if (res.status == 200) {
+            commit("SET_USER_INFO", res.data);
           } else {
             console.log("유저 정보 없음");
           }
-        },
-        async function (error) {
-          console.log(error.response.status);
+        })
+        .catch((e) => {
+          console.log(e);
           commit("SET_IS_LOGIN", false);
           commit("SET_IS_VALID_TOKEN", false);
           this.$router.push("/user/login");
-        }
-      );
+        });
     },
     // 아이디 찾기
     async findId() {},
