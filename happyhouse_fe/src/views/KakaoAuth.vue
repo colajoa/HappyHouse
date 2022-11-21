@@ -52,7 +52,7 @@ export default {
           queryString,
           {
             headers: {
-              Authorization: "y5LuBjKrq1mLtRwRvJGcJiyA3D7rE2Z9",
+              Authorization: process.env.VUE_APP_CLIENT_SECRET,
               "Content-Type": "application/x-www-form-urlencoded",
             },
           }
