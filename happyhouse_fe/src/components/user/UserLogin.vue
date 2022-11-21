@@ -67,7 +67,7 @@
   </form>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 
 const userStore = "userStore";
 export default {
@@ -80,18 +80,28 @@ export default {
   },
   computed: {
     ...mapState(userStore, ["isLogin", "isLoginError", "userInfo"]),
+    ...mapGetters(userStore, ["checkErrorMessage"]),
   },
   methods: {
     ...mapActions(userStore, ["userConfirm", "kakaoLogin"]),
     async login() {
-      await this.userConfirm({
-        id: this.id,
-        secret: this.password,
-      });
-
-      if (this.isLogin) {
-        await this.getUserInfo();
-        this.$router.push({ name: "main" });
+      try {
+        await this.userConfirm({
+          id: this.id,
+          secret: this.password,
+        });
+        if (this.isLogin) {
+          await this.getUserInfo();
+          this.$router.push({ name: "main" });
+        }
+      } catch (e) {
+        // ERROR
+        const errorCode = e.response.data.code;
+        if (errorCode === "USER_NOT_FOUND") {
+          alert("아이디가 존재하지 않습니다.");
+        } else if (errorCode === "INVALID_PASSWORD") {
+          alert("비밀번호가 일치하지 않습니다.");
+        }
       }
     },
   },
