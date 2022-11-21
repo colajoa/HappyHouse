@@ -61,6 +61,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int insertUser(UserDto user) {
+		// 비밀번호 암호화
+		String encodedPassword = passwordEncoder.encode(user.getPwd());
+		user.setPwd(encodedPassword);
+
 		int n = userDao.insertUser(user);
 		if (n == 0)
 			throw new CustomException(ErrorCode.SERVER_ERROR);
