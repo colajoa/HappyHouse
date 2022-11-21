@@ -33,6 +33,13 @@ const userStore = {
   },
   actions: {
     // 회원가입
+    async userJoin(state, user) {
+      await http.post("/house/user/join", user).then((res) => {
+        if (res.status == 200) {
+          return;
+        }
+      });
+    },
     // Login
     async userConfirm({ commit }, user) {
       await http.post("/house/user/login", user).then((res) => {
