@@ -54,27 +54,10 @@
               >
             </li>
 
-            <li class="dropdown">
-              <a href="#"><span>Drop Down</span></a>
-              <ul>
-                <li><a href="#">Drop Down 1</a></li>
-
-                <li><a href="#">Drop Down 2</a></li>
-              </ul>
-            </li>
             <!-- dropdown 버튼 -->
-            <li id="mypage">
-              <label for="user-btn">
-                사용자님
-                <!-- {{ userInfo.name }}님 -->
-              </label>
-              <input
-                type="checkbox"
-                id="user-btn"
-                onclick=""
-                autocomplete="off"
-              />
-              <ul class="user-menu">
+            <li class="dropdown">
+              <button class="user-btn">사용자이름</button>
+              <ul class="user-dropdown">
                 <li>
                   <router-link
                     class="nav-link scrollto"
@@ -84,7 +67,7 @@
                   </router-link>
                 </li>
                 <li>
-                  <button class="nav-link scrollto" @click="logout">
+                  <button class="nav-link scrollto user-btn" @click="logout">
                     로그아웃
                   </button>
                 </li>
@@ -134,21 +117,16 @@ export default {
 </script>
 
 <style scoped>
-.navbar button {
+.user-btn {
   background: none;
   border: none;
 }
 
-#user-btn {
-  display: none;
-}
-.user-menu {
-  display: none;
-}
-
-#user-btn:checked + .user-menu {
-  display: block;
-  position: absolute;
-  transition: 0.3s;
+.user-dropdown li .user-btn {
+  padding: 10px 20px;
+  font-size: 15px;
+  text-transform: none;
+  font-weight: 600;
+  color: #2f4d5a;
 }
 </style>

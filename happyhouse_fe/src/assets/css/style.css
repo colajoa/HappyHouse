@@ -181,7 +181,8 @@ h6 {
 .navbar button:hover,
 .navbar .button,
 .navbar .active:focus,
-.navbar li:hover > a {
+.navbar li:hover > a,
+.navbar li:hover > button {
   background: rgba(255, 255, 255, 0.2);
 }
 
@@ -217,8 +218,10 @@ h6 {
 }
 
 .navbar .dropdown ul a:hover,
+.navbar .dropdown ul button:hover,
 .navbar .dropdown ul .active:hover,
-.navbar .dropdown ul li:hover > a {
+.navbar .dropdown ul li:hover > a,
+.navbar li:hover > button {
   color: #67b0d1;
 }
 
