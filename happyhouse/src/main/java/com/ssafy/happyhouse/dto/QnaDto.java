@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class QnaDto {
     
-    private int id;
+    private int idx;
 	private String title;
 	private String writer;
 	private String content;
@@ -17,9 +17,9 @@ public class QnaDto {
 	private String createdat;
 
 	@Builder
-	public QnaDto(int id, String title, String writer, String content, int hit, boolean isReply, String createdat) {
+	public QnaDto(int idx, String title, String writer, String content, int hit, boolean isReply, String createdat) {
 		super();
-		this.id = id;
+		this.idx = idx;
 		this.title = title;
 		this.writer = writer;
 		this.content = content;

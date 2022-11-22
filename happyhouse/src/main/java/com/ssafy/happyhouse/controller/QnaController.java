@@ -78,7 +78,7 @@ public class QnaController {
      * @param qna
      * @return
      */
-    @PutMapping("/post")
+    @PutMapping("/{idx}")
     public ResponseEntity<?> modifyQna(@RequestBody QnaDto qna){
         qnaService.updateQna(qna);
         return ResponseEntity.ok(HttpStatus.OK);
@@ -90,7 +90,7 @@ public class QnaController {
      * @param id
      * @return
      */
-    @DeleteMapping("/post/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteQna(@PathVariable("id") int id){
         qnaService.deleteQna(id);
         return ResponseEntity.ok(HttpStatus.OK);

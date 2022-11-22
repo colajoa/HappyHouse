@@ -12,13 +12,13 @@ public interface QnaDao {
 
 	List<QnaDto> listQna();
 
-	int visitQna(int id);
+	int visitQna(int idx);
 
-	QnaDto detailQna(int id);
+	QnaDto detailQna(int idx);
 
 	int updateQna(QnaDto qna);
 
-	int deleteQna(int id);
+	int deleteQna(int idx);
 
 	int replyQna(QnaDto qna);
 }

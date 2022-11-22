@@ -26,7 +26,7 @@ public class ReplyQnaServiceImpl implements ReplyQnaService{
         if(n == 0)  throw new CustomException(ErrorCode.SERVER_ERROR);
 
         // 답변 등록 시 qna 테이블에 isReply = true;
-        QnaDto qna = QnaDto.builder().id(reply.getQnaid()).isReply(true).build();
+        QnaDto qna = QnaDto.builder().idx(reply.getQnaid()).isReply(true).build();
         qnaDao.replyQna(qna);
         return n;
     }
@@ -52,7 +52,7 @@ public class ReplyQnaServiceImpl implements ReplyQnaService{
 
         if(n == 0)  throw new CustomException(ErrorCode.SERVER_ERROR);
 
-        QnaDto qna = QnaDto.builder().id(reply.getQnaid()).isReply(false).build();
+        QnaDto qna = QnaDto.builder().idx(reply.getQnaid()).isReply(false).build();
         qnaDao.replyQna(qna);
         return n;
     }
