@@ -49,7 +49,7 @@ const BoardStore = {
       await http.get(`/house/board/hit/${idx}`);
     },
     async modifyBoard(state, board) {
-      await http.put(`/house/board/${board.idx}`, board);
+      await http.put(`/house/board/post`, board);
     },
     async removeBoard(state, idx) {
       await http.delete(`/house/board/${idx}`);
