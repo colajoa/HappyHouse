@@ -5,13 +5,13 @@
       <div class="mb-3 d-flex justify-content-center">
         <div class="view-header">
           <div class="view-title">
-            <label>글 제목 들어갈 곳</label>
+            <label>{{ board.title }}</label>
           </div>
           <div class="view-writer">
-            <div>글쓴이 들어갈 곳</div>
+            <div>{{ board.writer }}</div>
             <div class="view-info">
-              <span>날짜</span>
-              <span>조회 수</span>
+              <span>{{ board.createdat }}</span>
+              <span>{{ board.hit }}</span>
             </div>
           </div>
         </div>
@@ -19,7 +19,7 @@
 
       <div class="mb-3 d-flex justify-content-center">
         <div class="view-content" id="">
-          여기는 내용이 들어갈 곳입니다
+          {{ board.content }}
           <div class=""></div>
         </div>
       </div>
@@ -45,7 +45,31 @@
 </template>
 
 <script>
-export default {};
+import { mapActions, mapState } from "vuex";
+
+const boardStore = "boardStore";
+export default {
+  name: "BoardView",
+  data() {
+    return {};
+  },
+  async created() {
+    const url = window.location.href.split("/");
+    const idx = Number.parseInt(url[5]);
+    // 조회수
+    await this.viewBoard(idx);
+    this.getBoard(idx);
+  },
+  computed: {
+    ...mapState(boardStore, ["board"]),
+  },
+  methods: {
+    ...mapActions(boardStore, ["viewBoard", "detailBoard"]),
+    async getBoard(idx) {
+      await this.detailBoard(idx);
+    },
+  },
+};
 </script>
 
 <style scoped>

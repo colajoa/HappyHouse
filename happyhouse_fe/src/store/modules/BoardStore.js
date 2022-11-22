@@ -37,11 +37,16 @@ const BoardStore = {
         }
       });
     },
-    async detailBoard(state, idx) {
-      await http.get(`/house/board/detail/${idx}`);
+    async detailBoard({ commit }, idx) {
+      const param = Number.parseInt(idx);
+      await http.get(`/house/board/detail/${param}`).then((res) => {
+        if (res.status == 200) {
+          commit("SET_BOARD", res.data);
+        }
+      });
     },
     async viewBoard(state, idx) {
-      await http.get(`/house/board/hit/{${idx}}`);
+      await http.get(`/house/board/hit/${idx}`);
     },
     async modifyBoard(state, board) {
       await http.put(`/house/board/${board.idx}`, board);
