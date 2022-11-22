@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.happyhouse.dao.BoardDao">
-    <insert id="insertPost" parameterType="BoardDto">
+    <insert id="insertBoard" parameterType="BoardDto">
         <![CDATA[ 
         insert into post(title, author, content, hit, created_at)
         values(#{title}, #{writer}, #{content}, 0, now())
         ]]>
     </insert>
-    <select id="listPost" resultType="BoardDto">
+    <select id="listBoard" resultType="BoardDto">
         <![CDATA[ 
         select * from post
         ]]>
@@ -17,24 +17,24 @@
         <![CDATA[ 
             update post
             set hit = hit+1
-            where id= #{id}
+            where idx= #{id}
         ]]>
     </update>
-    <select id="detailPost" resultType="BoardDto">
+    <select id="detailBoard" parameterType="int" resultType="BoardDto">
         <![CDATA[ 
-        select * from post where id=#{id}
+        select * from post where idx=#{id}
         ]]>
     </select>
-    <update id="updatePost" parameterType="BoardDto">
+    <update id="updateBoard" parameterType="BoardDto">
         <![CDATA[ 
         update post
         set title=#{title}, content=#{content}
-        where id=#{id}
+        where idx=#{idx}
         ]]>
     </update>
-    <delete id="deletePost" parameterType="int">
+    <delete id="deleteBoard" parameterType="int">
         <![CDATA[ 
-        delete from post where id=#{id}
+        delete from post where idx=#{id}
         ]]>
     </delete>
 </mapper>
