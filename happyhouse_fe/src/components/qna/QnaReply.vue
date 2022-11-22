@@ -2,10 +2,11 @@
   <tr
     class="collapse accordion-collapse"
     data-bs-parent="#qna-table"
-    v-if="qna.isReply"
+    v-if="isReply"
   >
     <td>A</td>
-    <td colspan="4">{{}}</td>
+    <td colspan="4">{{ reply.title }}</td>
+    <td colspan="4">{{ reply.content }}</td>
   </tr>
   <tr class="collapse accordion-collapse" data-bs-parent="#qna-table" v-else>
     <td>A</td>
