@@ -53,24 +53,44 @@
                 >질문받는다</router-link
               >
             </li>
+
+            <li class="dropdown">
+              <a href="#"><span>Drop Down</span></a>
+              <ul>
+                <li><a href="#">Drop Down 1</a></li>
+
+                <li><a href="#">Drop Down 2</a></li>
+              </ul>
+            </li>
+            <!-- dropdown 버튼 -->
             <li id="mypage">
-              <router-link class="nav-link scrollto" :to="{ name: 'mypage' }">
-                님
+              <label for="user-btn">
+                사용자님
                 <!-- {{ userInfo.name }}님 -->
-              </router-link>
+              </label>
+              <input
+                type="checkbox"
+                id="user-btn"
+                onclick=""
+                autocomplete="off"
+              />
+              <ul class="user-menu">
+                <li>
+                  <router-link
+                    class="nav-link scrollto"
+                    :to="{ name: 'mypage' }"
+                  >
+                    마이페이지
+                  </router-link>
+                </li>
+                <li>
+                  <button class="nav-link scrollto" @click="logout">
+                    로그아웃
+                  </button>
+                </li>
+              </ul>
             </li>
-            <!-- click 버튼 -->
-            <li id="mypage">
-              <router-link class="nav-link scrollto" :to="{ name: 'mypage' }">
-                님
-                <!-- {{ userInfo.name }}님 -->
-              </router-link>
-            </li>
-            <li>
-              <button class="nav-link scrollto" @click="logout">
-                로그아웃
-              </button>
-            </li>
+            <!--dropdown 버튼 -->
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
@@ -117,5 +137,18 @@ export default {
 .navbar button {
   background: none;
   border: none;
+}
+
+#user-btn {
+  display: none;
+}
+.user-menu {
+  display: none;
+}
+
+#user-btn:checked + .user-menu {
+  display: block;
+  position: absolute;
+  transition: 0.3s;
 }
 </style>
