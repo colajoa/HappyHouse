@@ -87,7 +87,7 @@ const userStore = {
             commit("SET_IS_LOGIN", false);
             commit("SET_IS_LOGIN_ERROR", true);
             commit("SET_IS_VALID_TOKEN", false);
-            this.$router.replace("/user/login");
+            this.moveToLogin();
           }
         });
     },
@@ -163,7 +163,7 @@ const userStore = {
       await http.post("/house/user/pwd", user);
     },
     moveToLogin() {
-      this.$router.push("/user/login");
+      this.$router.replace("/user/login");
     },
   },
 };
