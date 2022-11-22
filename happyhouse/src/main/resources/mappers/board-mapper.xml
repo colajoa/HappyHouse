@@ -4,7 +4,7 @@
 <mapper namespace="com.ssafy.happyhouse.dao.BoardDao">
     <insert id="insertBoard" parameterType="BoardDto">
         <![CDATA[ 
-        insert into post(title, author, content, hit, created_at)
+        insert into post(title, writer, content, hit, createdat)
         values(#{title}, #{writer}, #{content}, 0, now())
         ]]>
     </insert>
