@@ -8,6 +8,8 @@
           class="form-control form-control-lg"
           id=""
           placeholder="글 제목"
+          v-model="title"
+          ref="title"
         />
       </div>
       <div class="mb-3 d-flex justify-content-center">
@@ -15,13 +17,17 @@
           class="form-control form-control-lg"
           id=""
           placeholder="내용을 입력하세요."
+          v-model="content"
+          ref="content"
           rows="10"
         ></textarea>
       </div>
       <div class="d-flex justify-content-center">
         <div class="row">
           <div id="custom-btn-div" class="d-flex justify-content-end gap-2">
-            <button class="btn btn-custom btn-lg">작성</button>
+            <button class="btn btn-custom btn-lg" @click="boardWrite">
+              작성
+            </button>
             <router-link
               class="btn btn-custom btn-lg"
               :to="{ name: 'boardlist' }"
@@ -35,7 +41,42 @@
 </template>
 
 <script>
-export default {};
+import { mapActions } from "vuex";
+
+const boardStore = "boardStore";
+export default {
+  name: "BoardWrite",
+  data() {
+    return {
+      title: null,
+      author: "admin",
+      content: null,
+    };
+  },
+  methods: {
+    ...mapActions(boardStore, ["post"]),
+    async boardWrite() {
+      if (!this.isBlank()) return;
+      const board = {
+        title: this.title,
+        author: this.author,
+        content: this.content,
+      };
+      await this.post(board);
+    },
+    isBlank() {
+      if (!this.title) {
+        this.$refs.title.focus();
+        return false;
+      }
+      if (!this.content) {
+        this.$refs.content.focus();
+        return false;
+      }
+      return true;
+    },
+  },
+};
 </script>
 
 <style scoped>
