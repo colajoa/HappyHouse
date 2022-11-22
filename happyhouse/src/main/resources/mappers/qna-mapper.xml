@@ -17,31 +17,31 @@
         <![CDATA[ 
             update qna
             set hit = hit + 1
-            where id = #{id}
+            where idx = #{idx}
         ]]>
     </update>
     <select id="detailQna" resultType="QnaDto">
         <![CDATA[ 
-        select * from qna where id=#{id}
+        select * from qna where idx=#{idx}
         ]]>
     </select>
     <update id="updateQna" parameterType="QnaDto">
         <![CDATA[ 
         update qna
         set title=#{title}, content=#{content}
-        where id=#{id}
+        where idx=#{idx}
         ]]>
     </update>
     <delete id="deleteQna" parameterType="int">
         <![CDATA[ 
-        delete from qna where id=#{id}
+        delete from qna where idx=#{idx}
         ]]>
     </delete>
     <update id="replyQna" parameterType="QnaDto">
         <![CDATA[ 
             update qna
             set isReply = #{isReply}
-            where id = #{id}
+            where idx = #{idx}
         ]]>
     </update>
 </mapper>
