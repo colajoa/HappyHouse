@@ -147,7 +147,7 @@ const userStore = {
           console.log(e);
           commit("SET_IS_LOGIN", false);
           commit("SET_IS_VALID_TOKEN", false);
-          this.moveToLogin();
+          this.$router.replace("/user/login");
         });
     },
     // 아이디 찾기
@@ -162,9 +162,6 @@ const userStore = {
     // 비밀번호 찾기
     async setNewPassword(user) {
       await http.post("/house/user/pwd", user);
-    },
-    moveToLogin() {
-      this.$router.replace("/user/login");
     },
   },
 };
