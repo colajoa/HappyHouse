@@ -13,17 +13,17 @@ public class BoardDto {
 	private String writer;
 	private String content;
 	private int hit;
-	private String createdAt;
+	private String createdat;
 
 	@Builder
-	public BoardDto(int idx, String title, String writer, String content, int hit, String createdAt) {
+	public BoardDto(int idx, String title, String writer, String content, int hit, String createdat) {
 		super();
 		this.idx = idx;
 		this.title = title;
 		this.writer = writer;
 		this.content = content;
 		this.hit = hit;
-		this.createdAt = createdAt;
+		this.createdat = createdat;
 	}
     
 }
