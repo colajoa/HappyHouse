@@ -16,7 +16,8 @@
         </div>
 
         <nav id="navbar" class="navbar">
-          <ul v-if="!isLogin">
+          <!--로그인 전-->
+          <ul>
             <li>
               <router-link class="nav-link scrollto" :to="{ name: 'board' }"
                 >공지사항</router-link
@@ -29,7 +30,9 @@
             </li>
             <i class="bi bi-list mobile-nav-toggle"></i>
           </ul>
-          <ul v-else>
+
+          <!--로그인 후-->
+          <ul>
             <li>
               <router-link class="nav-link scrollto" :to="{ name: 'test' }"
                 >테스트 페이지</router-link
@@ -51,9 +54,17 @@
               >
             </li>
             <li id="mypage">
-              <router-link class="nav-link scrollto" :to="{ name: 'mypage' }"
-                >{{ userInfo.name }}님</router-link
-              >
+              <router-link class="nav-link scrollto" :to="{ name: 'mypage' }">
+                님
+                <!-- {{ userInfo.name }}님 -->
+              </router-link>
+            </li>
+            <!-- click 버튼 -->
+            <li id="mypage">
+              <router-link class="nav-link scrollto" :to="{ name: 'mypage' }">
+                님
+                <!-- {{ userInfo.name }}님 -->
+              </router-link>
             </li>
             <li>
               <button class="nav-link scrollto" @click="logout">
@@ -102,4 +113,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.navbar button {
+  background: none;
+  border: none;
+}
+</style>
