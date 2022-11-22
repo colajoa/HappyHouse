@@ -5,6 +5,7 @@ import createPersistedState from "vuex-persistedstate";
 import aptStore from "@/store/modules/AptStore.js";
 import userStore from "@/store/modules/UserStore.js";
 import boardStore from "@/store/modules/BoardStore.js";
+import qnaStore from "@/store/modules/QnaStore.js";
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     aptStore,
     userStore,
     boardStore,
+    qnaStore,
   },
   plugins: [
     createPersistedState({

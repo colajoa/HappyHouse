@@ -3,7 +3,11 @@
     <h2 class="text-center fw-normal" style="color: #2f4d5a">질문 목록</h2>
     <div class="table-responsive container">
       <div class="d-flex justify-content-center">
+        <div v-if="!qnas">
+          Q&A가 존재하지 않습니다~.~<br />글을 작성해보세요!
+        </div>
         <table
+          v-else
           class="table table-hover table-fixed text-center accordion accordion-flush"
           id="qna-table"
         >
@@ -17,120 +21,32 @@
             </tr>
           </thead>
           <tbody>
-            <template v-for="qna in qnas">
-              <tr :key="qna">
-                <td>{{ qna.articleno }}</td>
-                <td
-                  class="view-btn accordion-item"
-                  data-bs-toggle="collapse"
-                  :data-bs-target="'qna' + qna.articleno"
-                >
-                  {{ qna.title }}
-                  <!-- <router-link
-                    :to="{
-                      name: 'qnaview',
-                      params: { articleno: data.item.articleno },
-                    }"
-                    >{{ qna.title }}</router-link
-                  > -->
-                </td>
-                <td>{{ qna.author }}</td>
-                <td>{{ qna.date }}</td>
-                <td>{{ qna.hit }}</td>
-              </tr>
-
-              <!--QnA-->
-              <tr
-                class="accordion-collapse collapse delay-zero"
-                :key="qna"
-                :id="'qna' + qna.articleno"
-                data-bs-parent="#qna-table"
-              >
-                <td>Q</td>
-                <td colspan="4">{{ qna.content }}</td>
-              </tr>
-              <qna-reply :key="qna" :qnaid="qnaid"></qna-reply>
-            </template>
-            <!--여기 위에는 진짜 출력-->
-            <tr>
-              <th scope="row">1</th>
-              <td>
-                <router-link
-                  class="view-btn"
-                  :to="{
-                    name: 'qnaview',
-                    params: { articleno: 1 },
-                  }"
-                  >테스트 링크</router-link
-                >
+            <tr
+              v-for="qna in qnas"
+              :key="qna.idx"
+              data-bs-toggle="collapse"
+              :data-bs-target="'#qna' + qna.idx"
+            >
+              <td>{{ qna.idx }}</td>
+              <td class="view-btn accordion-item" @click="getQna(qna.idx)">
+                {{ qna.title }}
               </td>
-              <td>koreakoreakorea</td>
-              <td>2022.11.20</td>
-              <td>1</td>
+              <td>{{ qna.writer }}</td>
+              <td>{{ qna.createdat }}</td>
+              <td>{{ qna.hit }}</td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>2</td>
-              <td>2</td>
-              <td>2</td>
-              <td>1</td>
+
+            <!--QnA-->
+            <tr
+              v-if="isShow"
+              class="accordion-collapse collapse delay-zero"
+              :id="'qna' + qnaId"
+              data-bs-parent="#qna-table"
+            >
+              <td>Q</td>
+              <td colspan="4">{{ qna.content }}</td>
             </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>3</td>
-              <td>3</td>
-              <td>3</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>5</td>
-              <td>5</td>
-              <td>5</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">6</th>
-              <td>6</td>
-              <td>6</td>
-              <td>6</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">7</th>
-              <td>7</td>
-              <td>7</td>
-              <td>7</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">8</th>
-              <td>8</td>
-              <td>8</td>
-              <td>8</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">9</th>
-              <td>9</td>
-              <td>9</td>
-              <td>9</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">10</th>
-              <td>10</td>
-              <td>10</td>
-              <td>10</td>
-              <td>1</td>
-            </tr>
+            <qna-reply :qnaid="qnaId"></qna-reply>
           </tbody>
         </table>
       </div>
@@ -140,7 +56,7 @@
             <router-link
               class="btn btn-custom btn-lg"
               :to="{ name: 'qnawrite' }"
-              >글쓰기</router-link
+              >질문하기</router-link
             >
           </div>
         </div>
@@ -150,10 +66,40 @@
 </template>
 
 <script>
-import QnaReply from "./QnaReply.vue";
+// import QnaReply from "./QnaReply.vue";
+// import QnaView from "./QnaView.vue";
+import { mapActions, mapState } from "vuex";
 
+const qnaStore = "qnaStore";
 export default {
-  components: { QnaReply },
+  name: "QnaList",
+  // components: { QnaView },
+  data() {
+    return {
+      idx: null,
+    };
+  },
+  mounted() {
+    this.getQnaList();
+  },
+  computed: {
+    ...mapState(qnaStore, ["qnas", "qna", "qnaId", "isShow"]),
+  },
+  methods: {
+    ...mapActions(qnaStore, ["qnaList", "detailQna", "setQnaId", "viewQna"]),
+    async getQnaList() {
+      try {
+        await this.qnaList();
+      } catch (e) {
+        console.log(e.response.data.message);
+      }
+    },
+    async getQna(index) {
+      this.setQnaId(index);
+      await this.viewQna(this.qnaId);
+      await this.detailQna(this.qnaId);
+    },
+  },
 };
 </script>
 
