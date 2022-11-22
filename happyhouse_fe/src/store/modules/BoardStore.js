@@ -10,7 +10,11 @@ const BoardStore = {
       return await http.get("/house/board/list");
     },
     async post(state, board) {
-      await http.post("/house/board/register", board);
+      await http.post("/house/board/register", board).then((res) => {
+        if (res.status == 200) {
+          return;
+        }
+      });
     },
     async detailBoard(state, idx) {
       await http.get(`/house/board/detail/${idx}`);

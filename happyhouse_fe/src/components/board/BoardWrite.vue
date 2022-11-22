@@ -49,20 +49,26 @@ export default {
   data() {
     return {
       title: null,
-      author: "admin",
+      writer: "admin",
       content: null,
     };
   },
   methods: {
+    // FIXME: 관리자만 작성할 수 있도록 수정
     ...mapActions(boardStore, ["post"]),
     async boardWrite() {
       if (!this.isBlank()) return;
       const board = {
         title: this.title,
-        author: this.author,
+        writer: this.writer,
         content: this.content,
       };
-      await this.post(board);
+      try {
+        await this.post(board);
+        this.$router.push("/board/list");
+      } catch (e) {
+        alert("서버에 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      }
     },
     isBlank() {
       if (!this.title) {
