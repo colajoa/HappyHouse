@@ -7,7 +7,7 @@
       width="100"
       height="100"
     />
-    <h2 class="mb-3" style="color: #2f4d5a">여기는 회원 이름</h2>
+    <h2 class="mb-3" style="color: #2f4d5a">{{ userInfo.name }}</h2>
 
     <div class="">
       <div class="form-control" id="form-first" ref="name">
@@ -16,17 +16,17 @@
     </div>
     <div>
       <div class="form-control" id="form-middle" ref="id">
-        <label>아이디</label>
+        <label>{{ userInfo.id }}</label>
       </div>
     </div>
     <div class="">
       <div class="form-control" id="form-middle" ref="password">
-        <label>비밀번호</label>
+        <label>{{ userInfo.pwd }}</label>
       </div>
     </div>
     <div class="">
       <div class="form-control" id="form-last" ref="phoneNumber">
-        <label>전화번호</label>
+        <label>{{ userInfo.phone_number }}</label>
       </div>
     </div>
 
@@ -40,7 +40,18 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+
+export default {
+  name: "UserPage",
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapState("userStore", ["userInfo"]),
+  },
+  methods: {},
+};
 </script>
 
 <style scoped>
