@@ -2,12 +2,33 @@ import http from "@/api/axios.js";
 
 const BoardStore = {
   namespaced: true,
-  state: {},
-  getters: {},
-  mutations: {},
+  state: {
+    boards: null,
+    board: null,
+  },
+  getters: {
+    checkBoards(state) {
+      return state.boards;
+    },
+    checkBoard(state) {
+      return state.board;
+    },
+  },
+  mutations: {
+    SET_BOARDS: (state, boards) => {
+      state.boards = boards;
+    },
+    SET_BOARD: (state, board) => {
+      state.board = board;
+    },
+  },
   actions: {
-    async boardList(state) {
-      return await http.get("/house/board/list");
+    async boardList({ commit }) {
+      await http.get("/house/board/list").then((res) => {
+        if (res.status == 200) {
+          commit("SET_BOARDS", res.data);
+        }
+      });
     },
     async post(state, board) {
       await http.post("/house/board/register", board).then((res) => {
