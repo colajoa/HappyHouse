@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BoardDto {
 
-    private int id;
+    private int idx;
 	private String title;
 	private String writer;
 	private String content;
@@ -16,9 +16,9 @@ public class BoardDto {
 	private String createdAt;
 
 	@Builder
-	public BoardDto(int id, String title, String writer, String content, int hit, String createdAt) {
+	public BoardDto(int idx, String title, String writer, String content, int hit, String createdAt) {
 		super();
-		this.id = id;
+		this.idx = idx;
 		this.title = title;
 		this.writer = writer;
 		this.content = content;
