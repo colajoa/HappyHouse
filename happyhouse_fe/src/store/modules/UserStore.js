@@ -87,7 +87,7 @@ const userStore = {
             commit("SET_IS_LOGIN", false);
             commit("SET_IS_LOGIN_ERROR", true);
             commit("SET_IS_VALID_TOKEN", false);
-            this.$router.replace("/user/login");
+            this.moveToLogin();
           }
         });
     },
@@ -146,7 +146,7 @@ const userStore = {
           console.log(e);
           commit("SET_IS_LOGIN", false);
           commit("SET_IS_VALID_TOKEN", false);
-          this.$router.push("/user/login");
+          this.moveToLogin();
         });
     },
     // 아이디 찾기
@@ -161,6 +161,9 @@ const userStore = {
     // 비밀번호 찾기
     async setNewPassword(user) {
       await http.post("/house/user/pwd", user);
+    },
+    moveToLogin() {
+      this.$router.replace("/user/login");
     },
   },
 };
