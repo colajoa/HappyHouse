@@ -39,6 +39,7 @@
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
+      <!--아이디 찾기 탭-->
       <div
         class="tab-pane fade show active"
         id="id-tab-pane"
@@ -50,7 +51,7 @@
           <input
             type="text"
             class="form-control"
-            id="find-first"
+            id="form-first"
             placeholder="이름"
             v-model="name"
           />
@@ -60,7 +61,7 @@
           <input
             type="text"
             class="form-control"
-            id="find-last"
+            id="form-last"
             placeholder="전화번호"
             v-model="phoneNumber"
           />
@@ -74,6 +75,8 @@
           아이디 찾기
         </button>
       </div>
+
+      <!--비밀번호 찾기 탭-->
       <div
         class="tab-pane fade"
         id="password-tab-pane"
@@ -85,7 +88,7 @@
           <input
             type="text"
             class="form-control"
-            id="find-first"
+            id="form-first"
             placeholder="이름"
             v-model="name"
           />
@@ -95,7 +98,7 @@
           <input
             type="text"
             class="form-control"
-            id="find-middle"
+            id="form-middle"
             placeholder="아이디"
             v-model="id"
           />
@@ -105,7 +108,7 @@
           <input
             type="text"
             class="form-control"
-            id="find-last"
+            id="form-last"
             placeholder="전화번호"
             v-model="phoneNumber"
           />
@@ -117,6 +120,44 @@
           @click="findPassword"
         >
           비밀번호 찾기
+        </button>
+      </div>
+
+      <!--비밀번호 변경 탭-->
+      <div
+        class="tab-pane fade"
+        id="password-tab-pane"
+        role="tabpanel"
+        aria-labelledby="password-tab"
+        tabindex="0"
+      >
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="form-first"
+            placeholder="새로운 비밀번호"
+            v-model="newPassword"
+          />
+          <label for="floatingInput">새로운 비밀번호</label>
+        </div>
+
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="form-last"
+            placeholder="비밀번호 확인"
+            v-model="checkPassword"
+          />
+          <label for="floatingInput">비밀번호 확인</label>
+        </div>
+        <button
+          type="button"
+          class="w-100 btn btn-lg btn-custom"
+          @click="changePassword"
+        >
+          비밀번호 변경
         </button>
       </div>
     </div>
@@ -172,17 +213,17 @@ export default {
   z-index: 2;
 }
 
-.form-user input#find-first {
+.form-user input#form-first {
   margin-top: 10px;
   margin-bottom: -1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
-.form-user input#find-middle {
+.form-user input#form-middle {
   margin-bottom: -1px;
   border-radius: 0;
 }
-.form-user input#find-last {
+.form-user input#form-last {
   margin-bottom: 10px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
