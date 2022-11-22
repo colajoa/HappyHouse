@@ -3,7 +3,8 @@
     <h2 class="text-center fw-normal" style="color: #2f4d5a">공지사항 목록</h2>
     <div class="table-responsive container">
       <div class="d-flex justify-content-center">
-        <table class="table table-hover table-fixed text-center">
+        <div v-if="!boards">공지사항이 존재하지 않습니다!</div>
+        <table v-else class="table table-hover table-fixed text-center">
           <thead class="table-light">
             <tr>
               <th scope="col" class="table-index"></th>
@@ -14,100 +15,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="board in boards" :key="board">
-              <td>{{ board.articleno }}</td>
+            <tr v-for="board in boards" :key="board.idx">
+              <td>{{ board.idx }}</td>
               <td>
                 <router-link
                   :to="{
                     name: 'boardview',
-                    params: { articleno: data.item.articleno },
+                    params: { articleno: board.idx },
                   }"
                   >{{ board.title }}</router-link
                 >
               </td>
-              <td>{{ board.author }}</td>
-              <td>{{ board.date }}</td>
+              <td>{{ board.writer }}</td>
+              <td>{{ board.createdat }}</td>
               <td>{{ board.hit }}</td>
-            </tr>
-
-            <tr>
-              <th scope="row">1</th>
-              <td>
-                <router-link
-                  class="view-btn"
-                  :to="{
-                    name: 'boardview',
-                    params: { articleno: 1 },
-                  }"
-                  >테스트 링크</router-link
-                >
-              </td>
-              <td>koreakoreakorea</td>
-              <td>2022.11.20</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>2</td>
-              <td>2</td>
-              <td>2</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>3</td>
-              <td>3</td>
-              <td>3</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>5</td>
-              <td>5</td>
-              <td>5</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">6</th>
-              <td>6</td>
-              <td>6</td>
-              <td>6</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">7</th>
-              <td>7</td>
-              <td>7</td>
-              <td>7</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">8</th>
-              <td>8</td>
-              <td>8</td>
-              <td>8</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">9</th>
-              <td>9</td>
-              <td>9</td>
-              <td>9</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">10</th>
-              <td>10</td>
-              <td>10</td>
-              <td>10</td>
-              <td>1</td>
             </tr>
           </tbody>
         </table>
@@ -128,7 +49,31 @@
 </template>
 
 <script>
-export default {};
+import { mapActions, mapState } from "vuex";
+
+const boardStore = "boardStore";
+export default {
+  name: "BoardList",
+  data() {
+    return {};
+  },
+  mounted() {
+    this.getBoardList();
+  },
+  computed: {
+    ...mapState(boardStore, ["boards"]),
+  },
+  methods: {
+    ...mapActions(boardStore, ["boardList"]),
+    async getBoardList() {
+      try {
+        await this.boardList();
+      } catch (e) {
+        console.log(e.response.data.message);
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
