@@ -3,7 +3,10 @@
     <h2 class="text-center fw-normal" style="color: #2f4d5a">질문 목록</h2>
     <div class="table-responsive container">
       <div class="d-flex justify-content-center">
-        <table class="table table-hover table-fixed text-center">
+        <table
+          class="table table-hover table-fixed text-center accordion accordion-flush"
+          id="qna-table"
+        >
           <thead class="table-light">
             <tr>
               <th scope="col" class="table-index"></th>
@@ -14,21 +17,41 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="qna in qnas" :key="qna">
-              <td>{{ qna.articleno }}</td>
-              <td>
-                <router-link
-                  :to="{
-                    name: 'qnaview',
-                    params: { articleno: data.item.articleno },
-                  }"
-                  >{{ qna.title }}</router-link
+            <template v-for="qna in qnas">
+              <tr :key="qna">
+                <td>{{ qna.articleno }}</td>
+                <td
+                  class="view-btn accordion-item"
+                  data-bs-toggle="collapse"
+                  :data-bs-target="'qna' + qna.articleno"
                 >
-              </td>
-              <td>{{ qna.author }}</td>
-              <td>{{ qna.date }}</td>
-              <td>{{ qna.hit }}</td>
-            </tr>
+                  {{ qna.title }}
+                  <!-- <router-link
+                    :to="{
+                      name: 'qnaview',
+                      params: { articleno: data.item.articleno },
+                    }"
+                    >{{ qna.title }}</router-link
+                  > -->
+                </td>
+                <td>{{ qna.author }}</td>
+                <td>{{ qna.date }}</td>
+                <td>{{ qna.hit }}</td>
+              </tr>
+
+              <!--QnA-->
+              <tr
+                class="accordion-collapse collapse delay-zero"
+                :key="qna"
+                :id="'qna' + qna.articleno"
+                data-bs-parent="#qna-table"
+              >
+                <td>Q</td>
+                <td colspan="4">{{ qna.content }}</td>
+              </tr>
+              <qna-reply :key="qna" :qnaid="qnaid"></qna-reply>
+            </template>
+            <!--여기 위에는 진짜 출력-->
             <tr>
               <th scope="row">1</th>
               <td>
@@ -114,7 +137,9 @@
       <div class="d-flex justify-content-center">
         <div class="row">
           <div id="custom-btn-div" class="col-md-12 d-flex justify-content-end">
-            <router-link class="btn btn-custom" :to="{ name: 'qnawrite' }"
+            <router-link
+              class="btn btn-custom btn-lg"
+              :to="{ name: 'qnawrite' }"
               >글쓰기</router-link
             >
           </div>
@@ -125,7 +150,11 @@
 </template>
 
 <script>
-export default {};
+import QnaReply from "./QnaReply.vue";
+
+export default {
+  components: { QnaReply },
+};
 </script>
 
 <style scoped>
@@ -169,5 +198,8 @@ table {
 
 .view-btn:hover {
   text-decoration: underline !important;
+}
+.delay-zero {
+  transition: none;
 }
 </style>

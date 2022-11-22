@@ -5,14 +5,14 @@
     <div class="table-responsive container">
       <div class="row">
         <div class="gap-2 col-md-12 d-flex justify-content-end">
-          <router-link class="btn btn-custom" :to="{ name: 'qna' }"
+          <router-link class="btn btn-custom btn-lg" :to="{ name: 'qna' }"
             >질문받는다.</router-link
           >
-          <button type="button" class="btn btn-custom">글쓰기</button>
+          <button type="button" class="btn btn-lg btn-custom">글쓰기</button>
         </div>
       </div>
       <table
-        class="table table-hover table-fixed text-center accordion-flush"
+        class="table table-hover table-fixed text-center accordion accordion-flush"
         id="accordionFlushExample"
       >
         <thead class="table-light">
@@ -30,11 +30,11 @@
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
                   <button
-                    class="accordion-button"
+                    class="accordion-button collapsed"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#collapseOne"
-                    aria-expanded="true"
+                    aria-expanded="false"
                     aria-controls="collapseOne"
                   >
                     Accordion Item #1
@@ -42,9 +42,9 @@
                 </h2>
                 <div
                   id="collapseOne"
-                  class="accordion-collapse collapse show"
+                  class="accordion-collapse collapse"
                   aria-labelledby="headingOne"
-                  data-bs-parent="#accordionExample"
+                  data-bs-parent="#accordionFlushExample"
                 >
                   <div class="accordion-body">
                     <strong>This is the first item's accordion body.</strong> It
@@ -98,20 +98,40 @@
             <td>@fat</td>
           </tr>
           <tr>
-            <th scope="row">3</th>
-            <td>Larry the Bird</td>
+            <th scope="row">1</th>
+            <td data-bs-toggle="collapse" data-bs-target="#test1">
+              Larry the Bird
+            </td>
             <td>As</td>
             <td>@twitter</td>
           </tr>
+          <tr
+            class="accordion-collapse collapse ani-test"
+            id="test1"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <td>Q</td>
+            <td colspan="4">테스트입니다.</td>
+          </tr>
+
           <tr>
-            <th scope="row">3</th>
-            <td>Larry the Bird</td>
+            <th scope="row">2</th>
+            <td data-bs-toggle="collapse" data-bs-target="#test2">Larry</td>
             <td>As</td>
             <td>@twitter</td>
           </tr>
+          <tr
+            class="accordion-collapse collapse ani-test"
+            id="test2"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <td>Q</td>
+            <td colspan="4">테스트입니다.</td>
+          </tr>
+
           <tr>
             <th scope="row">3</th>
-            <td>Larry the Bird</td>
+            <td>Larry the</td>
             <td>As</td>
             <td>@twitter</td>
           </tr>
@@ -312,92 +332,103 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="accordion accordion-flush" id="accordionFlushExample">
+    <!-- <div class="container">
+      <div class="accordion accordion-flush" id="accordionExample">
         <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingOne">
+          <h2 class="accordion-header" id="headingOne">
             <button
               class="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseOne"
+              data-bs-target="#collapseOne"
               aria-expanded="false"
-              aria-controls="flush-collapseOne"
+              aria-controls="collapseOne"
             >
               Accordion Item #1
             </button>
           </h2>
           <div
-            id="flush-collapseOne"
+            id="collapseOne"
             class="accordion-collapse collapse"
-            aria-labelledby="flush-headingOne"
-            data-bs-parent="#accordionFlushExample"
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
           >
             <div class="accordion-body">
-              Placeholder content for this accordion, which is intended to
-              demonstrate the <code>.accordion-flush</code> class. This is the
-              first item's accordion body.
+              <strong>This is the first item's accordion body.</strong> It is
+              shown by default, until the collapse plugin adds the appropriate
+              classes that we use to style each element. These classes control
+              the overall appearance, as well as the showing and hiding via CSS
+              transitions. You can modify any of this with custom CSS or
+              overriding our default variables. It's also worth noting that just
+              about any HTML can go within the <code>.accordion-body</code>,
+              though the transition does limit overflow.
             </div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingTwo">
+          <h2 class="accordion-header" id="headingTwo">
             <button
               class="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseTwo"
+              data-bs-target="#collapseTwo"
               aria-expanded="false"
-              aria-controls="flush-collapseTwo"
+              aria-controls="collapseTwo"
             >
               Accordion Item #2
             </button>
           </h2>
           <div
-            id="flush-collapseTwo"
+            id="collapseTwo"
             class="accordion-collapse collapse"
-            aria-labelledby="flush-headingTwo"
-            data-bs-parent="#accordionFlushExample"
+            aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample"
           >
             <div class="accordion-body">
-              Placeholder content for this accordion, which is intended to
-              demonstrate the <code>.accordion-flush</code> class. This is the
-              second item's accordion body. Let's imagine this being filled with
-              some actual content.
+              <strong>This is the second item's accordion body.</strong> It is
+              hidden by default, until the collapse plugin adds the appropriate
+              classes that we use to style each element. These classes control
+              the overall appearance, as well as the showing and hiding via CSS
+              transitions. You can modify any of this with custom CSS or
+              overriding our default variables. It's also worth noting that just
+              about any HTML can go within the <code>.accordion-body</code>,
+              though the transition does limit overflow.
             </div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingThree">
+          <h2 class="accordion-header" id="headingThree">
             <button
               class="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseThree"
+              data-bs-target="#collapseThree"
               aria-expanded="false"
-              aria-controls="flush-collapseThree"
+              aria-controls="collapseThree"
             >
               Accordion Item #3
             </button>
           </h2>
           <div
-            id="flush-collapseThree"
+            id="collapseThree"
             class="accordion-collapse collapse"
-            aria-labelledby="flush-headingThree"
-            data-bs-parent="#accordionFlushExample"
+            aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample"
           >
             <div class="accordion-body">
-              Placeholder content for this accordion, which is intended to
-              demonstrate the <code>.accordion-flush</code> class. This is the
-              third item's accordion body. Nothing more exciting happening here
-              in terms of content, but just filling up the space to make it
-              look, at least at first glance, a bit more representative of how
-              this would look in a real-world application.
+              <strong>This is the third item's accordion body.</strong> It is
+              hidden by default, until the collapse plugin adds the appropriate
+              classes that we use to style each element. These classes control
+              the overall appearance, as well as the showing and hiding via CSS
+              transitions. You can modify any of this with custom CSS or
+              overriding our default variables. It's also worth noting that just
+              about any HTML can go within the <code>.accordion-body</code>,
+              though the transition does limit overflow.
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="conatiner">
       <div class="accordion accordion-flush" id="accordionExample">
@@ -567,5 +598,9 @@ export default {
   margin-top: -4px;
   margin-right: -4px;
   vertical-align: top;
+}
+
+.ani-test {
+  transition: none;
 }
 </style>

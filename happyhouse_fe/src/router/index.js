@@ -53,6 +53,11 @@ const routes = [
         name: "boardview",
         component: () => import("@/components/board/BoardView"),
       },
+      {
+        path: "update/:articleno",
+        name: "boardupdate",
+        component: () => import("@/components/board/BoardUpdate"),
+      },
     ],
   },
   {
@@ -100,6 +105,11 @@ const routes = [
         component: () => import("@/components/user/UserFind"),
       },
     ],
+  },
+  {
+    path: "/mypage",
+    name: "mypage",
+    component: () => import("@/views/AppMypage"),
   },
 ];
 
