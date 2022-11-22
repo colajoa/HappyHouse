@@ -84,7 +84,12 @@ export default {
     ...mapState(userStore, ["isLogin", "isLoginError", "userInfo"]),
   },
   methods: {
-    ...mapActions(userStore, ["userConfirm", "kakaoLogin", "getUserInfo"]),
+    ...mapActions(userStore, [
+      "userConfirm",
+      "kakaoLogin",
+      "getUserInfo",
+      "moveToLogin",
+    ]),
     async login() {
       try {
         await this.userConfirm({
@@ -92,22 +97,25 @@ export default {
           secret: this.password,
         });
         if (this.isLogin) {
-          await this.getUserInfo();
+          const token = sessionStorage.getItem("token");
+          await this.getUserInfo(token);
           console.log(this.userInfo);
           this.$router.push({ name: "main" });
         }
       } catch (e) {
         console.log(e);
-        // ERROR
-        const errorCode = e.response.data.code;
-        if (errorCode === "USER_NOT_FOUND") {
-          alert("아이디가 존재하지 않습니다.");
-          this.$refs.id.focus();
-        } else if (errorCode === "INVALID_PASSWORD") {
-          alert("비밀번호가 일치하지 않습니다.");
-          this.$refs.password.focus();
-        } else {
-          alert("서버 오류");
+        if (e.response) {
+          // ERROR
+          const errorCode = e.response.data.code;
+          if (errorCode === "USER_NOT_FOUND") {
+            alert("아이디가 존재하지 않습니다.");
+            this.$refs.id.focus();
+          } else if (errorCode === "INVALID_PASSWORD") {
+            alert("비밀번호가 일치하지 않습니다.");
+            this.$refs.password.focus();
+          } else {
+            alert("서버 오류");
+          }
         }
       }
     },

@@ -132,7 +132,8 @@ const userStore = {
       });
     },
     // 회원 정보 찾기
-    async getUserInfo({ commit }) {
+    async getUserInfo({ commit }, token) {
+      http.defaults.headers["Authorization"] = token;
       await http
         .get("/house/user/info")
         .then((res) => {
@@ -142,7 +143,7 @@ const userStore = {
             console.log("유저 정보 없음");
           }
         })
-        .catch((e) => {
+        .catch(function (e) {
           console.log(e);
           commit("SET_IS_LOGIN", false);
           commit("SET_IS_VALID_TOKEN", false);
