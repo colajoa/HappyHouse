@@ -36,8 +36,8 @@
 
     <insert id="insertUser" parameterType="UserDto">
         <![CDATA[ 
-            insert into user(id, pwd, name, phone_number) 
-            values(#{id}, #{pwd}, #{name}, #{phone_number})
+            insert into user(id, pwd, name, phone_number, role) 
+            values(#{id}, #{pwd}, #{name}, #{phone_number}, "user")
         ]]>
     </insert>
 
