@@ -70,7 +70,7 @@
         <button
           type="button"
           class="w-100 btn btn-lg btn-custom"
-          @click="update"
+          @click="updateUserInfo"
         >
           회원정보 수정
         </button>
@@ -106,7 +106,7 @@
         <button
           type="button"
           class="w-100 btn btn-lg btn-custom"
-          @click="findId"
+          @click="updatePassword"
         >
           비밀번호 변경
         </button>
@@ -116,7 +116,52 @@
 </template>
 
 <script>
-export default {};
+import { mapActions, mapState } from "vuex";
+
+const userPageStore = "userPageStore";
+export default {
+  name: "UserUpdate",
+  data() {
+    return {
+      name: null,
+      phoneNumber: null,
+      password: null,
+      newPassword: null,
+    };
+  },
+  computed: {
+    ...mapState(userPageStore, [""]),
+  },
+  methods: {
+    ...mapActions(userPageStore, ["changeUserInfo", "changePassword"]),
+    async updateUserInfo() {
+      const user = {
+        name: this.name,
+        phone_number: this.phoneNumber,
+      };
+      try {
+        await this.changeUserInfo(user);
+        alert("회원정보가 수정되었습니다.");
+        this.$router.replace("/mypage/info");
+      } catch (e) {
+        alert("서버 오류입니다.\n잠시 후 다시 시도해주세요.");
+      }
+    },
+    async updatePassword() {
+      const pwds = {
+        password: this.password,
+        newPassword: this.newPassword,
+      };
+      try {
+        await this.changePassword(pwds);
+        alert("비밀번호가 수정되었습니다.");
+        this.$router.replace("/mypage/info");
+      } catch (e) {
+        alert("서버 오류입니다.\n잠시 후 다시 시도해주세요.");
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
