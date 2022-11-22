@@ -36,7 +36,9 @@
               class="btn btn-lg btn-custom"
               >수정</router-link
             >
-            <button class="btn btn-lg btn-custom">삭제</button>
+            <button class="btn btn-lg btn-custom" @click="removePost">
+              삭제
+            </button>
           </div>
         </div>
       </div>
@@ -51,22 +53,34 @@ const boardStore = "boardStore";
 export default {
   name: "BoardView",
   data() {
-    return {};
+    return {
+      idx: null,
+    };
   },
   async created() {
     const url = window.location.href.split("/");
-    const idx = Number.parseInt(url[5]);
+    this.idx = Number.parseInt(url[5]);
     // 조회수
-    await this.viewBoard(idx);
-    this.getBoard(idx);
+    await this.viewBoard(this.idx);
+    this.getBoard();
   },
   computed: {
     ...mapState(boardStore, ["board"]),
   },
   methods: {
-    ...mapActions(boardStore, ["viewBoard", "detailBoard"]),
-    async getBoard(idx) {
-      await this.detailBoard(idx);
+    ...mapActions(boardStore, ["viewBoard", "detailBoard", "removeBoard"]),
+    async getBoard() {
+      await this.detailBoard(this.idx);
+    },
+    async removePost() {
+      const result = confirm("삭제하시겠습니까?");
+      if (!result) return;
+      try {
+        await this.removeBoard(this.idx);
+        this.$router.push("/board/list");
+      } catch (e) {
+        alert("삭제에 실패했습니다.\n 잠시 후 다시 시도해주세요.");
+      }
     },
   },
 };

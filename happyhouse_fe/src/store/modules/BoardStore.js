@@ -52,7 +52,7 @@ const BoardStore = {
       await http.put(`/house/board/post`, board);
     },
     async removeBoard(state, idx) {
-      await http.delete(`/house/board/${idx}`);
+      await http.delete(`/house/board/post/${idx}`);
     },
   },
 };
