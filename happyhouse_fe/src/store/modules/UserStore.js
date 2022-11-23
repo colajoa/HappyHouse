@@ -161,7 +161,7 @@ const userStore = {
       return id;
     },
     // 비밀번호 찾기
-    async setNewPassword(user) {
+    async getUserByPassword(state, user) {
       await http.post("/house/user/pwd", user);
     },
     // 아이디 중복 검사
