@@ -34,18 +34,16 @@ public class UserServiceImpl implements UserService {
 	private KakaoOAuth2ServiceIml kakaoOAuth2;
 
 	@Override
-	public UserDto getLoginUser(UserDto user) {
-		UserDto findUser = userDao.getLoginUser(user.getId());
+	public void getLoginUser(UserDto user) {
+		String findPassword = userDao.getPassword(user.getId());
 
 		// 아이디가 존재하지 않을 때
-		if (findUser == null)
+		if (findPassword == null)
 			throw new CustomException(ErrorCode.USER_NOT_FOUND);
 		// 비밀번호가 일치하지 않을 때
-		if (!passwordEncoder.matches(user.getPwd(), findUser.getPwd())){
+		if (!passwordEncoder.matches(user.getPwd(), findPassword)){
 			throw new CustomException(ErrorCode.INVALID_PASSWORD);
 		}
-
-		return findUser;
 	}
 
 	@Override
@@ -99,6 +97,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int deleteUser(UserDto user) {
+		// 비밀번호 일치하는지 확인
+		String pwd = userDao.getPassword(user.getId());
+		if(!passwordEncoder.matches(user.getPwd(), pwd))
+			throw new CustomException(ErrorCode.INVALID_PASSWORD);
+
 		int n = userDao.deleteUser(user);
 		if (n == 0)
 			throw new CustomException(ErrorCode.SERVER_ERROR);
@@ -124,11 +127,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int modifyPwd(String id, Map<String, String> passwords) {
 		if(passwords.get("nowPassword") != null){
-			UserDto findUser = UserDto.builder().id(id).pwd(passwords.get("nowPassword")).build();
-			int cnt = userDao.findUserByIdPwd(findUser);
-			if(cnt == 0)	throw new CustomException(ErrorCode.USER_NOT_FOUND);
+			String pwd = userDao.getPassword(id);
+			if(!passwordEncoder.matches(passwords.get("nowPassword"), pwd))
+				throw new CustomException(ErrorCode.INVALID_PASSWORD);
 		}
-		UserDto user = UserDto.builder().id(id).pwd(passwords.get("newPassword")).build();
+
+		if(id == null)	id = passwords.get("id");
+		String encodedPassword = passwordEncoder.encode(passwords.get("newPassword"));
+		UserDto user = UserDto.builder().id(id).pwd(encodedPassword).build();
 		int n = userDao.modifyPwd(user);
 		if (n == 0)
 			throw new CustomException(ErrorCode.SERVER_ERROR);

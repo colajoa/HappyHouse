@@ -65,7 +65,8 @@ public class JwtTokenProvider {
       throw new CustomException(ErrorCode.INVALID_TOKEN);
     } catch(IllegalArgumentException ex){
       log.error("JWT claims string is empty.");
-      throw new CustomException(ErrorCode.INVALID_TOKEN);
     }
+
+    return false;
   }
 }

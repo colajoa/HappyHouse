@@ -50,16 +50,15 @@
     <update id="updateUser" parameterType="UserDto">
         <![CDATA[
             update user
-            set pwd = #{pwd}, name = #{name}, phone_number = #{phone_number}
+            set name = #{name}, phone_number = #{phone_number}
             where id = #{id} 
         ]]>
     </update>
 
     <delete id="deleteUser" parameterType="UserDto">
         <![CDATA[ 
-            delete 
-            from user
-            where id = #{id} and pwd = #{pwd}
+            delete from user
+            where id = #{id}
         ]]>
     </delete>
 
@@ -78,9 +77,9 @@
         ]]>
     </select>
 
-    <select id="findUserByIdPwd" parameterType="UserDto" resultType="int">
+    <select id="getPassword" parameterType="string" resultType="string">
         <![CDATA[ 
-            select count(*) from user where id=#{id} and pwd=#{pwd}
+            select pwd from user where id=#{id}
         ]]>
     </select>
 

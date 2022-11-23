@@ -55,7 +55,7 @@ public class UserController {
      */
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody @Validated Token.Request user) {
-        UserDto findUser = userService.getLoginUser(UserDto.builder().id(user.getId()).pwd(user.getSecret()).build());
+        userService.getLoginUser(UserDto.builder().id(user.getId()).pwd(user.getSecret()).build());
 
         Authentication authentication = new UserAuthentication(user.getId(), null, null);
         String token = JwtTokenProvider.generateToken(authentication);
@@ -110,9 +110,13 @@ public class UserController {
      * @param deleteInfo
      * @return
      */
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUser(@RequestBody UserDto deleteInfo) {
-        userService.deleteUser(deleteInfo);
+    @PostMapping("/withdraw")
+    public ResponseEntity<?> deleteUser(@RequestBody Map<String, String> password,HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        String userId = JwtTokenProvider.getUserIdFromJWT(token);
+
+        UserDto user = UserDto.builder().id(userId).pwd(password.get("pwd")).build();
+        userService.deleteUser(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -174,7 +178,8 @@ public class UserController {
     @PostMapping("/changepwd")
     public ResponseEntity<?> modifyPwd(@RequestBody Map<String, String> passwords, HttpServletRequest request){
         String token = request.getHeader("Authorization");
-        String userId = JwtTokenProvider.getUserIdFromJWT(token);
+        String userId = null;
+        if(token.length() > 0)  userId = JwtTokenProvider.getUserIdFromJWT(token);
 
         userService.modifyPwd(userId, passwords);
         return ResponseEntity.ok(HttpStatus.OK);
