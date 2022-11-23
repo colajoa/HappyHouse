@@ -12,7 +12,7 @@
     <div class="form-floating">
       <input
         type="text"
-        class="form-control"
+        :class="[isValidName ? 'form-control' : 'form-control is-invalid']"
         id="join-first"
         placeholder="이름"
         v-model="name"
@@ -23,19 +23,19 @@
     <div class="form-floating">
       <input
         type="text"
-        class="form-control"
+        :class="[isValidId ? 'form-control' : 'form-control is-invalid']"
         id="join-middle"
         placeholder="아이디"
         v-model="id"
         ref="id"
-        @keypress="idCheck"
+        @keypress="checkId"
       />
-      <label for="floatingInput">아이디 {{ msg }}</label>
+      <label for="floatingInput">아이디</label>
     </div>
     <div class="form-floating">
       <input
         type="password"
-        class="form-control"
+        :class="[isValidPass ? 'form-control' : 'form-control is-invalid']"
         id="join-middle"
         placeholder="비밀번호"
         v-model="password"
@@ -46,7 +46,7 @@
     <div class="form-floating">
       <input
         type="text"
-        class="form-control"
+        :class="[isValidPhone ? 'form-control' : 'form-control is-invalid']"
         id="join-last"
         placeholder="전화번호"
         v-model="phoneNumber"
@@ -74,6 +74,10 @@ export default {
       name: null,
       phoneNumber: null,
       msg: null,
+      isValidId: true,
+      isValidPass: true,
+      isValidName: true,
+      isValidPhone: true,
     };
   },
   methods: {
@@ -81,7 +85,6 @@ export default {
     async join() {
       // 빈 칸이 존재하면 input에 focus
       if (!this.isBlank()) return;
-
       // 유효성 검사
       if (!this.validation()) return;
 
@@ -98,26 +101,63 @@ export default {
         console.log(e);
       }
     },
+    // 빈 칸일 경우
     isBlank() {
       if (!this.name) {
+        this.isValidName = false;
         this.$refs.name.focus();
         return false;
+      } else {
+        this.isValidName = true;
       }
       if (!this.id) {
+        this.isValidId = false;
         this.$refs.id.focus();
         return false;
+      } else {
+        this.isValidId = true;
       }
       if (!this.password) {
+        this.isValidPass = false;
         this.$refs.password.focus();
         return false;
+      } else {
+        this.isValidPass = true;
       }
       if (!this.phoneNumber) {
+        this.isValidPhone = false;
         this.$refs.phoneNumber.focus();
         return false;
+      } else {
+        this.isValidPhone = true;
       }
       return true;
     },
+    // 유효성 검사
     validation() {
+      if (!this.validateId(this.id)) {
+        this.isValidId = false;
+        this.$refs.id.focus();
+        return false;
+      } else {
+        this.isValidId = true;
+      }
+      if (!this.validatePw(this.password)) {
+        console.log(this.password);
+        this.isValidPass = false;
+        this.$refs.password.focus();
+        return false;
+      } else {
+        this.isValidPass = true;
+      }
+      if (!this.validatePhone(this.phoneNumber)) {
+        this.isValidPhone = false;
+        this.$refs.phoneNumber.focus();
+        return false;
+      } else {
+        this.isValidPhone = true;
+      }
+
       return true;
     },
 
@@ -137,6 +177,23 @@ export default {
           console.log(e);
         }
       }
+    },
+    validateId: (id) => {
+      if (id.length >= 6 && id.length <= 12) {
+        console.log(id.length);
+        return true;
+      }
+      return false;
+    },
+
+    validatePw: (pw) => {
+      if (pw.length >= 8) return true;
+      return false;
+    },
+
+    validatePhone: (phone) => {
+      const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{4})-?([0-9]{4})$/;
+      return regPhone.test(phone);
     },
   },
 };

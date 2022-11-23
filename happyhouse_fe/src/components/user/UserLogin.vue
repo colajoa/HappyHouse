@@ -28,7 +28,7 @@
         v-model="password"
         ref="password"
       />
-      <label v-bind:for="isValidPass">비밀번호</label>
+      <label for="floatingPassword">비밀번호</label>
     </div>
 
     <div>
