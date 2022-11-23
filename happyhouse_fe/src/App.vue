@@ -34,6 +34,10 @@ export default {
 </script>
 
 <style>
+body,
+html {
+  height: 100%;
+}
 @import "./assets/css/style.css";
 @import "./assets/vendor/aos/aos.css";
 @import "assets/vendor/bootstrap/css/bootstrap.min.css";
