@@ -1,9 +1,14 @@
 <template>
+  <!-- <div id="map"></div> -->
   <div id="map"></div>
 </template>
 
 <script>
+// import AptArea from "@/components/apt/AptArea.vue";
 export default {
+  // components: {
+  //   AptArea,
+  // },
   name: "AptMap",
   data() {
     return {
@@ -43,12 +48,21 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.container {
+  height: 800px;
+  width: 800px;
+  padding: 0;
+  margin: 0;
+}
+
 #map {
   /* display: none; */
   position: absolute;
-  width: 100%;
-  height: 100%;
+  bottom: 0px;
+  margin-left: 4%;
+  width: 96%;
+  height: 91.6vh;
 
   /* width: 100%;
   height: 100%;

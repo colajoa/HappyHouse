@@ -1,95 +1,114 @@
 <template>
-  <div id="area">
-    <table>
-      <tr>
-        <td>
-          <select
-            id="sido"
-            class="form-select form-select-sm"
-            aria-label=".form-select-sm example"
-            v-model="sidoCode"
-            @change="gugunList"
-          >
-            <option v-for="sido in sidos" :value="sido.value" :key="sido.value">
-              {{ sido.text }}
-            </option>
-          </select>
-        </td>
-        <td>
-          <select
-            id="gugun"
-            class="form-select form-select-sm"
-            aria-label=".form-select-sm example"
-            v-model="gugunCode"
-            @change="dongList"
-          >
-            <option
-              v-for="gugun in guguns"
-              :value="gugun.value"
-              :key="gugun.value"
+  <div class="d-flex" id="area">
+    <div>
+      <table>
+        <tr>
+          <td>
+            <select
+              id="sido"
+              class="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+              v-model="sidoCode"
+              @change="gugunList"
             >
-              {{ gugun.text }}
-            </option>
-          </select>
-        </td>
-        <td>
-          <select
-            id="dong"
-            class="form-select form-select-sm"
-            aria-label=".form-select-sm example"
-            v-model="dongCode"
-            @change="yearList"
-          >
-            <option v-for="dong in dongs" :value="dong.value" :key="dong.value">
-              {{ dong.text }}
-            </option>
-          </select>
-        </td>
-        <td>
-          <select
-            id="year"
-            class="form-select form-select-sm"
-            aria-label=".form-select-sm example"
-            v-model="yearCode"
-            @change="monthList"
-          >
-            <option v-for="year in years" :value="year.value" :key="year.value">
-              {{ year.text }}
-            </option>
-          </select>
-        </td>
-        <td>
-          <select
-            id="month"
-            class="form-select form-select-sm"
-            aria-label=".form-select-sm example"
-            v-model="monthCode"
-          >
-            <option
-              v-for="month in months"
-              :value="month.value"
-              :key="month.value"
+              <option
+                v-for="sido in sidos"
+                :value="sido.value"
+                :key="sido.value"
+              >
+                {{ sido.text }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <select
+              id="gugun"
+              class="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+              v-model="gugunCode"
+              @change="dongList"
             >
-              {{ month.text }}
-            </option>
-          </select>
-        </td>
-        <td>
-          <button type="button" class="btn btn-custom" @click="searchApt">
-            검색
-          </button>
-        </td>
-      </tr>
-    </table>
+              <option
+                v-for="gugun in guguns"
+                :value="gugun.value"
+                :key="gugun.value"
+              >
+                {{ gugun.text }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <select
+              id="dong"
+              class="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+              v-model="dongCode"
+              @change="yearList"
+            >
+              <option
+                v-for="dong in dongs"
+                :value="dong.value"
+                :key="dong.value"
+              >
+                {{ dong.text }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <select
+              id="year"
+              class="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+              v-model="yearCode"
+              @change="monthList"
+            >
+              <option
+                v-for="year in years"
+                :value="year.value"
+                :key="year.value"
+              >
+                {{ year.text }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <select
+              id="month"
+              class="form-select form-select-sm"
+              aria-label=".form-select-sm example"
+              v-model="monthCode"
+            >
+              <option
+                v-for="month in months"
+                :value="month.value"
+                :key="month.value"
+              >
+                {{ month.text }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <button type="button" class="btn btn-custom" @click="searchApt">
+              검색
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- <apt-map style="z-index: -1"></apt-map> -->
   </div>
 </template>
 
 <script>
 import { mapActions, mapMutations, mapState } from "vuex";
+// import AptMap from "@/components/apt/AptMap.vue";
 
 const aptStore = "aptStore";
 export default {
-  name: "AptArea",
+  // name: "AptArea",
+  // components: {
+  //   AptMap,
+  // },
   data() {
     return {
       sidoCode: null,
