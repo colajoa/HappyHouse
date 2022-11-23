@@ -176,6 +176,17 @@ const userStore = {
     async changePassword(state, pwds) {
       await http.post("/house/user/changepwd", pwds);
     },
+    // 회원 탈퇴하기
+    async withdrawUser({ commit }, pwd) {
+      await http.post("/house/user/withdraw", pwd).then((res) => {
+        if (res.status == 200) {
+          commit("SET_USER_INFO", null);
+          commit("SET_IS_LOGIN", false);
+          commit("SET_IS_LOGIN_ERROR", false);
+          commit("SET_IS_VALID_TOKEN", false);
+        }
+      });
+    },
   },
 };
 
