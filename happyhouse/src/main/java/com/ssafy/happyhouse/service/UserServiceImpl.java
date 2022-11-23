@@ -132,8 +132,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int idCheck(String id) {
 		int n = userDao.countById(id);
-		if (n == 0)
-			throw new CustomException(ErrorCode.SERVER_ERROR);
+		if (n != 0)
+			throw new CustomException(ErrorCode.ID_EXISTS);
 		return n;
 	}
 
