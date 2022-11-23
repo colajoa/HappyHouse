@@ -32,13 +32,13 @@
               >목록</router-link
             >
             <router-link
-              v-if="userInfo.role == 'admin'"
+              v-if="userInfo && userInfo.role == 'admin'"
               :to="{ name: 'boardupdate' }"
               class="btn btn-lg btn-custom"
               >수정</router-link
             >
             <button
-              v-if="userInfo.role == 'admin'"
+              v-if="userInfo && userInfo.role == 'admin'"
               class="btn btn-lg btn-custom"
               @click="removePost"
             >
