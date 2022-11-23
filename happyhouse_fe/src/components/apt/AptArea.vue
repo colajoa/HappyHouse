@@ -157,8 +157,15 @@ export default {
       if (this.yearCode) this.getMonth(this.yearCode);
       console.log(this.months);
     },
-    searchApt() {
+    async searchApt() {
       this.CLEAR_APT_LIST();
+      if (this.dongCode && this.yearCode && this.monthCode) {
+        const date = `${this.yearCode}${this.monthCode}`;
+        await this.getAptList({ dongCode: this.dongCode, date });
+        console.log(this.apts);
+      } else {
+        alert("검색 조건을 다시 확인하세요!");
+      }
       // Reduce Map
     },
   },

@@ -1,5 +1,5 @@
 import http from "@/api/axios.js";
-import axios from "axios";
+// import axios from "axios";
 
 const aptStore = {
   namespaced: true,
@@ -58,7 +58,7 @@ const aptStore = {
         state.months.push({ value: month, text: month });
       });
     },
-    SET_HOUSE_LIST(state, apts) {
+    SET_APTS_LIST(state, apts) {
       state.apts = apts;
     },
     SET_DETAIL_LIST(state, apt) {
@@ -115,30 +115,39 @@ const aptStore = {
       }
       commit("SET_MONTH", months);
     },
-    getAptList: async (state, dongCode) => {
-      const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
-      const params = {
-        LAWD_CD: dongCode,
-        DEAL_YMD: this.years + this.months,
-        serviceKey: decodeURIComponent(SERVICE_KEY),
-      };
-      await axios
-        .get(
-          `http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDe`,
-          { params: params },
-          {
-            headers: {
-              "Content-Type": "application/json;charset=utf-8",
-            },
-          }
-        )
-        .then((res) => {
-          if (res.status == 200) {
-            console.log(res.response);
-            // commit("SET_HOUSE_LIST", res.response);
-          }
-        })
-        .catch((e) => console.log(e));
+    getAptList: async ({ commit }, { dongCode, date }) => {
+      const code = dongCode.substring(0, 5);
+      // const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
+      // const params = {
+      //   serviceKey: decodeURIComponent(SERVICE_KEY),
+      //   LAWD_CD: dongCode,
+      //   DEAL_YMD: date,
+      // };
+      // await axios
+      //   .get(
+      //     `http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDe`,
+      //     { params: params },
+      //     {
+      //       headers: {
+      //         "Content-Type": "application/json;charset=utf-8",
+      //         "Access-Control-Allow-Origin": "http://localhost:8080",
+      //         Accept: "*/*",
+      //       },
+      //     }
+      //   )
+      //   .then((res) => {
+      //     if (res.status == 200) {
+      //       console.log(res.response);
+      //       // commit("SET_HOUSE_LIST", res.response);
+      //     }
+      //   })
+      //   .catch((e) => console.log(e));
+      await http.get(`/house/apt/aptlist/${code}/${date}`).then((res) => {
+        if (res.status == 200) {
+          // console.log(res.data.response.body.items.item);
+          commit("SET_APTS_LIST", res.data.response.body.items.item);
+        }
+      });
     },
     detailHouse: ({ commit }, apt) => {
       commit("SET_DETAIL_HOUSE", apt);
