@@ -21,32 +21,42 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="qna in qnas"
-              :key="qna.idx"
-              data-bs-toggle="collapse"
-              :data-bs-target="'#qna' + qna.idx"
-            >
-              <td>{{ qna.idx }}</td>
-              <td class="view-btn accordion-item" @click="getQna(qna.idx)">
-                {{ qna.title }}
-              </td>
-              <td>{{ qna.writer }}</td>
-              <td>{{ qna.createdat }}</td>
-              <td>{{ qna.hit }}</td>
-            </tr>
+            <template v-for="qna in qnas">
+              <tr
+                :key="qna.idx"
+                data-bs-toggle="collapse"
+                :data-bs-target="'#qna' + qna.idx"
+              >
+                <td>{{ qna.idx }}</td>
+                <td class="view-btn accordion-item" @click="getQna(qna.idx)">
+                  {{ qna.title }}
+                </td>
+                <td>{{ qna.writer }}</td>
+                <td>{{ qna.createdat }}</td>
+                <td>{{ qna.hit }}</td>
+              </tr>
 
-            <!--QnA-->
-            <tr
-              v-if="isShow"
-              class="accordion-collapse collapse delay-zero"
-              :id="'qna' + qnaId"
-              data-bs-parent="#qna-table"
-            >
-              <td>Q</td>
-              <td colspan="4">{{ qna.content }}</td>
-            </tr>
-            <qna-reply :qnaid="qnaId"></qna-reply>
+              <!--QnA-->
+              <tr
+                :key="qna.idx"
+                class="accordion-collapse collapse delay-zero"
+                :id="'qna' + qna.idx"
+                data-bs-parent="#qna-table"
+              >
+                <td>Q</td>
+                <td class="qna-content" colspan="3">
+                  {{ qna.content }}
+                </td>
+                <td
+                  class="qna-button d-flex justify-content-center"
+                  v-if="userInfo.role == user"
+                >
+                  <button>수정</button>
+                </td>
+                <td v-if="userInfo.role != user"></td>
+              </tr>
+              <qna-reply :key="qna.idx" :qna="qna"></qna-reply>
+            </template>
           </tbody>
         </table>
       </div>
@@ -71,6 +81,7 @@
 import { mapActions, mapState } from "vuex";
 
 const qnaStore = "qnaStore";
+const userStore = "userStore";
 export default {
   name: "QnaList",
   // components: { QnaView },
@@ -84,6 +95,7 @@ export default {
   },
   computed: {
     ...mapState(qnaStore, ["qnas", "qna", "qnaId", "isShow"]),
+    ...mapState(userStore, ["isLogin", "userInfo"]),
   },
   methods: {
     ...mapActions(qnaStore, ["qnaList", "detailQna", "setQnaId", "viewQna"]),
