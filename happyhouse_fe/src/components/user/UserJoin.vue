@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form autocomplete="off">
     <img
       class="mb-4"
       src="@/assets/img/building-logo.png"
@@ -28,8 +28,9 @@
         placeholder="아이디"
         v-model="id"
         ref="id"
+        @keypress="idCheck"
       />
-      <label for="floatingInput">아이디</label>
+      <label for="floatingInput">아이디 {{ msg }}</label>
     </div>
     <div class="form-floating">
       <input
@@ -72,10 +73,11 @@ export default {
       password: null,
       name: null,
       phoneNumber: null,
+      msg: null,
     };
   },
   methods: {
-    ...mapActions(userStore, ["userJoin"]),
+    ...mapActions(userStore, ["userJoin", "checkDuplicateId"]),
     async join() {
       // 빈 칸이 존재하면 input에 focus
       if (!this.isBlank()) return;
@@ -117,6 +119,24 @@ export default {
     },
     validation() {
       return true;
+    },
+
+    async checkId() {
+      try {
+        await this.checkDuplicateId(this.id);
+        this.msg = "사용 가능한 아이디입니다.";
+        console.log("사용 가능한 아이디");
+      } catch (e) {
+        console.log(e.response.data);
+        // 아이디 존재할 경우
+        if (e.response.data.code == "ID_EXISTS") {
+          this.msg = "중복된 아이디입니다.";
+          console.log("중복된 아이디입니다");
+          console.log(e);
+        } else {
+          console.log(e);
+        }
+      }
     },
   },
 };
