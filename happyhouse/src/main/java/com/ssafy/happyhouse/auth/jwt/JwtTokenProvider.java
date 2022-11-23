@@ -4,6 +4,9 @@ import java.util.Date;
 
 import org.springframework.security.core.Authentication;
 
+import com.ssafy.happyhouse.exception.CustomException;
+import com.ssafy.happyhouse.exception.ErrorCode;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -50,16 +53,19 @@ public class JwtTokenProvider {
       return true;
     } catch(SignatureException ex){
       log.error("Invalid JWT signature");
+      throw new CustomException(ErrorCode.INVALID_TOKEN);
     } catch(MalformedJwtException ex){
       log.error("Invalid JWT token");
+      throw new CustomException(ErrorCode.INVALID_TOKEN);
     } catch(ExpiredJwtException ex) {
       log.error("Expired JWT token");
+      throw new CustomException(ErrorCode.INVALID_TOKEN);
     } catch(UnsupportedJwtException ex){
       log.error("Unsupported JWT token");
+      throw new CustomException(ErrorCode.INVALID_TOKEN);
     } catch(IllegalArgumentException ex){
       log.error("JWT claims string is empty.");
+      throw new CustomException(ErrorCode.INVALID_TOKEN);
     }
-
-    return false;
   }
 }
