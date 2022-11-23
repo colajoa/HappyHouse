@@ -117,34 +117,8 @@ const aptStore = {
     },
     getAptList: async ({ commit }, { dongCode, date }) => {
       const code = dongCode.substring(0, 5);
-      // const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
-      // const params = {
-      //   serviceKey: decodeURIComponent(SERVICE_KEY),
-      //   LAWD_CD: dongCode,
-      //   DEAL_YMD: date,
-      // };
-      // await axios
-      //   .get(
-      //     `http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDe`,
-      //     { params: params },
-      //     {
-      //       headers: {
-      //         "Content-Type": "application/json;charset=utf-8",
-      //         "Access-Control-Allow-Origin": "http://localhost:8080",
-      //         Accept: "*/*",
-      //       },
-      //     }
-      //   )
-      //   .then((res) => {
-      //     if (res.status == 200) {
-      //       console.log(res.response);
-      //       // commit("SET_HOUSE_LIST", res.response);
-      //     }
-      //   })
-      //   .catch((e) => console.log(e));
       await http.get(`/house/apt/aptlist/${code}/${date}`).then((res) => {
         if (res.status == 200) {
-          // console.log(res.data.response.body.items.item);
           commit("SET_APTS_LIST", res.data.response.body.items.item);
         }
       });
