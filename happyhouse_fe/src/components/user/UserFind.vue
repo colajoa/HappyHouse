@@ -151,8 +151,10 @@
             id="form-last"
             placeholder="비밀번호 확인"
             v-model="checkPassword"
+            @keypress="comparePassword"
           />
-          <label for="floatingInput">비밀번호 확인</label>
+          <label v-if="isCorrect" for="floatingInput">비밀번호 확인</label>
+          <!-- <label v-else for="floatingInputInvalid">비밀번호 확인</label> -->
         </div>
         <button
           type="button"
@@ -180,6 +182,7 @@ export default {
       isOK: false,
       newPassword: null,
       checkPassword: null,
+      isCorrect: false,
     };
   },
   computed: {},
@@ -221,6 +224,7 @@ export default {
         }
       }
     },
+    // 새로운 비밀번호로 수정
     async setPassword() {
       const pwds = {
         id: this.id,
@@ -232,6 +236,15 @@ export default {
         this.$router.replace("/user/login");
       } catch (e) {
         alert("서버 오류입니다.\n잠시 후 다시 시도해주세요.");
+      }
+    },
+    // 비밀번호 확인
+    comparePassword() {
+      console.log(this.isCorrect);
+      if (this.newPassword != this.checkPassword) {
+        this.isCorrect = false;
+      } else {
+        this.isCorrect = true;
       }
     },
   },
