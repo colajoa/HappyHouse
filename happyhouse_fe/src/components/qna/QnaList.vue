@@ -20,34 +20,12 @@
               <th scope="col" class="table-hit">조회</th>
             </tr>
           </thead>
-          <tbody>
-            <tr
-              v-for="qna in qnas"
-              :key="qna.idx"
-              data-bs-toggle="collapse"
-              :data-bs-target="'#qna' + qna.idx"
-            >
-              <td>{{ qna.idx }}</td>
-              <td class="view-btn accordion-item" @click="getQna(qna.idx)">
-                {{ qna.title }}
-              </td>
-              <td>{{ qna.writer }}</td>
-              <td>{{ qna.createdat }}</td>
-              <td>{{ qna.hit }}</td>
-            </tr>
-
-            <!--QnA-->
-            <tr
-              v-if="isShow"
-              class="accordion-collapse collapse delay-zero"
-              :id="'qna' + qnaId"
-              data-bs-parent="#qna-table"
-            >
-              <td>Q</td>
-              <td colspan="4">{{ qna.content }}</td>
-            </tr>
-            <qna-reply :qnaid="qnaId"></qna-reply>
-          </tbody>
+          <qna-list-item
+            v-for="qna in qnas"
+            :key="qna.idx"
+            :qna="qna"
+            @click.native="setQnaDetail(qna.idx)"
+          ></qna-list-item>
         </table>
       </div>
       <div class="d-flex justify-content-center">
@@ -69,14 +47,16 @@
 // import QnaReply from "./QnaReply.vue";
 // import QnaView from "./QnaView.vue";
 import { mapActions, mapState } from "vuex";
+import QnaListItem from "./QnaListItem.vue";
 
 const qnaStore = "qnaStore";
+const userStore = "userStore";
 export default {
   name: "QnaList",
-  // components: { QnaView },
+  components: { QnaListItem },
   data() {
     return {
-      idx: null,
+      index: null,
     };
   },
   mounted() {
@@ -84,9 +64,10 @@ export default {
   },
   computed: {
     ...mapState(qnaStore, ["qnas", "qna", "qnaId", "isShow"]),
+    ...mapState(userStore, ["isLogin", "userInfo"]),
   },
   methods: {
-    ...mapActions(qnaStore, ["qnaList", "detailQna", "setQnaId", "viewQna"]),
+    ...mapActions(qnaStore, ["qnaList", "viewQna", "getQnaReply"]),
     async getQnaList() {
       try {
         await this.qnaList();
@@ -94,10 +75,9 @@ export default {
         console.log(e.response.data.message);
       }
     },
-    async getQna(index) {
-      this.setQnaId(index);
-      await this.viewQna(this.qnaId);
-      await this.detailQna(this.qnaId);
+    async setQnaDetail(index) {
+      await this.viewQna(index);
+      await this.getQnaReply(index);
     },
   },
 };

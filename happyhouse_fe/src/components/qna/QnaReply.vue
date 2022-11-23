@@ -1,29 +1,61 @@
 <template>
   <tr
-    class="collapse accordion-collapse"
+    class="collapse accordion-collapse delay-zero"
     data-bs-parent="#qna-table"
-    v-if="isReply"
+    :id="'qna' + qna.idx"
+    v-if="qna.reply"
   >
     <td>A</td>
-    <td colspan="4">{{ reply.title }}</td>
-    <td colspan="4">{{ reply.content }}</td>
+    <td colspan="3">{{ reply.content }}</td>
+    <td
+      class="qna-button d-flex justify-content-center"
+      v-if="userInfo.role == 'admin'"
+    >
+      <button class="btn btn-custom">수정</button>
+    </td>
+    <td v-else></td>
   </tr>
-  <tr class="collapse accordion-collapse" data-bs-parent="#qna-table" v-else>
+  <tr
+    v-else
+    class="collapse accordion-collapse delay-zero"
+    data-bs-parent="#qna-table"
+    :id="'qna' + qna.idx"
+  >
     <td>A</td>
-    <td colspan="4">답변 등록이 되지 않았습니다.</td>
+    <td colspan="3">답변 등록이 되지 않았습니다.</td>
+    <td
+      class="qna-button d-flex justify-content-center"
+      v-if="userInfo.role == 'admin'"
+    >
+      <button class="btn btn-custom">답변</button>
+    </td>
+    <td v-else></td>
   </tr>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+const userStore = "userStore";
 export default {
   name: "QnaReply",
   data() {
     return {};
   },
-  props: {
-    qnaid: Number,
+  mounted() {
+    console.log(this.qna);
   },
+  props: ["qna", "qnaId"],
+  computed: {
+    ...mapState(userStore, ["userInfo"]),
+    ...mapState("qnaStore", ["reply"]),
+  },
+  methods: {},
 };
 </script>
 
-<style></style>
+<style scoped>
+.delay-zero {
+  transition: none;
+}
+</style>

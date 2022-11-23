@@ -83,6 +83,7 @@
         role="tabpanel"
         aria-labelledby="password-tab"
         tabindex="0"
+        v-if="!isOK"
       >
         <div class="form-floating">
           <input
@@ -130,6 +131,7 @@
         role="tabpanel"
         aria-labelledby="password-tab"
         tabindex="0"
+        v-if="isOK"
       >
         <div class="form-floating">
           <input
@@ -149,13 +151,15 @@
             id="form-last"
             placeholder="비밀번호 확인"
             v-model="checkPassword"
+            @keypress="comparePassword"
           />
-          <label for="floatingInput">비밀번호 확인</label>
+          <label v-if="isCorrect" for="floatingInput">비밀번호 확인</label>
+          <!-- <label v-else for="floatingInputInvalid">비밀번호 확인</label> -->
         </div>
         <button
           type="button"
           class="w-100 btn btn-lg btn-custom"
-          @click="changePassword"
+          @click="setPassword"
         >
           비밀번호 변경
         </button>
@@ -175,11 +179,19 @@ export default {
       id: null,
       name: null,
       phoneNumber: null,
+      isOK: false,
+      newPassword: null,
+      checkPassword: null,
+      isCorrect: false,
     };
   },
   computed: {},
   methods: {
-    ...mapActions(userStore, ["getUserId", "setNewPassword"]),
+    ...mapActions(userStore, [
+      "getUserId",
+      "getUserByPassword",
+      "changePassword",
+    ]),
     // 아이디 찾기
     async findId() {
       const user = {
@@ -202,7 +214,38 @@ export default {
         id: this.id,
         phone_number: this.phoneNumber,
       };
-      await this.setNewPassword(user);
+      try {
+        await this.getUserByPassword(user);
+        this.isOK = true;
+      } catch (e) {
+        if (e.response.data.code == "USER_NOT_FOUND") {
+          this.isOK = false;
+          alert("정보를 다시 확인하세요.");
+        }
+      }
+    },
+    // 새로운 비밀번호로 수정
+    async setPassword() {
+      const pwds = {
+        id: this.id,
+        newPassword: this.newPassword,
+      };
+      try {
+        await this.changePassword(pwds);
+        alert("새로운 비밀번호로 수정되었습니다.");
+        this.$router.replace("/user/login");
+      } catch (e) {
+        alert("서버 오류입니다.\n잠시 후 다시 시도해주세요.");
+      }
+    },
+    // 비밀번호 확인
+    comparePassword() {
+      console.log(this.isCorrect);
+      if (this.newPassword != this.checkPassword) {
+        this.isCorrect = false;
+      } else {
+        this.isCorrect = true;
+      }
     },
   },
 };

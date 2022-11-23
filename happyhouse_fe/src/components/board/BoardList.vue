@@ -19,6 +19,7 @@
               <td>{{ board.idx }}</td>
               <td>
                 <router-link
+                  class="view-btn"
                   :to="{
                     name: 'boardview',
                     params: { articleno: board.idx },

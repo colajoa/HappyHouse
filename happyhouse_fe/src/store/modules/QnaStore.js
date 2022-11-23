@@ -5,8 +5,7 @@ const QnaStore = {
   state: {
     qnas: null,
     qna: null,
-    qnaId: null,
-    isShow: false,
+    reply: null,
   },
   getters: {
     checkQnas(state) {
@@ -15,11 +14,8 @@ const QnaStore = {
     checkQna(state) {
       return state.qna;
     },
-    checkQnaId(state) {
-      return state.qnaId;
-    },
-    checkIsShow(state) {
-      return state.isShow;
+    checkQnaReply(state) {
+      return state.reply;
     },
   },
   mutations: {
@@ -29,11 +25,8 @@ const QnaStore = {
     SET_QNA: (state, qna) => {
       state.qna = qna;
     },
-    SET_QNA_ID: (state, qnaId) => {
-      state.qnaId = qnaId;
-    },
-    SET_IS_SHOW: (state, isShow) => {
-      state.isShow = isShow;
+    SET_QNA_REPLY: (state, reply) => {
+      state.reply = reply;
     },
   },
   actions: {
@@ -51,13 +44,6 @@ const QnaStore = {
         }
       });
     },
-    async detailQna({ commit }, idx) {
-      await http.get(`/house/qna/detail/${idx}`).then((res) => {
-        if (res.status == 200) {
-          commit("SET_QNA", res.data);
-        }
-      });
-    },
     async viewQna(state, idx) {
       await http.get(`/house/qna/hit/${idx}`);
     },
@@ -67,9 +53,12 @@ const QnaStore = {
     async removeQna(state, idx) {
       await http.delete(`/house/qna/${idx}`);
     },
-    async setQnaId({ commit }, idx) {
-      commit("SET_IS_SHOW", true);
-      commit("SET_QNA_ID", idx);
+    async getQnaReply({ commit }, idx) {
+      await http.get(`/house/qna/reply/detail/${idx}`).then((res) => {
+        if (res.status == 200) {
+          commit("SET_QNA_REPLY", res.data);
+        }
+      });
     },
   },
 };

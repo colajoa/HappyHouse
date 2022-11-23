@@ -11,7 +11,7 @@
             <div>{{ board.writer }}</div>
             <div class="view-info">
               <span>{{ board.createdat }}</span>
-              <span>{{ board.hit }}</span>
+              <span>ㅣ 조회 {{ board.hit }}</span>
             </div>
           </div>
         </div>

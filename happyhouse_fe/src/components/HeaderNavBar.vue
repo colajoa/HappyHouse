@@ -17,7 +17,7 @@
 
         <nav id="navbar" class="navbar">
           <!--로그인 전-->
-          <ul>
+          <ul v-if="!userInfo">
             <li>
               <router-link class="nav-link scrollto" :to="{ name: 'board' }"
                 >공지사항</router-link
@@ -32,7 +32,7 @@
           </ul>
 
           <!--로그인 후-->
-          <ul>
+          <ul v-else>
             <li>
               <router-link class="nav-link scrollto" :to="{ name: 'test' }"
                 >테스트 페이지</router-link
@@ -56,7 +56,7 @@
 
             <!-- dropdown 버튼 -->
             <li class="dropdown">
-              <button class="user-btn">사용자이름</button>
+              <button class="user-btn">{{ userInfo.name }}님</button>
               <ul class="user-dropdown">
                 <li>
                   <router-link
@@ -111,6 +111,7 @@ export default {
     ...mapActions(userStore, ["userLogout"]),
     async logout() {
       await this.userLogout();
+      if (this.$router.path != "/") this.$router.push({ name: "main" });
     },
   },
 };
@@ -120,6 +121,10 @@ export default {
 .user-btn {
   background: none;
   border: none;
+}
+
+.user-btn:hover {
+  color: var(--bs-nav-link-hover-color);
 }
 
 .user-dropdown li .user-btn {

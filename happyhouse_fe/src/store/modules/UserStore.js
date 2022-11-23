@@ -161,12 +161,31 @@ const userStore = {
       return id;
     },
     // 비밀번호 찾기
-    async setNewPassword(user) {
+    async getUserByPassword(state, user) {
       await http.post("/house/user/pwd", user);
     },
     // 아이디 중복 검사
     async checkDuplicateId(id) {
       await http.get(`/house/user/check${id}`);
+    },
+    // 유저 정보 수정
+    async changeUserInfo(state, user) {
+      await http.put("/house/user/update", user);
+    },
+    // 비밀번호 수정
+    async changePassword(state, pwds) {
+      await http.post("/house/user/changepwd", pwds);
+    },
+    // 회원 탈퇴하기
+    async withdrawUser({ commit }, pwd) {
+      await http.post("/house/user/withdraw", pwd).then((res) => {
+        if (res.status == 200) {
+          commit("SET_USER_INFO", null);
+          commit("SET_IS_LOGIN", false);
+          commit("SET_IS_LOGIN_ERROR", false);
+          commit("SET_IS_VALID_TOKEN", false);
+        }
+      });
     },
   },
 };
