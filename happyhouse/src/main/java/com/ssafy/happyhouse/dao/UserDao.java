@@ -24,9 +24,11 @@ public interface UserDao {
 
 	public int deleteUser(UserDto user);
 
-	public String findById(UserDto user);
+	public String findId(UserDto user);
 
-	public String findByPwd(UserDto user);
+	public String findPwd(UserDto user);
+
+	public int findUserByIdPwd(UserDto user);
 
 	public int modifyPwd(UserDto user);
 

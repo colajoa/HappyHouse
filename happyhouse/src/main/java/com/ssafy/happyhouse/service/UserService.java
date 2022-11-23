@@ -1,5 +1,7 @@
 package com.ssafy.happyhouse.service;
 
+import java.util.Map;
+
 import com.ssafy.happyhouse.dto.UserDto;
 
 public interface UserService {
@@ -27,13 +29,14 @@ public interface UserService {
 	// 회원 탈퇴
 	int deleteUser(UserDto user);
 
-	String findById(UserDto user);
+	// 아이디 찾기
+	String findId(UserDto user);
 
 	// 비밀번호 찾기
-	String findByPwd(UserDto user);
+	String findPwd(UserDto user);
 
 	// 비밀번호 수정
-	int modifyPwd(UserDto user);
+	int modifyPwd(String id, Map<String, String> passwords);
 
 	// 중복 아이디 확인
 	int idCheck(String id);

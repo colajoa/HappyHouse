@@ -125,6 +125,7 @@ public class UserController {
     @GetMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
+        JwtTokenProvider.validateToken(token);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -148,7 +149,7 @@ public class UserController {
      */
     @PostMapping("/id")
     public ResponseEntity<?> findId(@RequestBody UserDto user){
-        String id = userService.findById(user);
+        String id = userService.findId(user);
         return ResponseEntity.ok(id);
     }
 
@@ -160,7 +161,7 @@ public class UserController {
      */
     @PostMapping("/pwd")
     public ResponseEntity<?> findPwd(@RequestBody UserDto user) {
-        String password = userService.findByPwd(user);
+        String password = userService.findPwd(user);
         return ResponseEntity.ok(password);
     }
 
@@ -171,8 +172,11 @@ public class UserController {
      * @return
      */
     @PostMapping("/changepwd")
-    public ResponseEntity<?> modifyPwd(@RequestBody UserDto user){
-        userService.modifyPwd(user);
+    public ResponseEntity<?> modifyPwd(@RequestBody Map<String, String> passwords, HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        String userId = JwtTokenProvider.getUserIdFromJWT(token);
+
+        userService.modifyPwd(userId, passwords);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }
