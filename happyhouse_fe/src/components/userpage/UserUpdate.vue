@@ -118,7 +118,6 @@
 <script>
 import { mapActions, mapState } from "vuex";
 
-const userPageStore = "userPageStore";
 export default {
   name: "UserUpdate",
   data() {
@@ -129,19 +128,30 @@ export default {
       newPassword: null,
     };
   },
+  created() {
+    this.name = this.userInfo.name;
+    this.phoneNumber = this.userInfo.phone_number;
+  },
   computed: {
-    ...mapState(userPageStore, [""]),
+    ...mapState("userStore", ["userInfo"]),
   },
   methods: {
-    ...mapActions(userPageStore, ["changeUserInfo", "changePassword"]),
+    ...mapActions("userStore", [
+      "changeUserInfo",
+      "changePassword",
+      "getUserInfo",
+    ]),
     async updateUserInfo() {
       const user = {
+        id: this.userInfo.id,
         name: this.name,
         phone_number: this.phoneNumber,
       };
       try {
         await this.changeUserInfo(user);
         alert("회원정보가 수정되었습니다.");
+        const token = sessionStorage.getItem("token");
+        await this.getUserInfo(token);
         this.$router.replace("/mypage/info");
       } catch (e) {
         alert("서버 오류입니다.\n잠시 후 다시 시도해주세요.");
@@ -149,7 +159,7 @@ export default {
     },
     async updatePassword() {
       const pwds = {
-        password: this.password,
+        nowPassword: this.password,
         newPassword: this.newPassword,
       };
       try {
