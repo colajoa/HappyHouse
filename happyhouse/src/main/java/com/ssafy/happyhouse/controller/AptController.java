@@ -18,14 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.happyhouse.dto.CodeDto;
+import com.ssafy.happyhouse.exception.CustomException;
+import com.ssafy.happyhouse.exception.ErrorCode;
 import com.ssafy.happyhouse.service.AptServiceImpl;
 
 @RestController
 @RequestMapping("/apt")
 public class AptController {
 
-    @Value("${APT_API_KEY}")
-    private static String API_KEY;
+    @Value("${apt.api.key}")
+    private String apiKey;
 
     @Autowired
     private AptServiceImpl aptService;
@@ -76,9 +78,11 @@ public class AptController {
     @GetMapping("/aptlist/{code}/{date}")
     public ResponseEntity<?> getAptList(@PathVariable("code") String code,
         @PathVariable("date") String date) throws Exception{
+
+            System.out.println(apiKey);
         
         StringBuilder urlBuilder = new StringBuilder("http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + API_KEY); /*Service Key*/
+        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + apiKey); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
         urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
         urlBuilder.append("&" + URLEncoder.encode("LAWD_CD","UTF-8") + "=" + URLEncoder.encode(code, "UTF-8")); /*지역코드*/
@@ -102,6 +106,8 @@ public class AptController {
         rd.close();
         conn.disconnect();
         // System.out.println(sb.toString());
+
+        if(!sb.toString().contains("200"))  throw new CustomException(ErrorCode.SERVER_ERROR);
 
         JSONObject json = XML.toJSONObject(sb.toString());
         System.out.println(json);

@@ -21,8 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-	@Value("${KAKAO_ADMIN_KEY}")
-	private static String ADMIN_TOKEN;
+	@Value("${kakao.admin.key}")
+	private String ADMIN_TOKEN;
 
 	@Autowired
 	private UserDao userDao;
@@ -139,6 +139,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int kakaoLogin(String code) {
+		log.info(ADMIN_TOKEN);
+
 		KakaoUserInfo userInfo = kakaoOAuth2.getUserInfo(code);
 
 		String id = userInfo.getNickname();
