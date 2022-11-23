@@ -168,6 +168,14 @@ const userStore = {
     async checkDuplicateId(id) {
       await http.get(`/house/user/check${id}`);
     },
+    // 유저 정보 수정
+    async changeUserInfo(state, user) {
+      await http.put("/house/user/update", user);
+    },
+    // 비밀번호 수정
+    async changePassword(state, pwds) {
+      await http.post("/house/user/changepwd", pwds);
+    },
   },
 };
 
