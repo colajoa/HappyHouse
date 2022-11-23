@@ -56,7 +56,7 @@
 
             <!-- dropdown 버튼 -->
             <li class="dropdown">
-              <button class="user-btn" v-if="userInfo.role == user">
+              <button class="user-btn" v-if="userInfo.role == 'user'">
                 {{ userInfo.name }}님
               </button>
               <button class="user-btn" v-else>관리자님</button>
