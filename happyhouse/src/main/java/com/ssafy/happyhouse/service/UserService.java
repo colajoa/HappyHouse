@@ -6,7 +6,7 @@ import com.ssafy.happyhouse.dto.UserDto;
 
 public interface UserService {
 	// 로그인 유저
-	UserDto getLoginUser(UserDto user);
+	void getLoginUser(UserDto user);
 
 	// 리프레시토큰 발급
 	void saveRefreshToken(String userId, String refreshToken);
