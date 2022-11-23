@@ -28,7 +28,7 @@ public interface UserDao {
 
 	public String findPwd(UserDto user);
 
-	public int findUserByIdPwd(UserDto user);
+	public String getPassword(String id);
 
 	public int modifyPwd(UserDto user);
 
