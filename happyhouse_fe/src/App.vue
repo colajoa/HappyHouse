@@ -35,7 +35,8 @@ export default {
 
 <style>
 body,
-html {
+html,
+#app {
   height: 100%;
 }
 @import "./assets/css/style.css";
