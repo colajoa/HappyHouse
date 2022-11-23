@@ -59,46 +59,38 @@ const userStore = {
       });
     },
     // Set kakao AccessToken
-    async setKakaoToken({ commit }, code) {
-      const { data } = await this.getKakaoToken(code);
-      if (data.error) {
-        alert("카카오톡 로그인 중 오류 발생");
-        this.$router.replace("/user/login");
-        return;
-      }
-
+    async setKakaoToken({ commit }, data) {
       window.Kakao.Auth.setAccessToken(data.access_token);
-      await http
+      return await http
         .post(
           "/house/user/login/kakao",
           JSON.stringify({ code: data.access_token })
         )
-        .then((res) => {
+        .then(function (res) {
           // 성공
           if (res.data == "OK") {
             commit("SET_IS_LOGIN", true);
             commit("SET_IS_LOGIN_ERROR", false);
             commit("SET_IS_VALID_TOKEN", true);
             sessionStorage.setItem("token", data.access_token);
-            this.$router.replace("/");
           }
           // 실패
           else {
             commit("SET_IS_LOGIN", false);
             commit("SET_IS_LOGIN_ERROR", true);
             commit("SET_IS_VALID_TOKEN", false);
-            this.moveToLogin();
           }
+          return res.data;
         });
     },
     // Generate kakao AccessToken
-    async getKakaoToken(code) {
+    async getKakaoToken(state, authcode) {
       try {
         const data = {
           grant_type: "authorization_code",
           client_id: process.env.VUE_APP_CLIENT_ID,
           redirect_uri: process.env.VUE_APP_REDIRECT_URI,
-          code,
+          code: authcode,
         };
         const queryString = Object.keys(data)
           .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))

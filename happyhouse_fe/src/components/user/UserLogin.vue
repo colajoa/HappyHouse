@@ -17,7 +17,7 @@
         v-model="id"
         ref="id"
       />
-      <label for="floatingInput">아이디</label>
+      <label v-bind:for="isValidId">아이디</label>
     </div>
     <div class="form-floating">
       <input
@@ -28,7 +28,7 @@
         v-model="password"
         ref="password"
       />
-      <label for="floatingPassword">비밀번호</label>
+      <label v-bind:for="isValidPass">비밀번호</label>
     </div>
 
     <div>
@@ -78,6 +78,8 @@ export default {
     return {
       id: null,
       password: null,
+      isValidId: "floatingInput",
+      isValidPass: "floatingPassword",
     };
   },
   computed: {
@@ -92,6 +94,8 @@ export default {
     ]),
     async login() {
       try {
+        if (!this.isBlank()) return;
+
         await this.userConfirm({
           id: this.id,
           secret: this.password,
@@ -109,6 +113,7 @@ export default {
           const errorCode = e.response.data.code;
           if (errorCode === "USER_NOT_FOUND") {
             alert("아이디가 존재하지 않습니다.");
+            this.isValidId = "floatingInputInvalid";
             this.$refs.id.focus();
           } else if (errorCode === "INVALID_PASSWORD") {
             alert("비밀번호가 일치하지 않습니다.");
@@ -118,6 +123,17 @@ export default {
           }
         }
       }
+    },
+    isBlank() {
+      if (!this.id) {
+        this.isValidId = "floatingInputInvalid";
+        this.$refs.id.focus();
+      }
+      if (!this.password) {
+        this.isValidPass = "floatingPasswordInvalid";
+        this.$refs.password.focus();
+      }
+      return true;
     },
   },
 };
