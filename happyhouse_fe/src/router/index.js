@@ -110,6 +110,26 @@ const routes = [
     path: "/mypage",
     name: "mypage",
     component: () => import("@/views/AppMypage"),
+    redirect: "/mypage/info",
+    children: [
+      {
+        path: "info",
+        name: "userinfo",
+        component: () => import("@/components/userpage/UserPage"),
+      },
+
+      {
+        path: "update",
+        name: "userupdate",
+        component: () => import("@/components/userpage/UserUpdate"),
+      },
+
+      {
+        path: "delete",
+        name: "userdelete",
+        component: () => import("@/components/userpage/UserDelete"),
+      },
+    ],
   },
 ];
 

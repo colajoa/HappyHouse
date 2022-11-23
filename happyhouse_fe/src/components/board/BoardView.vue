@@ -5,13 +5,13 @@
       <div class="mb-3 d-flex justify-content-center">
         <div class="view-header">
           <div class="view-title">
-            <label>글 제목 들어갈 곳</label>
+            <label>{{ board.title }}</label>
           </div>
           <div class="view-writer">
-            <div>글쓴이 들어갈 곳</div>
+            <div>{{ board.writer }}</div>
             <div class="view-info">
-              <span>날짜</span>
-              <span>조회 수</span>
+              <span>{{ board.createdat }}</span>
+              <span>{{ board.hit }}</span>
             </div>
           </div>
         </div>
@@ -19,7 +19,7 @@
 
       <div class="mb-3 d-flex justify-content-center">
         <div class="view-content" id="">
-          여기는 내용이 들어갈 곳입니다
+          {{ board.content }}
           <div class=""></div>
         </div>
       </div>
@@ -36,7 +36,9 @@
               class="btn btn-lg btn-custom"
               >수정</router-link
             >
-            <button class="btn btn-lg btn-custom">삭제</button>
+            <button class="btn btn-lg btn-custom" @click="removePost">
+              삭제
+            </button>
           </div>
         </div>
       </div>
@@ -45,7 +47,43 @@
 </template>
 
 <script>
-export default {};
+import { mapActions, mapState } from "vuex";
+
+const boardStore = "boardStore";
+export default {
+  name: "BoardView",
+  data() {
+    return {
+      idx: null,
+    };
+  },
+  async created() {
+    const url = window.location.href.split("/");
+    this.idx = Number.parseInt(url[5]);
+    // 조회수
+    await this.viewBoard(this.idx);
+    this.getBoard();
+  },
+  computed: {
+    ...mapState(boardStore, ["board"]),
+  },
+  methods: {
+    ...mapActions(boardStore, ["viewBoard", "detailBoard", "removeBoard"]),
+    async getBoard() {
+      await this.detailBoard(this.idx);
+    },
+    async removePost() {
+      const result = confirm("삭제하시겠습니까?");
+      if (!result) return;
+      try {
+        await this.removeBoard(this.idx);
+        this.$router.push("/board/list");
+      } catch (e) {
+        alert("삭제에 실패했습니다.\n 잠시 후 다시 시도해주세요.");
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>

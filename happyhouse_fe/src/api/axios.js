@@ -1,7 +1,6 @@
 import axios from "axios";
 
-let token = sessionStorage.getItem("token");
-if (token == null) token = "";
+const token = sessionStorage.getItem("token");
 
 // axios 객체 생성
 export default axios.create({
@@ -9,7 +8,7 @@ export default axios.create({
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
-    Authorization: token,
+    Authorization: token ? token : "",
   },
   withCredentials: true,
 });

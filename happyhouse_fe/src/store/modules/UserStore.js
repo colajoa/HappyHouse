@@ -128,11 +128,13 @@ const userStore = {
           commit("SET_IS_LOGIN", false);
           commit("SET_IS_LOGIN_ERROR", false);
           commit("SET_IS_VALID_TOKEN", false);
+          commit("SET_USER_INFO", null);
         }
       });
     },
     // 회원 정보 찾기
-    async getUserInfo({ commit }) {
+    async getUserInfo({ commit }, token) {
+      http.defaults.headers["Authorization"] = token;
       await http
         .get("/house/user/info")
         .then((res) => {
@@ -142,11 +144,11 @@ const userStore = {
             console.log("유저 정보 없음");
           }
         })
-        .catch((e) => {
+        .catch(function (e) {
           console.log(e);
           commit("SET_IS_LOGIN", false);
           commit("SET_IS_VALID_TOKEN", false);
-          this.moveToLogin();
+          this.$router.replace("/user/login");
         });
     },
     // 아이디 찾기
@@ -162,8 +164,9 @@ const userStore = {
     async setNewPassword(user) {
       await http.post("/house/user/pwd", user);
     },
-    moveToLogin() {
-      this.$router.replace("/user/login");
+    // 아이디 중복 검사
+    async checkDuplicateId(id) {
+      await http.get(`/house/user/check${id}`);
     },
   },
 };

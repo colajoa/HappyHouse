@@ -16,7 +16,8 @@
         </div>
 
         <nav id="navbar" class="navbar">
-          <ul v-if="!isLogin">
+          <!--로그인 전-->
+          <ul>
             <li>
               <router-link class="nav-link scrollto" :to="{ name: 'board' }"
                 >공지사항</router-link
@@ -29,7 +30,9 @@
             </li>
             <i class="bi bi-list mobile-nav-toggle"></i>
           </ul>
-          <ul v-else>
+
+          <!--로그인 후-->
+          <ul>
             <li>
               <router-link class="nav-link scrollto" :to="{ name: 'test' }"
                 >테스트 페이지</router-link
@@ -50,16 +53,27 @@
                 >질문받는다</router-link
               >
             </li>
-            <li id="mypage">
-              <router-link class="nav-link scrollto" :to="{ name: 'mypage' }"
-                >{{ userInfo.name }}님</router-link
-              >
+
+            <!-- dropdown 버튼 -->
+            <li class="dropdown">
+              <button class="user-btn">사용자이름</button>
+              <ul class="user-dropdown">
+                <li>
+                  <router-link
+                    class="nav-link scrollto"
+                    :to="{ name: 'mypage' }"
+                  >
+                    마이페이지
+                  </router-link>
+                </li>
+                <li>
+                  <button class="nav-link scrollto user-btn" @click="logout">
+                    로그아웃
+                  </button>
+                </li>
+              </ul>
             </li>
-            <li>
-              <button class="nav-link scrollto" @click="logout">
-                로그아웃
-              </button>
-            </li>
+            <!--dropdown 버튼 -->
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
@@ -102,4 +116,17 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.user-btn {
+  background: none;
+  border: none;
+}
+
+.user-dropdown li .user-btn {
+  padding: 10px 20px;
+  font-size: 15px;
+  text-transform: none;
+  font-weight: 600;
+  color: #2f4d5a;
+}
+</style>

@@ -150,7 +150,9 @@ h6 {
 }
 
 .navbar a,
-.navbar a:focus {
+.navbar a:focus,
+.navbar button,
+.navbar button:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -165,7 +167,9 @@ h6 {
 }
 
 .navbar a i,
-.navbar a:focus i {
+.navbar a:focus i,
+.navbar button i,
+.navbar button:focus i {
   font-size: 12px;
   line-height: 0;
   margin-left: 5px;
@@ -174,8 +178,11 @@ h6 {
 .navbar a:hover,
 .navbar .active,
 .navbar .router-link-active,
+.navbar button:hover,
+.navbar .button,
 .navbar .active:focus,
-.navbar li:hover > a {
+.navbar li:hover > a,
+.navbar li:hover > button {
   background: rgba(255, 255, 255, 0.2);
 }
 
@@ -211,8 +218,10 @@ h6 {
 }
 
 .navbar .dropdown ul a:hover,
+.navbar .dropdown ul button:hover,
 .navbar .dropdown ul .active:hover,
-.navbar .dropdown ul li:hover > a {
+.navbar .dropdown ul li:hover > a,
+.navbar li:hover > button {
   color: #67b0d1;
 }
 
