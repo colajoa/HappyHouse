@@ -110,7 +110,9 @@ export default {
     ]),
   },
   created() {
+    this.sidoCode = null;
     this.CLEAR_SIDO_LIST();
+    this.CLEAR_GUGUN_LIST();
     this.CLEAR_APT_LIST();
     this.CLEAR_DONG_LIST();
     this.CLEAR_YEAR_LIST();
