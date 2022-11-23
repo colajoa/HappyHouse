@@ -21,8 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-	@Value("${KAKAO_ADMIN_KEY}")
-	private static String ADMIN_TOKEN;
+	@Value("${kakao.admin.key}")
+	private String ADMIN_TOKEN;
 
 	@Autowired
 	private UserDao userDao;
@@ -106,23 +106,29 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String findById(UserDto user) {
-		String id = userDao.findById(user);
+	public String findId(UserDto user) {
+		String id = userDao.findId(user);
 		if (id == null || id.equals(""))
 			throw new CustomException(ErrorCode.USER_NOT_FOUND);
 		return id;
 	}
 
 	@Override
-	public String findByPwd(UserDto user) {
-		String pwd = userDao.findByPwd(user);
+	public String findPwd(UserDto user) {
+		String pwd = userDao.findPwd(user);
 		if (pwd == null || pwd.equals(""))
 			throw new CustomException(ErrorCode.USER_NOT_FOUND);
 		return pwd;
 	}
 
 	@Override
-	public int modifyPwd(UserDto user) {
+	public int modifyPwd(String id, Map<String, String> passwords) {
+		if(passwords.get("nowPassword") != null){
+			UserDto findUser = UserDto.builder().id(id).pwd(passwords.get("nowPassword")).build();
+			int cnt = userDao.findUserByIdPwd(findUser);
+			if(cnt == 0)	throw new CustomException(ErrorCode.USER_NOT_FOUND);
+		}
+		UserDto user = UserDto.builder().id(id).pwd(passwords.get("newPassword")).build();
 		int n = userDao.modifyPwd(user);
 		if (n == 0)
 			throw new CustomException(ErrorCode.SERVER_ERROR);
@@ -139,6 +145,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int kakaoLogin(String code) {
+		log.info(ADMIN_TOKEN);
+
 		KakaoUserInfo userInfo = kakaoOAuth2.getUserInfo(code);
 
 		String id = userInfo.getNickname();
