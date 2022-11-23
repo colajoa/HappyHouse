@@ -4,30 +4,30 @@
 <mapper namespace="com.ssafy.happyhouse.dao.ReplyQnaDao">
   <insert id="replyQna" parameterType="ReplyQnaDto">
     <![CDATA[ 
-      insert into replyqna(qnaid, title, content, createdat)
-      values(#{qnaid}, #{title}, #{content}, now())
+      insert into replyqna(qnaid, content, createdat)
+      values(#{qnaid}, #{content}, now())
     ]]>
   </insert>
 
   <select id="detailReply" parameterType="int" resultType="ReplyQnaDto">
     <![CDATA[ 
       select * from replyqna
-      where idx = #{idx}
+      where qnaId = #{idx}
     ]]>
   </select>
 
   <update id="updateReply" parameterType="ReplyQnaDto">
     <![CDATA[ 
       update replyqna
-      set title = #{title}, content = #{content}
-      where idx = #{idx}
+      set content = #{content}
+      where qnaId = #{idx}
     ]]>
   </update>
 
   <delete id="deleteReply" parameterType="int">
     <![CDATA[ 
       delete from replyqna
-      where idx = #{idx}
+      where qnaId = #{idx}
     ]]>
   </delete>
 </mapper>

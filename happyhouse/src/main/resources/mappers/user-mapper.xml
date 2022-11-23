@@ -43,7 +43,7 @@
 
     <select id="getUserInfo" parameterType="string" resultType="UserDto">
         <![CDATA[ 
-            select id, name, phone_number from user where id = #{userId}
+            select id, name, phone_number, role from user where id = #{userId}
         ]]>
     </select>
 

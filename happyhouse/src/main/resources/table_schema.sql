@@ -89,13 +89,12 @@ CREATE TABLE `qna` (
 CREATE TABLE `replyqna` (
   `idx` int NOT NULL AUTO_INCREMENT,
   `qnaid` int NOT NULL,
-  `title` varchar(50) NOT NULL,
   `content` varchar(511) NOT NULL,
   `createdat` date DEFAULT NULL,
   PRIMARY KEY (`idx`),
   KEY `fk_qna_id_idx` (`qnaid`),
   CONSTRAINT `fk_qna_id` FOREIGN KEY (`qnaid`) REFERENCES `qna` (`idx`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 유저 정보
 CREATE TABLE `user` (
