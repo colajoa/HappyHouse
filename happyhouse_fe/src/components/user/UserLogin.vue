@@ -11,18 +11,18 @@
     <div class="form-floating">
       <input
         type="text"
-        class="form-control"
+        :class="[isValidId ? 'form-control' : 'form-control is-invalid']"
         id="floatingInput"
         placeholder="아이디"
         v-model="id"
         ref="id"
       />
-      <label v-bind:for="isValidId">아이디</label>
+      <label for="floatingInput">아이디</label>
     </div>
     <div class="form-floating">
       <input
         type="password"
-        class="form-control"
+        :class="[isValidPass ? 'form-control' : 'form-control is-invalid']"
         id="floatingPassword"
         placeholder="비밀번호"
         v-model="password"
@@ -78,8 +78,8 @@ export default {
     return {
       id: null,
       password: null,
-      isValidId: "floatingInput",
-      isValidPass: "floatingPassword",
+      isValidId: true,
+      isValidPass: true,
     };
   },
   computed: {
@@ -113,10 +113,11 @@ export default {
           const errorCode = e.response.data.code;
           if (errorCode === "USER_NOT_FOUND") {
             alert("아이디가 존재하지 않습니다.");
-            this.isValidId = "floatingInputInvalid";
+            this.isValidId = false;
             this.$refs.id.focus();
           } else if (errorCode === "INVALID_PASSWORD") {
             alert("비밀번호가 일치하지 않습니다.");
+            this.isValidPass = false;
             this.$refs.password.focus();
           } else {
             alert("서버 오류");
@@ -126,12 +127,18 @@ export default {
     },
     isBlank() {
       if (!this.id) {
-        this.isValidId = "floatingInputInvalid";
+        this.isValidId = false;
         this.$refs.id.focus();
+        return false;
+      } else {
+        this.isValidId = true;
       }
       if (!this.password) {
-        this.isValidPass = "floatingPasswordInvalid";
+        this.isValidPass = false;
         this.$refs.password.focus();
+        return false;
+      } else {
+        this.isValidPass = true;
       }
       return true;
     },
