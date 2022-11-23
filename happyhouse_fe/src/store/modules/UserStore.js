@@ -128,6 +128,7 @@ const userStore = {
           commit("SET_IS_LOGIN", false);
           commit("SET_IS_LOGIN_ERROR", false);
           commit("SET_IS_VALID_TOKEN", false);
+          commit("SET_USER_INFO", null);
         }
       });
     },
@@ -162,6 +163,10 @@ const userStore = {
     // 비밀번호 찾기
     async setNewPassword(user) {
       await http.post("/house/user/pwd", user);
+    },
+    // 아이디 중복 검사
+    async checkDuplicateId(id) {
+      await http.get(`/house/user/check${id}`);
     },
   },
 };
