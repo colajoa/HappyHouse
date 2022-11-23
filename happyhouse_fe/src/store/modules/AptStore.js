@@ -61,7 +61,7 @@ const aptStore = {
     SET_APTS_LIST(state, apts) {
       state.apts = apts;
     },
-    SET_DETAIL_LIST(state, apt) {
+    SET_DETAIL_APT(state, apt) {
       state.apt = apt;
     },
   },
@@ -149,8 +149,8 @@ const aptStore = {
         }
       });
     },
-    detailHouse: ({ commit }, apt) => {
-      commit("SET_DETAIL_HOUSE", apt);
+    detailApt: ({ commit }, apt) => {
+      commit("SET_DETAIL_APT", apt);
     },
   },
 };
