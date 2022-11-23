@@ -3,7 +3,7 @@
     class="collapse accordion-collapse delay-zero"
     data-bs-parent="#qna-table"
     :id="'qna' + qna.idx"
-    v-if="qna.isReply"
+    v-if="qna.reply"
   >
     <td>A</td>
     <td colspan="3">{{ reply.content }}</td>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapState } from "vuex";
 
 const userStore = "userStore";
 export default {
@@ -42,6 +42,15 @@ export default {
   data() {
     return {};
   },
+  mounted() {
+    console.log(this.qna);
+  },
+  props: ["qna", "qnaId"],
+  computed: {
+    ...mapState(userStore, ["userInfo"]),
+    ...mapState("qnaStore", ["reply"]),
+  },
+  methods: {},
 };
 </script>
 

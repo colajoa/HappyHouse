@@ -24,7 +24,7 @@
             v-for="qna in qnas"
             :key="qna.idx"
             :qna="qna"
-            @click="hitQna(qna.idx)"
+            @click.native="setQnaDetail(qna.idx)"
           ></qna-list-item>
         </table>
       </div>
@@ -52,9 +52,8 @@ import QnaListItem from "./QnaListItem.vue";
 const qnaStore = "qnaStore";
 const userStore = "userStore";
 export default {
-  components: { QnaListItem },
   name: "QnaList",
-  // components: { QnaView },
+  components: { QnaListItem },
   data() {
     return {
       index: null,
@@ -68,7 +67,7 @@ export default {
     ...mapState(userStore, ["isLogin", "userInfo"]),
   },
   methods: {
-    ...mapActions(qnaStore, ["qnaList", "viewQna"]),
+    ...mapActions(qnaStore, ["qnaList", "viewQna", "getQnaReply"]),
     async getQnaList() {
       try {
         await this.qnaList();
@@ -76,9 +75,9 @@ export default {
         console.log(e.response.data.message);
       }
     },
-    // FIXME
-    async hitQna(index) {
+    async setQnaDetail(index) {
       await this.viewQna(index);
+      await this.getQnaReply(index);
     },
   },
 };

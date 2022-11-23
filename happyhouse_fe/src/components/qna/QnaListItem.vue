@@ -29,7 +29,7 @@
       </td>
       <td v-else></td>
     </tr>
-    <qna-reply :key="qna.idx" :qna="qna"></qna-reply>
+    <qna-reply :key="qna.idx" :qna="qna" :qnaId="qna.idx"></qna-reply>
   </tbody>
 </template>
 
