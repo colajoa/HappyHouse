@@ -56,22 +56,22 @@ CREATE TABLE `area` (
   `userId` varchar(15) NOT NULL,
   `dongcode` varchar(45) NOT NULL,
   PRIMARY KEY (`idx`),
-  KEY `userId` (`userId`),
   KEY `fk_dongCode_idx` (`dongcode`),
+  KEY `fk_user_id_idx` (`userId`),
   CONSTRAINT `fk_dongCode` FOREIGN KEY (`dongcode`) REFERENCES `dongcode` (`dongCode`),
-  CONSTRAINT `fk_user_id` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
+  CONSTRAINT `fk_user_id` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 공지사항
 CREATE TABLE `post` (
   `idx` int NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
-  `author` varchar(20) NOT NULL,
+  `writer` varchar(20) NOT NULL,
   `content` varchar(511) NOT NULL,
   `hit` int DEFAULT '0',
-  `created_at` date DEFAULT NULL,
+  `createdat` date DEFAULT NULL,
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- QNA
 CREATE TABLE `qna` (
@@ -83,7 +83,7 @@ CREATE TABLE `qna` (
   `isReply` tinyint DEFAULT '0',
   `createdat` date DEFAULT NULL,
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- QNA 답변
 CREATE TABLE `replyqna` (
@@ -94,7 +94,7 @@ CREATE TABLE `replyqna` (
   `createdat` date DEFAULT NULL,
   PRIMARY KEY (`idx`),
   KEY `fk_qna_id_idx` (`qnaid`),
-  CONSTRAINT `fk_qna_id` FOREIGN KEY (`qnaid`) REFERENCES `qna` (`idx`)
+  CONSTRAINT `fk_qna_id` FOREIGN KEY (`qnaid`) REFERENCES `qna` (`idx`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 유저 정보
@@ -103,6 +103,7 @@ CREATE TABLE `user` (
   `pwd` varchar(63) NOT NULL,
   `name` varchar(20) NOT NULL,
   `phone_number` varchar(20) DEFAULT NULL,
+  `role` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
