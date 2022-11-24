@@ -20,14 +20,14 @@
     <![CDATA[ 
       update replyqna
       set content = #{content}
-      where qnaId = #{idx}
+      where qnaid = #{qnaid}
     ]]>
   </update>
 
   <delete id="deleteReply" parameterType="int">
     <![CDATA[ 
       delete from replyqna
-      where qnaId = #{idx}
+      where qnaid = #{idx}
     ]]>
   </delete>
 </mapper>

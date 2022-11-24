@@ -1,6 +1,7 @@
 <template>
   <div
     class="modal fade"
+    id="modify"
     tabindex="-1"
     role="dialog"
     aria-labelledby="exampleModalLabel"
@@ -39,10 +40,29 @@
           ></textarea>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            취소
+          </button>
+          <button
+            type="button"
+            class="btn btn-custom"
+            @click="deleteQna"
+            data-bs-dismiss="modal"
+          >
             삭제
           </button>
-          <button type="button" class="btn btn-primary">수정</button>
+          <button
+            type="button"
+            class="btn btn-custom"
+            @click="updateQna"
+            data-bs-dismiss="modal"
+          >
+            수정
+          </button>
         </div>
       </div>
     </div>
@@ -50,6 +70,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "QnaUpdate",
   props: ["qna"],
@@ -63,7 +84,32 @@ export default {
     this.title = this.qna.title;
     this.content = this.qna.content;
   },
-  methods: {},
+  methods: {
+    ...mapActions("qnaStore", ["modifyQna", "removeQna"]),
+    async updateQna() {
+      const qna = {
+        idx: this.qna.idx,
+        title: this.title,
+        content: this.content,
+      };
+      try {
+        await this.modifyQna(qna);
+        this.$router.go();
+      } catch (e) {
+        console.log(e);
+        alert("서버 오류입니다.\n잠시 후 다시 시도해주세요");
+      }
+    },
+    async deleteQna() {
+      try {
+        await this.removeQna(this.qna.idx);
+        this.$router.go();
+      } catch (e) {
+        console.log(e);
+        alert("서버 오류입니다.\n잠시 후 다시 시도해주세요");
+      }
+    },
+  },
 };
 </script>
 

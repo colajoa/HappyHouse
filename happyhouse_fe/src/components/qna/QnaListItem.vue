@@ -23,7 +23,7 @@
       </td>
       <td
         class="qna-button d-flex justify-content-center"
-        v-if="userInfo.name == qna.writer"
+        v-if="userInfo.id == qna.writer"
       >
         <button
           class="btn btn-custom"
@@ -65,4 +65,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.view-btn:hover {
+  cursor: pointer;
+}
+
+.delay-zero {
+  transition: none;
+}
+</style>
+>

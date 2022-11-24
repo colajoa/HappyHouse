@@ -60,6 +60,12 @@ const QnaStore = {
         }
       });
     },
+    async modifyQnaReply(state, reply) {
+      await http.put(`/house/qna/reply/${reply.qnaid}`, reply);
+    },
+    async removeQnaReply(state, idx) {
+      await http.delete(`/house/qna/reply/${idx}`);
+    },
   },
 };
 
