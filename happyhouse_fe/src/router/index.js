@@ -67,7 +67,7 @@ const routes = [
         component: () => import("@/components/qna/QnaList"),
       },
       {
-        path: "wrtie",
+        path: "write",
         name: "qnawrite",
         component: () => import("@/components/qna/QnaWrite"),
       },
