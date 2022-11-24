@@ -169,7 +169,7 @@ public class UserServiceImpl implements UserService {
 				.pwd(encodedPassword)
 				.name(id)
 				.phoneNumber(null)
-				.role("user")
+				.role("kakao")
 				.build();
 
 		int n = userDao.insertUser(user);

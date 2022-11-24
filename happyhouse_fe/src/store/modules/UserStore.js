@@ -109,16 +109,25 @@ const userStore = {
       }
     },
     // Logout
-    async userLogout({ commit }) {
-      await http.get("/house/user/logout").then((res) => {
-        if (res.data == "OK") {
-          sessionStorage.removeItem("token");
-          commit("SET_IS_LOGIN", false);
-          commit("SET_IS_LOGIN_ERROR", false);
-          commit("SET_IS_VALID_TOKEN", false);
-          commit("SET_USER_INFO", null);
-        }
-      });
+    async userLogout({ commit }, userInfo) {
+      if (userInfo.role == "kakao") {
+        sessionStorage.removeItem("token");
+        commit("SET_IS_LOGIN", false);
+        commit("SET_IS_LOGIN_ERROR", false);
+        commit("SET_IS_VALID_TOKEN", false);
+        commit("SET_USER_INFO", null);
+        return;
+      } else {
+        await http.get("/house/user/logout").then((res) => {
+          if (res.data == "OK") {
+            sessionStorage.removeItem("token");
+            commit("SET_IS_LOGIN", false);
+            commit("SET_IS_LOGIN_ERROR", false);
+            commit("SET_IS_VALID_TOKEN", false);
+            commit("SET_USER_INFO", null);
+          }
+        });
+      }
     },
     // 회원 정보 찾기
     async getUserInfo({ commit }, { from, token }) {
