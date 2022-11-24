@@ -3,26 +3,26 @@
     <div class="blank"></div>
     <!-- <apt-area></apt-area> -->
     <apt-nav></apt-nav>
-    <apt-map></apt-map>
-    <apt-list></apt-list>
-    <apt-info></apt-info>
+    <!-- <apt-map></apt-map> -->
+    <!-- <apt-list></apt-list> -->
+    <!-- <apt-info></apt-info> -->
   </div>
 </template>
 
 <script>
-import AptMap from "@/components/apt/AptMap.vue";
+// import AptMap from "@/components/apt/AptMap.vue";
 // import AptArea from "@/components/apt/AptArea.vue";
-import AptList from "@/components/apt/AptList.vue";
-import AptInfo from "@/components/apt/AptInfo.vue";
+// import AptList from "@/components/apt/AptList.vue";
+// import AptInfo from "@/components/apt/AptInfo.vue";
 import AptNav from "@/components/apt/AptNav.vue";
 
 export default {
   name: "AppApt",
   components: {
-    AptMap,
+    // AptMap,
     // AptArea,
-    AptList,
-    AptInfo,
+    // AptList,
+    // AptInfo,
     AptNav,
   },
 };

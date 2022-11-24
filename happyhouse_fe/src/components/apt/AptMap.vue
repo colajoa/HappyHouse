@@ -1,6 +1,6 @@
 <template>
   <!-- <div id="map"></div> -->
-  <div id="map"></div>
+  <div id="map" class="d-flex" style="z-index: 0"></div>
 </template>
 
 <script>
@@ -59,10 +59,9 @@ export default {
 #map {
   /* display: none; */
   position: absolute;
-  bottom: 0px;
   margin-left: 4%;
   width: 96%;
-  height: 91.6vh;
+  height: 91%;
 
   /* width: 100%;
   height: 100%;

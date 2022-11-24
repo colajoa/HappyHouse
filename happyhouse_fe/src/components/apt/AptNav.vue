@@ -5,126 +5,107 @@
       style="width: 4%"
       id="sidebar-box"
     >
-      <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+      <ul
+        class="nav nav-pills nav-flush flex-column mb-auto text-center"
+        id="sidebarmain"
+      >
         <li class="nav-item">
-          <button
-            class="btn btn-primary"
-            type="button"
+          <!-- <a
+            href="#"
+            class="nav-link active py-3 border-bottom rounded-0"
+            aria-current="page"
+            title="Home"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasScrolling"
             aria-controls="offcanvasScrolling"
-          >
-            Enable body scrolling
-          </button>
-        </li>
-        <li>
-          <a
-            href="#"
-            class="nav-link py-3 border-bottom rounded-0"
-            title="Dashboard"
-            data-bs-toggle="tooltip"
             data-bs-placement="right"
+          > -->
+
+          <a
+            class="nav-link active py-3 border-bottom rounded-0"
+            aria-current="page"
+            title="Home"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseWidthExample"
+            aria-expanded="false"
+            aria-controls="collapseWidthExample"
           >
             <svg
               class="bi pe-none"
               width="24"
               height="24"
               role="img"
-              aria-label="Dashboard"
+              aria-label="Home"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <use xlink:href="#speedometer2" />
+              <path
+                d="m19.55 21.95-6.475-6.475q-.725.5-1.687.8-.963.3-2.088.3-2.95 0-5.012-2.063Q2.225 12.45 2.225 9.5q0-2.95 2.063-5.013Q6.35 2.425 9.3 2.425q2.95 0 5.012 2.062Q16.375 6.55 16.375 9.5q0 1.15-.3 2.087-.3.938-.8 1.638l6.5 6.525ZM9.3 13.425q1.65 0 2.788-1.138 1.137-1.137 1.137-2.787t-1.137-2.788Q10.95 5.575 9.3 5.575T6.513 6.712Q5.375 7.85 5.375 9.5t1.138 2.787Q7.65 13.425 9.3 13.425Z"
+              />
             </svg>
           </a>
         </li>
+
         <li>
           <a
             href="#"
-            class="nav-link py-3 border-bottom rounded-0"
-            title="Orders"
-            data-bs-toggle="tooltip"
-            data-bs-placement="right"
+            class="nav-link active py-3 border-bottom rounded-0"
+            aria-current="page"
+            title="Home"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseWidthExample1"
+            aria-expanded="false"
+            aria-controls="collapseWidthExample"
           >
             <svg
               class="bi pe-none"
               width="24"
               height="24"
               role="img"
-              aria-label="Orders"
+              aria-label="Home"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <use xlink:href="#table" />
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            class="nav-link py-3 border-bottom rounded-0"
-            title="Products"
-            data-bs-toggle="tooltip"
-            data-bs-placement="right"
-          >
-            <svg
-              class="bi pe-none"
-              width="24"
-              height="24"
-              role="img"
-              aria-label="Products"
-            >
-              <use xlink:href="#grid" />
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            class="nav-link py-3 border-bottom rounded-0"
-            title="Customers"
-            data-bs-toggle="tooltip"
-            data-bs-placement="right"
-          >
-            <svg
-              class="bi pe-none"
-              width="24"
-              height="24"
-              role="img"
-              aria-label="Customers"
-            >
-              <use xlink:href="#people-circle" />
+              <path
+                d="M11.975 22.15 9.95 20.325q-2.625-2.35-4.337-4.075-1.713-1.725-2.7-3.1-.988-1.375-1.388-2.55-.4-1.175-.4-2.45 0-2.725 1.813-4.55Q4.75 1.775 7.475 1.775q1.275 0 2.425.45t2.075 1.325q.925-.875 2.075-1.325 1.15-.45 2.425-.45 2.725 0 4.563 1.825 1.837 1.825 1.837 4.55 0 1.25-.387 2.425-.388 1.175-1.388 2.538-1 1.362-2.725 3.099Q16.65 17.95 14 20.325Zm0-4.225q2.35-2.15 3.863-3.625 1.512-1.475 2.374-2.575.863-1.1 1.188-1.925.325-.825.325-1.65 0-1.4-.925-2.312-.925-.913-2.325-.913-1.075 0-2.025.663-.95.662-1.325 1.687H10.85q-.375-1.025-1.337-1.687-.963-.663-2.038-.663-1.35 0-2.262.913Q4.3 6.75 4.3 8.15q0 .85.338 1.7.337.85 1.2 1.95.862 1.1 2.35 2.562 1.487 1.463 3.787 3.563Zm.05-6.5Z"
+              />
             </svg>
           </a>
         </li>
       </ul>
     </div>
-
-    <div
-      class="offcanvas offcanvas-start"
-      data-bs-scroll="true"
-      data-bs-backdrop="false"
-      tabindex="-1"
-      id="offcanvasScrolling"
-      aria-labelledby="offcanvasScrollingLabel"
-      style="max-height: 91.6vh; top: 88px; left: 4%"
-    >
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">
-          Offcanvas with body scrolling
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <p>Try scrolling the rest of the page to see this option in action.</p>
+    <div style="min-height: 120px; z-index: 10; height: 91%">
+      <div class="collapse collapse-horizontal" id="collapseWidthExample">
+        <div class="card card-body" style="width: 300px; height: 91vh">
+          <apt-area></apt-area>
+          <apt-list></apt-list>
+          <apt-info style="z-index: 0"></apt-info>
+        </div>
       </div>
     </div>
+
+    <div style="min-height: 120px; z-index: 10; height: 91%">
+      <div class="collapse collapse-horizontal" id="collapseWidthExample1">
+        <div class="card card-body" style="width: 300px; height: 91vh">
+          즐겨찾기
+        </div>
+      </div>
+    </div>
+    <apt-map></apt-map>
   </main>
 </template>
 
 <script>
-export default {};
+import AptArea from "./AptArea.vue";
+import AptList from "./AptList.vue";
+import AptMap from "./AptMap.vue";
+import AptInfo from "./AptInfo.vue";
+export default {
+  components: {
+    AptMap,
+    AptArea,
+    AptList,
+    AptInfo,
+  },
+};
 </script>
 
 <style scoped>
@@ -139,9 +120,8 @@ html {
 }
 
 main {
-  height: 100vh;
   height: -webkit-fill-available;
-  max-height: 91.6vh;
+  max-height: 91vh;
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -245,6 +225,12 @@ main {
 
 #sidebar-box {
   border-right: gray solid 1px;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: var(--bs-nav-pills-link-active-color);
+  background-color: var(--bs-nav-pills-link-active-bg);
 }
 /* sidenavbar */
 </style>
