@@ -153,8 +153,8 @@ const userStore = {
       await http.post("/house/user/pwd", user);
     },
     // 아이디 중복 검사
-    async checkDuplicateId(id) {
-      await http.get(`/house/user/check${id}`);
+    async checkDuplicateId(state, id) {
+      await http.get(`/house/user/check/${id}`);
     },
     // 유저 정보 수정
     async changeUserInfo(state, user) {
