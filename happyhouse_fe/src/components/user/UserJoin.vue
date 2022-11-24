@@ -205,13 +205,13 @@ export default {
 }
 
 .form-user input#join-first[type="text"] {
-  margin-bottom: -1px;
+  margin-bottom: 0.5px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 .form-user input#join-middle {
-  margin-bottom: -1px;
+  margin-bottom: 0.5px;
   border-radius: 0;
 }
 
