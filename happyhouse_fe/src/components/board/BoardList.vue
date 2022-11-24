@@ -34,7 +34,10 @@
           </tbody>
         </table>
       </div>
-      <div class="d-flex justify-content-center">
+      <div
+        class="d-flex justify-content-center"
+        v-if="userInfo && userInfo.role == 'admin'"
+      >
         <div class="row">
           <div id="custom-btn-div" class="col-md-12 d-flex justify-content-end">
             <router-link
@@ -62,6 +65,7 @@ export default {
     this.getBoardList();
   },
   computed: {
+    ...mapState("userStore", ["userInfo"]),
     ...mapState(boardStore, ["boards"]),
   },
   methods: {

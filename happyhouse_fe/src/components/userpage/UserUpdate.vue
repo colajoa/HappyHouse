@@ -49,10 +49,11 @@
         <div class="form-floating">
           <input
             type="text"
-            class="form-control"
+            :class="[isValidName ? 'form-control' : 'form-control is-invalid']"
             id="form-first"
             placeholder="이름"
             v-model="name"
+            ref="name"
           />
           <label for="floatingInput">이름</label>
         </div>
@@ -60,10 +61,11 @@
         <div class="form-floating">
           <input
             type="text"
-            class="form-control"
+            :class="[isValidPhone ? 'form-control' : 'form-control is-invalid']"
             id="form-last"
             placeholder="전화번호"
             v-model="phoneNumber"
+            ref="phoneNumber"
           />
           <label for="floatingInput">전화번호</label>
         </div>
@@ -86,20 +88,22 @@
         <div class="form-floating">
           <input
             type="text"
-            class="form-control"
+            :class="[isValidNow ? 'form-control' : 'form-control is-invalid']"
             id="form-first"
             placeholder="현재 비밀번호"
             v-model="password"
+            ref="password"
           />
           <label for="floatingInput">현재 비밀번호</label>
         </div>
         <div class="form-floating">
           <input
             type="text"
-            class="form-control"
+            :class="[isValidNew ? 'form-control' : 'form-control is-invalid']"
             id="form-last"
             placeholder="새로운 비밀번호"
             v-model="newPassword"
+            ref="newPassword"
           />
           <label for="floatingIput">새로운 비밀번호</label>
         </div>
@@ -126,6 +130,10 @@ export default {
       phoneNumber: null,
       password: null,
       newPassword: null,
+      isValidName: true,
+      isValidPhone: true,
+      isValidNow: true,
+      isValidNew: true,
     };
   },
   created() {
@@ -142,6 +150,7 @@ export default {
       "getUserInfo",
     ]),
     async updateUserInfo() {
+      if (!this.isBlankUserInfo()) return;
       const user = {
         id: this.userInfo.id,
         name: this.name,
@@ -158,6 +167,7 @@ export default {
       }
     },
     async updatePassword() {
+      if (!this.isBlankPass()) return;
       const pwds = {
         nowPassword: this.password,
         newPassword: this.newPassword,
@@ -167,8 +177,49 @@ export default {
         alert("비밀번호가 수정되었습니다.");
         this.$router.replace("/mypage/info");
       } catch (e) {
-        alert("서버 오류입니다.\n잠시 후 다시 시도해주세요.");
+        console.log(e);
+        if (e.response.data.code == "INVALID_PASSWORD") {
+          alert("비밀번호가 일치하지 않습니다.");
+          this.isValidNow = false;
+          this.$refs.password.focus();
+        } else {
+          alert("서버 오류입니다.\n잠시 후 다시 시도해주세요.");
+        }
       }
+    },
+    isBlankUserInfo() {
+      if (!this.name) {
+        this.isValidName = false;
+        this.$refs.name.focus();
+        return false;
+      } else {
+        this.isValidName = true;
+      }
+      if (!this.phoneNumber) {
+        this.isValidPhone = false;
+        this.$refs.phoneNumber.focus();
+        return false;
+      } else {
+        this.isValidPhone = true;
+      }
+      return true;
+    },
+    isBlankPass() {
+      if (!this.password) {
+        this.isValidNow = false;
+        this.$refs.password.focus();
+        return false;
+      } else {
+        this.isValidNow = true;
+      }
+      if (!this.newPassword) {
+        this.isValidNew = false;
+        this.$refs.newPassword.focus();
+        return false;
+      } else {
+        this.isValidNew = true;
+      }
+      return true;
     },
   },
 };

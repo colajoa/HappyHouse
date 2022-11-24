@@ -1,5 +1,4 @@
 import http from "@/api/axios.js";
-// import axios from "axios";
 
 const aptStore = {
   namespaced: true,
@@ -11,6 +10,8 @@ const aptStore = {
     months: [{ value: null, text: "월" }],
     apts: [],
     apt: null,
+    areas: [],
+    area: null,
   },
   getters: {},
   mutations: {
@@ -63,6 +64,12 @@ const aptStore = {
     },
     SET_DETAIL_APT(state, apt) {
       state.apt = apt;
+    },
+    SET_AREAS_LIST(state, areas) {
+      state.areas = areas;
+    },
+    SET_DETAIL_AREA(state, area) {
+      state.area = area;
     },
   },
   actions: {
@@ -125,6 +132,19 @@ const aptStore = {
     },
     detailApt: ({ commit }, apt) => {
       commit("SET_DETAIL_APT", apt);
+    },
+    registerArea: async (state, dongCode) => {
+      await http.get(`/house/area/${dongCode}`);
+    },
+    getAreaList: async ({ commit }) => {
+      await http.get(`/house/area/list`).then((res) => {
+        if (res.status == 200) {
+          commit("SET_AREAS_LIST", res.data);
+        }
+      });
+    },
+    detailArea: ({ commit }, area) => {
+      commit("SET_DETAIL_AREA", area);
     },
   },
 };

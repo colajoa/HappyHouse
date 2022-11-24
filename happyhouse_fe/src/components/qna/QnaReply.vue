@@ -11,7 +11,14 @@
       class="qna-button d-flex justify-content-center"
       v-if="userInfo.role == 'admin'"
     >
-      <button class="btn btn-custom">수정</button>
+      <button
+        class="btn btn-custom"
+        data-bs-toggle="modal"
+        data-bs-target="#modify"
+      >
+        수정
+      </button>
+      <qna-reply-update id="modify" :reply="reply"></qna-reply-update>
     </td>
     <td v-else></td>
   </tr>
@@ -27,7 +34,14 @@
       class="qna-button d-flex justify-content-center"
       v-if="userInfo.role == 'admin'"
     >
-      <button class="btn btn-custom">답변</button>
+      <button
+        class="btn btn-custom"
+        data-bs-toggle="modal"
+        data-bs-target="#register"
+      >
+        답변
+      </button>
+      <qna-reply-update id="register" :qnaId="qnaId"></qna-reply-update>
     </td>
     <td v-else></td>
   </tr>
@@ -35,9 +49,11 @@
 
 <script>
 import { mapState } from "vuex";
+import QnaReplyUpdate from "./QnaReplyUpdate.vue";
 
 const userStore = "userStore";
 export default {
+  components: { QnaReplyUpdate },
   name: "QnaReply",
   data() {
     return {};

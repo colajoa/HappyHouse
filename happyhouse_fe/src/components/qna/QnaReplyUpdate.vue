@@ -1,7 +1,7 @@
 <template>
   <div
     class="modal fade"
-    id="write-qna"
+    id="modify"
     tabindex="-1"
     role="dialog"
     aria-labelledby="exampleModalLabel"
@@ -10,16 +10,6 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">
-            <input
-              type="text"
-              class="form-control form-control-lg"
-              id=""
-              placeholder="글 제목"
-              v-model="title"
-              ref="title"
-            />
-          </h5>
           <button
             type="button"
             class="btn-close"
@@ -39,7 +29,7 @@
             rows="10"
           ></textarea>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer" v-if="reply">
           <button
             type="button"
             class="btn btn-secondary"
@@ -50,7 +40,7 @@
           <button
             type="button"
             class="btn btn-custom"
-            @click="deleteQna"
+            @click="deleteQnaReply"
             data-bs-dismiss="modal"
           >
             삭제
@@ -58,10 +48,20 @@
           <button
             type="button"
             class="btn btn-custom"
-            @click="updateQna"
+            @click="updateQnaReply"
             data-bs-dismiss="modal"
           >
             수정
+          </button>
+        </div>
+        <div class="modal-footer" v-else>
+          <button
+            type="button"
+            class="btn btn-custom"
+            @click="regReply"
+            data-bs-dismiss="modal"
+          >
+            등록
           </button>
         </div>
       </div>
@@ -72,41 +72,54 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-  name: "QnaUpdate",
-  props: ["qna"],
+  name: "QnaReplyUpdate",
+  props: ["reply", "qnaId"],
   data() {
     return {
-      title: null,
       content: null,
     };
   },
   created() {
-    this.title = this.qna.title;
-    this.content = this.qna.content;
+    if (this.reply) this.content = this.reply.content;
   },
   methods: {
-    ...mapActions("qnaStore", ["modifyQna", "removeQna"]),
-    async updateQna() {
-      const qna = {
-        idx: this.qna.idx,
-        title: this.title,
+    ...mapActions("qnaStore", [
+      "registerQnaReply",
+      "modifyQnaReply",
+      "removeQnaReply",
+    ]),
+    async updateQnaReply() {
+      const reply = {
+        qnaid: this.reply.qnaid,
         content: this.content,
       };
       try {
-        await this.modifyQna(qna);
+        await this.modifyQnaReply(reply);
         this.$router.go();
       } catch (e) {
         console.log(e);
         alert("서버 오류입니다.\n잠시 후 다시 시도해주세요");
       }
     },
-    async deleteQna() {
+    async deleteQnaReply() {
       try {
-        await this.removeQna(this.qna.idx);
+        await this.removeQnaReply(this.reply.qnaid);
         this.$router.go();
       } catch (e) {
         console.log(e);
         alert("서버 오류입니다.\n잠시 후 다시 시도해주세요");
+      }
+    },
+    async regReply() {
+      const reply = {
+        qnaid: this.qnaId,
+        content: this.content,
+      };
+      try {
+        await this.registerQnaReply(reply);
+        this.$router.go();
+      } catch (e) {
+        alert("서버 오류입니다.\n잠시 후 다시 시도해주세요.");
       }
     },
   },

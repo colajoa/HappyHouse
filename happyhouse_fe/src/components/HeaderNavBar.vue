@@ -34,11 +34,6 @@
           <!--로그인 후-->
           <ul v-else>
             <li>
-              <router-link class="nav-link scrollto" :to="{ name: 'test' }"
-                >테스트 페이지</router-link
-              >
-            </li>
-            <li>
               <router-link class="nav-link scrollto" :to="{ name: 'apt' }"
                 >아파트 거래정보</router-link
               >
@@ -50,13 +45,17 @@
             </li>
             <li>
               <router-link class="nav-link scrollto" :to="{ name: 'qna' }"
-                >질문받는다</router-link
+                >QnA</router-link
               >
             </li>
 
             <!-- dropdown 버튼 -->
             <li class="dropdown">
-              <button class="user-btn">{{ userInfo.name }}님</button>
+              <button class="user-btn" v-if="userInfo.role == 'user'">
+                {{ userInfo.name }}님
+              </button>
+              <button class="user-btn" v-else>관리자님</button>
+
               <ul class="user-dropdown">
                 <li>
                   <router-link

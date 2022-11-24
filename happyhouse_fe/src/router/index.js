@@ -17,11 +17,6 @@ const routes = [
     component: () => import("@/views/KakaoAuth"),
   },
   {
-    path: "/test",
-    name: "test",
-    component: () => import("@/views/AppTest"),
-  },
-  {
     path: "/apt",
     name: "apt",
     component: AppApt,
@@ -72,7 +67,7 @@ const routes = [
         component: () => import("@/components/qna/QnaList"),
       },
       {
-        path: "wrtie",
+        path: "write",
         name: "qnawrite",
         component: () => import("@/components/qna/QnaWrite"),
       },

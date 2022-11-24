@@ -35,11 +35,7 @@ const userStore = {
   actions: {
     // 회원가입
     async userJoin(state, user) {
-      await http.post("/house/user/join", user).then((res) => {
-        if (res.status == 200) {
-          return;
-        }
-      });
+      await http.post("/house/user/join", user);
     },
     // Login
     async userConfirm({ commit }, user) {
@@ -59,46 +55,38 @@ const userStore = {
       });
     },
     // Set kakao AccessToken
-    async setKakaoToken({ commit }, code) {
-      const { data } = await this.getKakaoToken(code);
-      if (data.error) {
-        alert("카카오톡 로그인 중 오류 발생");
-        this.$router.replace("/user/login");
-        return;
-      }
-
+    async setKakaoToken({ commit }, data) {
       window.Kakao.Auth.setAccessToken(data.access_token);
-      await http
+      return await http
         .post(
           "/house/user/login/kakao",
           JSON.stringify({ code: data.access_token })
         )
-        .then((res) => {
+        .then(function (res) {
           // 성공
           if (res.data == "OK") {
             commit("SET_IS_LOGIN", true);
             commit("SET_IS_LOGIN_ERROR", false);
             commit("SET_IS_VALID_TOKEN", true);
             sessionStorage.setItem("token", data.access_token);
-            this.$router.replace("/");
           }
           // 실패
           else {
             commit("SET_IS_LOGIN", false);
             commit("SET_IS_LOGIN_ERROR", true);
             commit("SET_IS_VALID_TOKEN", false);
-            this.moveToLogin();
           }
+          return res.data;
         });
     },
     // Generate kakao AccessToken
-    async getKakaoToken(code) {
+    async getKakaoToken(state, authcode) {
       try {
         const data = {
           grant_type: "authorization_code",
           client_id: process.env.VUE_APP_CLIENT_ID,
           redirect_uri: process.env.VUE_APP_REDIRECT_URI,
-          code,
+          code: authcode,
         };
         const queryString = Object.keys(data)
           .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k]))
@@ -133,10 +121,11 @@ const userStore = {
       });
     },
     // 회원 정보 찾기
-    async getUserInfo({ commit }, token) {
+    async getUserInfo({ commit }, { from, token }) {
+      console.log(from);
       http.defaults.headers["Authorization"] = token;
       await http
-        .get("/house/user/info")
+        .get(`/house/user/info/${from}`)
         .then((res) => {
           if (res.status == 200) {
             commit("SET_USER_INFO", res.data);
@@ -165,8 +154,8 @@ const userStore = {
       await http.post("/house/user/pwd", user);
     },
     // 아이디 중복 검사
-    async checkDuplicateId(id) {
-      await http.get(`/house/user/check${id}`);
+    async checkDuplicateId(state, id) {
+      await http.get(`/house/user/check/${id}`);
     },
     // 유저 정보 수정
     async changeUserInfo(state, user) {

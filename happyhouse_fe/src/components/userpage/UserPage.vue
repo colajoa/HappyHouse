@@ -10,23 +10,40 @@
     <h2 class="mb-3" style="color: #2f4d5a">{{ userInfo.name }}</h2>
 
     <div class="">
-      <div class="form-control" id="form-first" ref="name">
-        <label></label>
+      <div class="form-control" id="form-first" ref="name" style="border: none">
+        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+          <path
+            d="M24 23.95q-3.3 0-5.4-2.1-2.1-2.1-2.1-5.4 0-3.3 2.1-5.4 2.1-2.1 5.4-2.1 3.3 0 5.4 2.1 2.1 2.1 2.1 5.4 0 3.3-2.1 5.4-2.1 2.1-5.4 2.1ZM8 40v-4.7q0-1.9.95-3.25T11.4 30q3.35-1.5 6.425-2.25Q20.9 27 24 27q3.1 0 6.15.775 3.05.775 6.4 2.225 1.55.7 2.5 2.05.95 1.35.95 3.25V40Z"
+          />
+        </svg>
       </div>
     </div>
     <div>
-      <div class="form-control" id="form-middle" ref="id">
-        <label>{{ userInfo.id }}</label>
+      <div class="form-control" id="form-middle" ref="id" style="border: none">
+        <label
+          ><h2>{{ userInfo.id }}</h2></label
+        >
       </div>
     </div>
     <div class="">
-      <div class="form-control" id="form-middle" ref="password">
-        <label>{{ userInfo.pwd }}</label>
+      <div class="form-control" id="form-middle" style="border: none">
+        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+          <path
+            d="M13 46q-1.2 0-2.1-.9-.9-.9-.9-2.1V5q0-1.2.9-2.1.9-.9 2.1-.9h22q1.2 0 2.1.9.9.9.9 2.1v38q0 1.2-.9 2.1-.9.9-2.1.9Zm0-7.5h22v-29H13Z"
+          />
+        </svg>
       </div>
     </div>
     <div class="">
-      <div class="form-control" id="form-last" ref="phoneNumber">
-        <label>{{ userInfo.phone_number }}</label>
+      <div
+        class="form-control"
+        id="form-last"
+        ref="phoneNumber"
+        style="border: none"
+      >
+        <label
+          ><h2>{{ userInfo.phone_number }}</h2></label
+        >
       </div>
     </div>
 
@@ -95,5 +112,9 @@ export default {
 
 #custom-link:hover {
   color: #409cc5;
+}
+
+svg {
+  fill: rgb(47, 77, 90);
 }
 </style>

@@ -31,11 +31,14 @@
       <div class="d-flex justify-content-center">
         <div class="row">
           <div id="custom-btn-div" class="col-md-12 d-flex justify-content-end">
-            <router-link
+            <button
               class="btn btn-custom btn-lg"
-              :to="{ name: 'qnawrite' }"
-              >질문하기</router-link
+              data-bs-toggle="modal"
+              data-bs-target="#write-qna"
             >
+              질문하기
+            </button>
+            <qna-write id="write-qna"></qna-write>
           </div>
         </div>
       </div>
@@ -44,16 +47,15 @@
 </template>
 
 <script>
-// import QnaReply from "./QnaReply.vue";
-// import QnaView from "./QnaView.vue";
 import { mapActions, mapState } from "vuex";
 import QnaListItem from "./QnaListItem.vue";
+import QnaWrite from "./QnaWrite.vue";
 
 const qnaStore = "qnaStore";
 const userStore = "userStore";
 export default {
   name: "QnaList",
-  components: { QnaListItem },
+  components: { QnaListItem, QnaWrite },
   data() {
     return {
       index: null,

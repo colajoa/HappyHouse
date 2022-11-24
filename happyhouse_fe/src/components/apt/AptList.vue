@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <apt-list-item v-for="(apt, index) in apts" :key="index" :apt="apt">
-      {{ apt.아파트 }}
+  <div class="accordion" id="accordionExample" style="">
+    <apt-list-item
+      v-for="(apt, index) in apts"
+      :key="index"
+      :apt="apt"
+      :index="index"
+    >
     </apt-list-item>
   </div>
 </template>
@@ -30,4 +34,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.accordion {
+  overflow-y: scroll;
+}
+</style>

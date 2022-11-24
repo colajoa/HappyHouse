@@ -23,9 +23,16 @@
       </td>
       <td
         class="qna-button d-flex justify-content-center"
-        v-if="userInfo.name == qna.writer"
+        v-if="userInfo.id == qna.writer"
       >
-        <button class="btn btn-custom">수정</button>
+        <button
+          class="btn btn-custom"
+          data-bs-toggle="modal"
+          :data-bs-target="`#modify${qna.idx}`"
+        >
+          수정
+        </button>
+        <qna-update :id="`modify${qna.idx}`" :qna="qna"></qna-update>
       </td>
       <td v-else></td>
     </tr>
@@ -36,11 +43,13 @@
 <script>
 import { mapState } from "vuex";
 import QnaReply from "@/components/qna/QnaReply.vue";
+import QnaUpdate from "@/components/qna/QnaUpdate.vue";
 
 export default {
   name: "QnaListItem",
   components: {
     QnaReply,
+    QnaUpdate,
   },
   props: {
     qna: Object,
@@ -56,4 +65,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.view-btn:hover {
+  cursor: pointer;
+}
+
+.delay-zero {
+  transition: none;
+}
+</style>
+>

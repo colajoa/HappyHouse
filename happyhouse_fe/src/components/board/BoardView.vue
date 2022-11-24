@@ -32,11 +32,16 @@
               >목록</router-link
             >
             <router-link
+              v-if="userInfo && userInfo.role == 'admin'"
               :to="{ name: 'boardupdate' }"
               class="btn btn-lg btn-custom"
               >수정</router-link
             >
-            <button class="btn btn-lg btn-custom" @click="removePost">
+            <button
+              v-if="userInfo && userInfo.role == 'admin'"
+              class="btn btn-lg btn-custom"
+              @click="removePost"
+            >
               삭제
             </button>
           </div>
@@ -65,6 +70,7 @@ export default {
     this.getBoard();
   },
   computed: {
+    ...mapState("userStore", ["userInfo"]),
     ...mapState(boardStore, ["board"]),
   },
   methods: {

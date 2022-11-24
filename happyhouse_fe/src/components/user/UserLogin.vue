@@ -11,24 +11,34 @@
     <div class="form-floating">
       <input
         type="text"
-        class="form-control"
+        :class="[isValidId ? 'form-control' : 'form-control is-invalid']"
         id="floatingInput"
         placeholder="아이디"
         v-model="id"
         ref="id"
       />
-      <label for="floatingInput">아이디</label>
+      <label for="floatingInput"
+        >아이디
+        <small v-if="!isValidId" class="text-muted"
+          >존재하지 않는 아이디</small
+        ></label
+      >
     </div>
     <div class="form-floating">
       <input
         type="password"
-        class="form-control"
+        :class="[isValidPass ? 'form-control' : 'form-control is-invalid']"
         id="floatingPassword"
         placeholder="비밀번호"
         v-model="password"
         ref="password"
       />
-      <label for="floatingPassword">비밀번호</label>
+      <label for="floatingPassword"
+        >비밀번호
+        <small v-if="!isValidPass" class="text-muted"
+          >일치하지 않음</small
+        ></label
+      >
     </div>
 
     <div>
@@ -78,6 +88,8 @@ export default {
     return {
       id: null,
       password: null,
+      isValidId: true,
+      isValidPass: true,
     };
   },
   computed: {
@@ -92,14 +104,15 @@ export default {
     ]),
     async login() {
       try {
+        if (!this.isBlank()) return;
+
         await this.userConfirm({
           id: this.id,
           secret: this.password,
         });
         if (this.isLogin) {
           const token = sessionStorage.getItem("token");
-          await this.getUserInfo(token);
-          console.log(this.userInfo);
+          await this.getUserInfo({ from: "general", token });
           this.$router.push({ name: "main" });
         }
       } catch (e) {
@@ -108,16 +121,33 @@ export default {
           // ERROR
           const errorCode = e.response.data.code;
           if (errorCode === "USER_NOT_FOUND") {
-            alert("아이디가 존재하지 않습니다.");
+            this.isValidId = false;
             this.$refs.id.focus();
           } else if (errorCode === "INVALID_PASSWORD") {
-            alert("비밀번호가 일치하지 않습니다.");
+            this.isValidPass = false;
             this.$refs.password.focus();
           } else {
             alert("서버 오류");
           }
         }
       }
+    },
+    isBlank() {
+      if (!this.id) {
+        this.isValidId = false;
+        this.$refs.id.focus();
+        return false;
+      } else {
+        this.isValidId = true;
+      }
+      if (!this.password) {
+        this.isValidPass = false;
+        this.$refs.password.focus();
+        return false;
+      } else {
+        this.isValidPass = true;
+      }
+      return true;
     },
   },
 };

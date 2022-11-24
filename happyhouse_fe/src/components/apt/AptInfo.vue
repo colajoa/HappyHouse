@@ -1,6 +1,6 @@
 <template>
   <div v-if="apt">
-    <ul>
+    <ul class="">
       <li>일련번호 : {{ apt.일련번호 }}</li>
       <li>아파트 : {{ apt.아파트 }}</li>
       <li>법정동 : {{ apt.법정동 }}</li>
@@ -22,4 +22,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+li {
+  list-style: none;
+}
+
+ul {
+  margin-left: 5px;
+}
+</style>
