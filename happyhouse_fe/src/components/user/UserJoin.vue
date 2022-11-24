@@ -28,9 +28,12 @@
         placeholder="아이디"
         v-model="id"
         ref="id"
-        @keypress="checkId"
+        @keyup="checkId(id)"
       />
-      <label for="floatingInput">아이디</label>
+      <label for="floatingInput"
+        >아이디 <small class="text-muted">{{ msg }}</small></label
+      >
+      <!-- <small id="passwordHelpInline" class="text-muted">{{ msg }}</small> -->
     </div>
     <div class="form-floating">
       <input
@@ -41,7 +44,10 @@
         v-model="password"
         ref="password"
       />
-      <label for="floatingPassword">비밀번호</label>
+      <label for="floatingPassword"
+        >비밀번호
+        <small class="text-muted">4-20 사이 글자</small>
+      </label>
     </div>
     <div class="form-floating">
       <input
@@ -73,7 +79,7 @@ export default {
       password: null,
       name: null,
       phoneNumber: null,
-      msg: null,
+      msg: "3-12 사이 글자",
       isValidId: true,
       isValidPass: true,
       isValidName: true,
@@ -161,20 +167,15 @@ export default {
       return true;
     },
 
-    async checkId() {
+    async checkId(id) {
       try {
-        await this.checkDuplicateId(this.id);
+        await this.checkDuplicateId(id);
         this.msg = "사용 가능한 아이디입니다.";
-        console.log("사용 가능한 아이디");
       } catch (e) {
-        console.log(e.response.data);
+        console.log(e);
         // 아이디 존재할 경우
         if (e.response.data.code == "ID_EXISTS") {
           this.msg = "중복된 아이디입니다.";
-          console.log("중복된 아이디입니다");
-          console.log(e);
-        } else {
-          console.log(e);
         }
       }
     },
@@ -187,7 +188,7 @@ export default {
     },
 
     validatePw: (pw) => {
-      if (pw.length >= 4) return true;
+      if (pw.length >= 4 && pw.length <= 20) return true;
       return false;
     },
 

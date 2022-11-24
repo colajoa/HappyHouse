@@ -17,7 +17,12 @@
         v-model="id"
         ref="id"
       />
-      <label for="floatingInput">아이디</label>
+      <label for="floatingInput"
+        >아이디
+        <small v-if="!isValidId" class="text-muted"
+          >존재하지 않는 아이디</small
+        ></label
+      >
     </div>
     <div class="form-floating">
       <input
@@ -28,7 +33,12 @@
         v-model="password"
         ref="password"
       />
-      <label for="floatingPassword">비밀번호</label>
+      <label for="floatingPassword"
+        >비밀번호
+        <small v-if="!isValidPass" class="text-muted"
+          >일치하지 않음</small
+        ></label
+      >
     </div>
 
     <div>
@@ -112,11 +122,9 @@ export default {
           // ERROR
           const errorCode = e.response.data.code;
           if (errorCode === "USER_NOT_FOUND") {
-            alert("아이디가 존재하지 않습니다.");
             this.isValidId = false;
             this.$refs.id.focus();
           } else if (errorCode === "INVALID_PASSWORD") {
-            alert("비밀번호가 일치하지 않습니다.");
             this.isValidPass = false;
             this.$refs.password.focus();
           } else {
