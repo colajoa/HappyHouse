@@ -192,6 +192,7 @@ export default {
       "getMonth",
       "getAptList",
       "registerArea",
+      "getAreaList",
     ]),
     ...mapMutations(aptStore, [
       "CLEAR_SIDO_LIST",
@@ -246,6 +247,7 @@ export default {
 
       try {
         await this.registerArea(this.dongCode);
+        await this.getAreaList();
         alert("등록되었습니다.");
       } catch (e) {
         console.log(e);

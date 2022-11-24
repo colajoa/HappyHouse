@@ -21,7 +21,7 @@ export default {
   computed: {
     ...mapState("aptStore", ["areas"]),
   },
-  created() {
+  mounted() {
     this.getAreas();
   },
   methods: {
