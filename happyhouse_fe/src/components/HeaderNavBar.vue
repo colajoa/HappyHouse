@@ -51,7 +51,7 @@
 
             <!-- dropdown 버튼 -->
             <li class="dropdown">
-              <button class="user-btn" v-if="userInfo.role == 'user'">
+              <button class="user-btn" v-if="userInfo.role != 'admin'">
                 {{ userInfo.name }}님
               </button>
               <button class="user-btn" v-else>관리자님</button>
@@ -109,7 +109,7 @@ export default {
   methods: {
     ...mapActions(userStore, ["userLogout"]),
     async logout() {
-      await this.userLogout();
+      await this.userLogout(this.userInfo);
       if (this.$router.path != "/") this.$router.push({ name: "main" });
     },
   },
