@@ -18,7 +18,7 @@ export default {
     ...mapState(userStore, ["isLogin", "isLoginError", "userInfo"]),
   },
   methods: {
-    ...mapActions(userStore, ["setKakaoToken", "getKakaoToken"]),
+    ...mapActions(userStore, ["setKakaoToken", "getKakaoToken", "getUserInfo"]),
     async login(code) {
       const { data } = await this.getKakaoToken(code);
       if (data.error) {
@@ -28,7 +28,11 @@ export default {
       }
       const result = await this.setKakaoToken(data);
       if (result != "OK") this.$router.push("/user/login");
-      else this.$router.push("/");
+      else {
+        const token = sessionStorage.getItem("token");
+        this.getUserInfo({ from: "kakao", token });
+        this.$router.push("/");
+      }
     },
   },
 };

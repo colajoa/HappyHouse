@@ -112,8 +112,7 @@ export default {
         });
         if (this.isLogin) {
           const token = sessionStorage.getItem("token");
-          await this.getUserInfo(token);
-          console.log(this.userInfo);
+          await this.getUserInfo({ from: "general", token });
           this.$router.push({ name: "main" });
         }
       } catch (e) {

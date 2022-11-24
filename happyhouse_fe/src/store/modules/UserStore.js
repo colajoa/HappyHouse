@@ -121,10 +121,11 @@ const userStore = {
       });
     },
     // 회원 정보 찾기
-    async getUserInfo({ commit }, token) {
+    async getUserInfo({ commit }, { from, token }) {
+      console.log(from);
       http.defaults.headers["Authorization"] = token;
       await http
-        .get("/house/user/info")
+        .get(`/house/user/info/${from}`)
         .then((res) => {
           if (res.status == 200) {
             commit("SET_USER_INFO", res.data);
