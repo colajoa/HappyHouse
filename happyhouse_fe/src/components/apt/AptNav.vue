@@ -73,7 +73,16 @@
 
     <div style="min-height: 120px; z-index: 10; height: 91%">
       <div class="collapse collapse-horizontal" id="collapseWidthExample1">
-        <div class="card card-body" style="width: 300px; height: 91vh">
+        <div
+          class="card card-body"
+          style="
+            width: 300px;
+            height: 91vh;
+            padding-top: 0;
+            padding-left: 0;
+            padding-right: 0;
+          "
+        >
           <interest-arae-list></interest-arae-list>
         </div>
       </div>
