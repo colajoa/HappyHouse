@@ -16,7 +16,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("aptStore", ["apt", "apts"]),
+    ...mapState("aptStore", ["apt", "apts", "area"]),
   },
   watch: {
     apts: function () {
@@ -26,6 +26,9 @@ export default {
     },
     apt: function () {
       this.setMapCenter();
+    },
+    area: function () {
+      this.moveMapCenter();
     },
   },
   created() {},
@@ -151,6 +154,22 @@ export default {
     clearMarkers() {
       this.setMarkers(null);
       this.markers = [];
+    },
+    moveMapCenter() {
+      let map = this.map;
+      let area = this.area;
+
+      var geocoder = new kakao.maps.services.Geocoder();
+
+      console.log(area);
+      geocoder.addressSearch(area.address, function (result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+          map.setCenter(coords);
+          map.setLevel(5);
+        }
+      });
     },
   },
 };

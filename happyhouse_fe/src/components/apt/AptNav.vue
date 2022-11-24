@@ -9,6 +9,7 @@
         class="nav nav-pills nav-flush flex-column mb-auto text-center"
         id="sidebarmain"
       >
+        <!-- 아파트 검색 -->
         <li class="nav-item">
           <a
             class="nav-link active py-3 border-bottom rounded-0"
@@ -34,9 +35,9 @@
           </a>
         </li>
 
+        <!-- 관심지역 -->
         <li>
           <a
-            href="#"
             class="nav-link active py-3 border-bottom rounded-0"
             aria-current="page"
             title="Home"
@@ -86,7 +87,7 @@
             padding-right: 0;
           "
         >
-          <interest-arae-list></interest-arae-list>
+          <interest-area-list></interest-area-list>
         </div>
       </div>
     </div>
@@ -99,15 +100,20 @@ import AptArea from "./AptArea.vue";
 import AptList from "./AptList.vue";
 import AptMap from "./AptMap.vue";
 import AptInfo from "./AptInfo.vue";
-import InterestAraeList from "../area/AraeList.vue";
+import InterestAreaList from "../area/AreaList.vue";
 export default {
   components: {
     AptMap,
     AptArea,
     AptList,
     AptInfo,
-    InterestAraeList,
+    InterestAreaList,
   },
+  data() {
+    return {};
+  },
+  computed: {},
+  methods: {},
 };
 </script>
 
