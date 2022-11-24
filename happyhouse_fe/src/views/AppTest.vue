@@ -11,7 +11,15 @@
           <button type="button" class="btn btn-lg btn-custom">글쓰기</button>
         </div>
       </div>
-
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="button"
+        aria-pressed="false"
+        autocomplete="off"
+      >
+        Single toggle
+      </button>
       <table
         class="table table-hover table-fixed text-center accordion accordion-flush"
         id="accordionFlushExample"
