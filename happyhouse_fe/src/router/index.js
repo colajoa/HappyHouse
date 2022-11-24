@@ -17,11 +17,6 @@ const routes = [
     component: () => import("@/views/KakaoAuth"),
   },
   {
-    path: "/test",
-    name: "test",
-    component: () => import("@/views/AppTest"),
-  },
-  {
     path: "/apt",
     name: "apt",
     component: AppApt,
