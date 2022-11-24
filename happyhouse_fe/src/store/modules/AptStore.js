@@ -1,5 +1,4 @@
 import http from "@/api/axios.js";
-// import axios from "axios";
 
 const aptStore = {
   namespaced: true,
