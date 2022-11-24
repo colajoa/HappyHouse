@@ -179,7 +179,7 @@ export default {
       }
     },
     validateId: (id) => {
-      if (id.length >= 6 && id.length <= 12) {
+      if (id.length >= 3 && id.length <= 12) {
         console.log(id.length);
         return true;
       }
@@ -187,7 +187,7 @@ export default {
     },
 
     validatePw: (pw) => {
-      if (pw.length >= 8) return true;
+      if (pw.length >= 4) return true;
       return false;
     },
 
