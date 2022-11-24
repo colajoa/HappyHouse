@@ -1,5 +1,5 @@
 <template>
-  <div class="accordion" id="accordionExample" style="overflow: scroll">
+  <div class="accordion" id="accordionExample" style="">
     <apt-list-item
       v-for="(apt, index) in apts"
       :key="index"
@@ -34,4 +34,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.accordion {
+  overflow-y: scroll;
+}
+</style>
