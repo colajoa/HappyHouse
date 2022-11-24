@@ -50,18 +50,10 @@
           <button
             type="button"
             class="btn btn-custom"
-            @click="deleteQna"
+            @click="register"
             data-bs-dismiss="modal"
           >
-            삭제
-          </button>
-          <button
-            type="button"
-            class="btn btn-custom"
-            @click="updateQna"
-            data-bs-dismiss="modal"
-          >
-            수정
+            등록
           </button>
         </div>
       </div>
@@ -70,9 +62,9 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
-  name: "QnaUpdate",
+  name: "QnaWrite",
   props: ["qna"],
   data() {
     return {
@@ -80,34 +72,38 @@ export default {
       content: null,
     };
   },
-  created() {
-    this.title = this.qna.title;
-    this.content = this.qna.content;
+  created() {},
+  computed: {
+    ...mapState("userStore", ["userInfo"]),
   },
   methods: {
-    ...mapActions("qnaStore", ["modifyQna", "removeQna"]),
-    async updateQna() {
+    ...mapActions("qnaStore", ["registerQna"]),
+    async register() {
+      if (!this.isBlank()) return;
+
       const qna = {
-        idx: this.qna.idx,
         title: this.title,
+        writer: this.userInfo.id,
         content: this.content,
       };
       try {
-        await this.modifyQna(qna);
+        await this.registerQna(qna);
         this.$router.go();
       } catch (e) {
         console.log(e);
         alert("서버 오류입니다.\n잠시 후 다시 시도해주세요");
       }
     },
-    async deleteQna() {
-      try {
-        await this.removeQna(this.qna.idx);
-        this.$router.go();
-      } catch (e) {
-        console.log(e);
-        alert("서버 오류입니다.\n잠시 후 다시 시도해주세요");
+    isBlank() {
+      if (!this.title) {
+        this.$refs.title.focus();
+        return false;
       }
+      if (!this.content) {
+        this.$refs.content.focus();
+        return false;
+      }
+      return true;
     },
   },
 };
