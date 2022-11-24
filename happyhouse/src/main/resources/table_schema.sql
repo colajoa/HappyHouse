@@ -60,7 +60,7 @@ CREATE TABLE `area` (
   KEY `fk_user_id_idx` (`userId`),
   CONSTRAINT `fk_dongCode` FOREIGN KEY (`dongcode`) REFERENCES `dongcode` (`dongCode`),
   CONSTRAINT `fk_user_id` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 공지사항
 CREATE TABLE `post` (
@@ -71,7 +71,7 @@ CREATE TABLE `post` (
   `hit` int DEFAULT '0',
   `createdat` date DEFAULT NULL,
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- QNA
 CREATE TABLE `qna` (
@@ -83,7 +83,7 @@ CREATE TABLE `qna` (
   `isReply` tinyint DEFAULT '0',
   `createdat` date DEFAULT NULL,
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- QNA 답변
 CREATE TABLE `replyqna` (
@@ -94,7 +94,7 @@ CREATE TABLE `replyqna` (
   PRIMARY KEY (`idx`),
   KEY `fk_qna_id_idx` (`qnaid`),
   CONSTRAINT `fk_qna_id` FOREIGN KEY (`qnaid`) REFERENCES `qna` (`idx`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 유저 정보
 CREATE TABLE `user` (
