@@ -67,10 +67,9 @@
       <div class="collapse collapse-horizontal" id="collapseWidthExample">
         <div class="card card-body" style="width: 300px; height: 91vh">
           <apt-area></apt-area>
-          <div class="accordion" id="accordionExample">
-            <apt-list></apt-list>
-            <apt-info></apt-info>
-          </div>
+
+          <apt-list></apt-list>
+          <apt-info></apt-info>
         </div>
       </div>
     </div>
