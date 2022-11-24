@@ -69,7 +69,6 @@
           <apt-area></apt-area>
 
           <apt-list></apt-list>
-          <apt-info></apt-info>
         </div>
       </div>
     </div>
@@ -98,14 +97,12 @@
 import AptArea from "./AptArea.vue";
 import AptList from "./AptList.vue";
 import AptMap from "./AptMap.vue";
-import AptInfo from "./AptInfo.vue";
 import InterestAreaList from "../area/AreaList.vue";
 export default {
   components: {
     AptMap,
     AptArea,
     AptList,
-    AptInfo,
     InterestAreaList,
   },
   data() {

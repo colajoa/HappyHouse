@@ -5,7 +5,7 @@
         class="accordion-button collapsed"
         type="button"
         data-bs-toggle="collapse"
-        data-bs-target="#collapseOne"
+        :data-bs-target="`#apt${index}`"
         aria-expanded="false"
         aria-controls="collapseOne"
       >
@@ -13,19 +13,12 @@
       </button>
     </h2>
     <div
-      id="collapseOne"
+      :id="`apt${index}`"
       class="accordion-collapse collapse"
       aria-labelledby="headingOne"
       data-bs-parent="#accordionExample"
     >
       <div class="accordion-body">
-        <strong>This is the first item's accordion body.</strong> It is shown by
-        default, until the collapse plugin adds the appropriate classes that we
-        use to style each element. These classes control the overall appearance,
-        as well as the showing and hiding via CSS transitions. You can modify
-        any of this with custom CSS or overriding our default variables. It's
-        also worth noting that just about any HTML can go within the
-        <code>.accordion-body</code>, though the transition does limit overflow.
         <apt-info></apt-info>
       </div>
     </div>
@@ -40,6 +33,7 @@ export default {
   name: "AppListItem",
   props: {
     apt: Object,
+    index: Number,
   },
   methods: {
     ...mapActions("aptStore", ["detailApt"]),

@@ -26,4 +26,8 @@ export default {
 li {
   list-style: none;
 }
+
+ul {
+  margin-left: 5px;
+}
 </style>

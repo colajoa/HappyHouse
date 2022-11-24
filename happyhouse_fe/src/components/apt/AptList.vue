@@ -1,6 +1,11 @@
 <template>
   <div class="accordion" id="accordionExample" style="overflow: scroll">
-    <apt-list-item v-for="(apt, index) in apts" :key="index" :apt="apt">
+    <apt-list-item
+      v-for="(apt, index) in apts"
+      :key="index"
+      :apt="apt"
+      :index="index"
+    >
     </apt-list-item>
   </div>
 </template>
