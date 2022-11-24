@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -79,15 +78,20 @@ public class UserController {
     /**
      * 유저 정보 조회
      * 
+     * @param from
      * @param request
      * @return
      */
-    @GetMapping("/info")
-    public ResponseEntity<?> userInfo(HttpServletRequest request){
+    @GetMapping("/info/{from}")
+    public ResponseEntity<?> userInfo(@PathVariable("from") String from, HttpServletRequest request){
         String token = request.getHeader("Authorization");
-        String userId = JwtTokenProvider.getUserIdFromJWT(token);
-
-        UserDto user = userService.getUserInfo(userId);
+        log.info(from);
+        UserDto user = null;
+        if(from.equals("kakao"))    user = userService.getKakaoUser(token);
+        else {
+            String userId = JwtTokenProvider.getUserIdFromJWT(token);
+            user = userService.getUserInfo(userId);
+        }
 
         return ResponseEntity.ok(user);
     }
@@ -107,7 +111,7 @@ public class UserController {
     /**
      * 회원 탈퇴
      * 
-     * @param deleteInfo
+     * @param password
      * @return
      */
     @PostMapping("/withdraw")
@@ -136,7 +140,7 @@ public class UserController {
     /**
      * 아이디 중복 체크
      * 
-     * @param user
+     * @param id
      * @return
      */
     @GetMapping("/check/{id}")
@@ -172,7 +176,7 @@ public class UserController {
     /**
      * 비밀번호 수정
      * 
-     * @param user
+     * @param passwords
      * @return
      */
     @PostMapping("/changepwd")

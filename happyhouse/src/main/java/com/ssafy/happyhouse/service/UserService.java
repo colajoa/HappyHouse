@@ -41,5 +41,9 @@ public interface UserService {
 	// 중복 아이디 확인
 	int idCheck(String id);
 
+	// 카카오톡 로그인
 	int kakaoLogin(String code);
+
+	// 카카오톡 유저 정보 조회
+	UserDto getKakaoUser(String code);
 }

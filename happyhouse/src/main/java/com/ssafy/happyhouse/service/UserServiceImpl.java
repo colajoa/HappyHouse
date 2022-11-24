@@ -151,8 +151,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int kakaoLogin(String code) {
-		log.info(ADMIN_TOKEN);
-
 		KakaoUserInfo userInfo = kakaoOAuth2.getUserInfo(code);
 
 		String id = userInfo.getNickname();
@@ -178,5 +176,13 @@ public class UserServiceImpl implements UserService {
 		if (n == 0)
 			throw new CustomException(ErrorCode.SERVER_ERROR);
 		return n;
+	}
+
+	@Override
+	public UserDto getKakaoUser(String code){
+		KakaoUserInfo userInfo = kakaoOAuth2.getUserInfo(code);
+
+		String id = userInfo.getNickname();
+		return getUserInfo(id);
 	}
 }
