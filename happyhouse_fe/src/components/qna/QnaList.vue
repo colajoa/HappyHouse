@@ -44,8 +44,6 @@
 </template>
 
 <script>
-// import QnaReply from "./QnaReply.vue";
-// import QnaView from "./QnaView.vue";
 import { mapActions, mapState } from "vuex";
 import QnaListItem from "./QnaListItem.vue";
 
