@@ -160,7 +160,7 @@ export default {
         await this.changeUserInfo(user);
         alert("회원정보가 수정되었습니다.");
         const token = sessionStorage.getItem("token");
-        await this.getUserInfo(token);
+        await this.getUserInfo({ from: this.userInfo.role, token });
         this.$router.replace("/mypage/info");
       } catch (e) {
         alert("서버 오류입니다.\n잠시 후 다시 시도해주세요.");
