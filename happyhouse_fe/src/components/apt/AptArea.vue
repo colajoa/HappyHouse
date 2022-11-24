@@ -134,6 +134,7 @@
             class="form-select form-select-sm"
             aria-label=".form-select-sm example"
             v-model="sidoCode"
+            ref="sidoCode"
             @change="gugunList"
           >
             <option v-for="sido in sidos" :value="sido.value" :key="sido.value">
@@ -147,6 +148,7 @@
             class="form-select form-select-sm"
             aria-label=".form-select-sm example"
             v-model="gugunCode"
+            ref="gugunCode"
             @change="dongList"
           >
             <option
@@ -164,6 +166,7 @@
             class="form-select form-select-sm"
             aria-label=".form-select-sm example"
             v-model="dongCode"
+            ref="dongCode"
             @change="yearList"
           >
             <option v-for="dong in dongs" :value="dong.value" :key="dong.value">
@@ -238,8 +241,9 @@
             data-bs-toggle="button"
             aria-pressed="false"
             autocomplete="off"
+            @click="regArea"
           >
-            관심지역 등록 토글
+            관심지역 등록
           </button>
         </div>
       </div>
@@ -295,6 +299,7 @@ export default {
       "getYear",
       "getMonth",
       "getAptList",
+      "registerArea",
     ]),
     ...mapMutations(aptStore, [
       "CLEAR_SIDO_LIST",
@@ -312,7 +317,9 @@ export default {
     dongList() {
       this.CLEAR_DONG_LIST();
       this.dongCode = null;
-      if (this.gugunCode) this.getDong(this.gugunCode);
+      if (this.gugunCode) {
+        this.getDong(this.gugunCode);
+      }
     },
     yearList() {
       this.CLEAR_YEAR_LIST();
@@ -335,7 +342,23 @@ export default {
       } else {
         alert("검색 조건을 다시 확인하세요!");
       }
-      // Reduce Map
+    },
+    async regArea() {
+      // 비어있을 때 에러
+      if (!this.dongCode) {
+        if (!this.sidoCode) this.$refs.sidoCode.focus();
+        else if (!this.gugunCode) this.$refs.gugunCode.focus();
+        else this.$refs.dongCode.focus();
+        return;
+      }
+
+      try {
+        await this.registerArea(this.dongCode);
+        alert("등록되었습니다.");
+      } catch (e) {
+        console.log(e);
+        alert("서버 오류입니다.\nQnA에 남겨주세요!");
+      }
     },
   },
 };

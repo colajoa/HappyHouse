@@ -31,11 +31,11 @@ public class AreaController {
      * @param request
      * @return ResponseEntity
      */
-    @GetMapping("/area/{dongCode}")
+    @GetMapping("/{dongCode}")
     public ResponseEntity<?> registerIArea(@PathVariable("dongCode") String dongcode, HttpServletRequest request){
 
         // Check Login
-        String token = request.getHeader("Authorization").substring("Bearer ".length());
+        String token = request.getHeader("Authorization");
         String userId = JwtTokenProvider.getUserIdFromJWT(token);
 
         // Set InterestArea
@@ -57,7 +57,7 @@ public class AreaController {
      */
     @GetMapping("/list")
     public ResponseEntity<?> listIArea(HttpServletRequest request){
-        String token = request.getHeader("Authorization").substring("Bearer ".length());
+        String token = request.getHeader("Authorization");
         String userId = JwtTokenProvider.getUserIdFromJWT(token);
         List<AreaDto> list = iAreaService.getList(userId);
 
@@ -72,9 +72,9 @@ public class AreaController {
      * @param request
      * @return
      */
-    @DeleteMapping("/area/{dongcode}")
+    @DeleteMapping("/{dongcode}")
     public ResponseEntity<?> removeIArea(@PathVariable("dongcode") String dongcode, HttpServletRequest request){
-        String token = request.getHeader("Authorization").substring("Bearer ".length());
+        String token = request.getHeader("Authorization");
         String userId = JwtTokenProvider.getUserIdFromJWT(token);
         AreaDto iAreaDto = AreaDto.builder()
                                         .dongcode(dongcode)
