@@ -53,6 +53,9 @@ const QnaStore = {
     async removeQna(state, idx) {
       await http.delete(`/house/qna/${idx}`);
     },
+    async registerQnaReply(state, reply) {
+      await http.post("/house/qna/reply/register", reply);
+    },
     async getQnaReply({ commit }, idx) {
       await http.get(`/house/qna/reply/detail/${idx}`).then((res) => {
         if (res.status == 200) {
@@ -61,6 +64,7 @@ const QnaStore = {
       });
     },
     async modifyQnaReply(state, reply) {
+      console.log(reply);
       await http.put(`/house/qna/reply/${reply.qnaid}`, reply);
     },
     async removeQnaReply(state, idx) {
