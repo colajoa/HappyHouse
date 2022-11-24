@@ -1,7 +1,6 @@
 <template>
   <div>
     <apt-list-item v-for="(apt, index) in apts" :key="index" :apt="apt">
-      {{ apt.아파트 }}
     </apt-list-item>
   </div>
 </template>

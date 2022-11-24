@@ -61,17 +61,20 @@
         </li>
       </ul>
     </div>
-    <div style="min-height: 120px; z-index: 10; height: 91%">
+    <!-- height: 91% -->
+    <div style="min-height: 120px; z-index: 10; height: 100%">
       <div class="collapse collapse-horizontal" id="collapseWidthExample">
         <div class="card card-body" style="width: 300px; height: 91vh">
           <apt-area></apt-area>
-          <apt-list></apt-list>
-          <apt-info></apt-info>
+          <div class="accordion" id="accordionExample">
+            <apt-list></apt-list>
+            <apt-info></apt-info>
+          </div>
         </div>
       </div>
     </div>
 
-    <div style="min-height: 120px; z-index: 10; height: 91%">
+    <div style="min-height: 120px; z-index: 10; height: 100%">
       <div class="collapse collapse-horizontal" id="collapseWidthExample1">
         <div
           class="card card-body"
@@ -231,6 +234,10 @@ main {
 .nav-pills .show > .nav-link {
   color: var(--bs-nav-pills-link-active-color);
   background-color: var(--bs-nav-pills-link-active-bg);
+}
+
+.card {
+  border-radius: 0;
 }
 /* sidenavbar */
 </style>
