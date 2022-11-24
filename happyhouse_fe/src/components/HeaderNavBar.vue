@@ -45,7 +45,7 @@
             </li>
             <li>
               <router-link class="nav-link scrollto" :to="{ name: 'qna' }"
-                >질문받는다</router-link
+                >QnA</router-link
               >
             </li>
 

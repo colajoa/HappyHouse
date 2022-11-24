@@ -28,11 +28,11 @@
         <button
           class="btn btn-custom"
           data-bs-toggle="modal"
-          data-bs-target="#modify"
+          :data-bs-target="`#modify${qna.idx}`"
         >
           수정
         </button>
-        <qna-update id="modify" :qna="qna"></qna-update>
+        <qna-update :id="`modify${qna.idx}`" :qna="qna"></qna-update>
       </td>
       <td v-else></td>
     </tr>

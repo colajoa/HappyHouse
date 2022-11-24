@@ -1,7 +1,7 @@
 <template>
   <div
     class="modal fade"
-    id="modify"
+    id="write-qna"
     tabindex="-1"
     role="dialog"
     aria-labelledby="exampleModalLabel"
