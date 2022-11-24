@@ -10,17 +10,6 @@
         id="sidebarmain"
       >
         <li class="nav-item">
-          <!-- <a
-            href="#"
-            class="nav-link active py-3 border-bottom rounded-0"
-            aria-current="page"
-            title="Home"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasScrolling"
-            aria-controls="offcanvasScrolling"
-            data-bs-placement="right"
-          > -->
-
           <a
             class="nav-link active py-3 border-bottom rounded-0"
             aria-current="page"
@@ -77,7 +66,7 @@
         <div class="card card-body" style="width: 300px; height: 91vh">
           <apt-area></apt-area>
           <apt-list></apt-list>
-          <apt-info style="z-index: 0"></apt-info>
+          <apt-info></apt-info>
         </div>
       </div>
     </div>
@@ -85,7 +74,7 @@
     <div style="min-height: 120px; z-index: 10; height: 91%">
       <div class="collapse collapse-horizontal" id="collapseWidthExample1">
         <div class="card card-body" style="width: 300px; height: 91vh">
-          즐겨찾기
+          <interest-arae-list></interest-arae-list>
         </div>
       </div>
     </div>
@@ -98,12 +87,14 @@ import AptArea from "./AptArea.vue";
 import AptList from "./AptList.vue";
 import AptMap from "./AptMap.vue";
 import AptInfo from "./AptInfo.vue";
+import InterestAraeList from "../area/AraeList.vue";
 export default {
   components: {
     AptMap,
     AptArea,
     AptList,
     AptInfo,
+    InterestAraeList,
   },
 };
 </script>
