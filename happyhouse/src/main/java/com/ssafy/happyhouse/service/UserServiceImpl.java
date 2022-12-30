@@ -38,8 +38,9 @@ public class UserServiceImpl implements UserService {
 		String findPassword = userDao.getPassword(user.getId());
 
 		// 아이디가 존재하지 않을 때
-		if (findPassword == null)
+		if (findPassword == null){
 			throw new CustomException(ErrorCode.USER_NOT_FOUND);
+		}
 		// 비밀번호가 일치하지 않을 때
 		if (!passwordEncoder.matches(user.getPwd(), findPassword)){
 			throw new CustomException(ErrorCode.INVALID_PASSWORD);
@@ -74,24 +75,27 @@ public class UserServiceImpl implements UserService {
 		user.setPwd(encodedPassword);
 
 		int n = userDao.insertUser(user);
-		if (n == 0)
+		if (n == 0){
 			throw new CustomException(ErrorCode.SERVER_ERROR);
+		}
 		return n;
 	}
 
 	@Override
 	public UserDto getUserInfo(String userId) {
 		UserDto user = userDao.getUserInfo(userId);
-		if (user == null)
+		if (user == null){
 			throw new CustomException(ErrorCode.USER_NOT_FOUND);
+		}
 		return user;
 	}
 
 	@Override
 	public int updateUser(UserDto user) {
 		int n = userDao.updateUser(user);
-		if (n == 0)
+		if (n == 0){
 			throw new CustomException(ErrorCode.SERVER_ERROR);
+		}
 		return n;
 	}
 
@@ -99,28 +103,32 @@ public class UserServiceImpl implements UserService {
 	public int deleteUser(UserDto user) {
 		// 비밀번호 일치하는지 확인
 		String pwd = userDao.getPassword(user.getId());
-		if(!passwordEncoder.matches(user.getPwd(), pwd))
+		if(!passwordEncoder.matches(user.getPwd(), pwd)){
 			throw new CustomException(ErrorCode.INVALID_PASSWORD);
+		}
 
 		int n = userDao.deleteUser(user);
-		if (n == 0)
+		if (n == 0){
 			throw new CustomException(ErrorCode.SERVER_ERROR);
+		}
 		return n;
 	}
 
 	@Override
 	public String findId(UserDto user) {
 		String id = userDao.findId(user);
-		if (id == null || id.equals(""))
+		if (id == null || id.equals("")){
 			throw new CustomException(ErrorCode.USER_NOT_FOUND);
+		}
 		return id;
 	}
 
 	@Override
 	public String findPwd(UserDto user) {
 		String pwd = userDao.findPwd(user);
-		if (pwd == null || pwd.equals(""))
+		if (pwd == null || pwd.equals("")){
 			throw new CustomException(ErrorCode.USER_NOT_FOUND);
+		}
 		return pwd;
 	}
 
@@ -128,24 +136,27 @@ public class UserServiceImpl implements UserService {
 	public int modifyPwd(String id, Map<String, String> passwords) {
 		if(passwords.get("nowPassword") != null){
 			String pwd = userDao.getPassword(id);
-			if(!passwordEncoder.matches(passwords.get("nowPassword"), pwd))
+			if(!passwordEncoder.matches(passwords.get("nowPassword"), pwd)){
 				throw new CustomException(ErrorCode.INVALID_PASSWORD);
+			}
 		}
 
 		if(id == null)	id = passwords.get("id");
 		String encodedPassword = passwordEncoder.encode(passwords.get("newPassword"));
 		UserDto user = UserDto.builder().id(id).pwd(encodedPassword).build();
 		int n = userDao.modifyPwd(user);
-		if (n == 0)
+		if (n == 0){
 			throw new CustomException(ErrorCode.SERVER_ERROR);
+		}
 		return n;
 	}
 
 	@Override
-	public int idCheck(String id) {
+	public int checkId(String id) {
 		int n = userDao.countById(id);
-		if (n != 0)
+		if (n != 0){
 			throw new CustomException(ErrorCode.ID_EXISTS);
+		}
 		return n;
 	}
 
@@ -158,8 +169,9 @@ public class UserServiceImpl implements UserService {
 
 		int cnt = userDao.countById(id);
 		// 이미 가입되어 있는 유저
-		if (cnt != 0)
+		if (cnt != 0){
 			return cnt;
+		}
 
 		// 미가입 시 회원 정보 저장
 		String encodedPassword = passwordEncoder.encode(password);
@@ -173,8 +185,9 @@ public class UserServiceImpl implements UserService {
 				.build();
 
 		int n = userDao.insertUser(user);
-		if (n == 0)
+		if (n == 0){
 			throw new CustomException(ErrorCode.SERVER_ERROR);
+		}
 		return n;
 	}
 

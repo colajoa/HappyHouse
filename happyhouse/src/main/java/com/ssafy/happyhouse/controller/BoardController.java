@@ -42,8 +42,8 @@ public class BoardController {
      * @return
      */
     @GetMapping("/list")
-    public ResponseEntity<?> listBoard(){
-        List<BoardDto> list = boardService.listBoard();
+    public ResponseEntity<?> getBoardList(){
+        List<BoardDto> list = boardService.getBoardList();
         return ResponseEntity.ok(list);
     }
 
@@ -66,8 +66,8 @@ public class BoardController {
      * @return
      */
     @GetMapping("/detail/{id}")
-    public ResponseEntity<?> detailBoard(@PathVariable("id") int id){
-        BoardDto board = boardService.detailBoard(id);
+    public ResponseEntity<?> getBoardDetail(@PathVariable("id") int id){
+        BoardDto board = boardService.getBoardDetail(id);
         return ResponseEntity.ok(board);
     }
 

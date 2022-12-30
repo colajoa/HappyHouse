@@ -19,42 +19,54 @@ public class QnaServiceImpl implements QnaService{
 	@Override
 	public int insertQna(QnaDto qna) {
 		int n = qnaDao.insertQna(qna);
-		if(n == 0)	throw new CustomException(ErrorCode.SERVER_ERROR);
+		if(n == 0)  {
+            throw new CustomException(ErrorCode.SERVER_ERROR);
+        }
 		return n;
 	}
 
 	@Override
-	public List<QnaDto> listQna() {
+	public List<QnaDto> getQnaList() {
 		List<QnaDto> qnas = qnaDao.listQna();
-		if(qnas.size() == 0)	throw new CustomException(ErrorCode.NULL_VALUE);
+		if(qnas.size() == 0){
+			throw new CustomException(ErrorCode.NULL_VALUE);
+		}
 		return qnas;
 	}
 
 	@Override
 	public int visitQna(int id){
 		int n = qnaDao.visitQna(id);
-		if(n == 0)	throw new CustomException(ErrorCode.SERVER_ERROR);
+		if(n == 0)  {
+            throw new CustomException(ErrorCode.SERVER_ERROR);
+        }
 		return n;
 	}
 	
 	@Override
-	public QnaDto detailQna(int id) {
+	public QnaDto getQnaDetail(int id) {
 		QnaDto qna = qnaDao.detailQna(id);
-		if(qna == null)		throw new CustomException(ErrorCode.NULL_VALUE);
+		if(qna == null)		{
+			throw new CustomException(ErrorCode.NULL_VALUE);
+		}
 		return qna;
 	}
 
 	@Override
 	public int updateQna(QnaDto qna) {
 		int n = qnaDao.updateQna(qna);
-		if(n == 0)	throw new CustomException(ErrorCode.SERVER_ERROR);
+		if(n == 0)  {
+            throw new CustomException(ErrorCode.SERVER_ERROR);
+        }
 		return n;
 	}
 
 	@Override
 	public int deleteQna(int id) {
 		int n = qnaDao.deleteQna(id);
-		if(n == 0)	throw new CustomException(ErrorCode.SERVER_ERROR);
+		if(n == 0)  {
+            throw new CustomException(ErrorCode.SERVER_ERROR);
+        }
 		return n;
 	}
 }

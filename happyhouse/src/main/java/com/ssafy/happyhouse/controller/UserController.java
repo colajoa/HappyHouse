@@ -41,7 +41,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/join")
-    public ResponseEntity<?> register(@RequestBody UserDto user) {
+    public ResponseEntity<?> registerUser(@RequestBody UserDto user) {
         userService.insertUser(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -70,7 +70,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/login/kakao")
-    public ResponseEntity<?> kakaologin(@RequestBody Map<String, String> code){
+    public ResponseEntity<?> loginKakao(@RequestBody Map<String, String> code){
         userService.kakaoLogin(code.get("code"));
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -83,11 +83,13 @@ public class UserController {
      * @return
      */
     @GetMapping("/info/{from}")
-    public ResponseEntity<?> userInfo(@PathVariable("from") String from, HttpServletRequest request){
+    public ResponseEntity<?> getUserInfo(@PathVariable("from") String from, HttpServletRequest request){
         String token = request.getHeader("Authorization");
         log.info(from);
         UserDto user = null;
-        if(from.equals("kakao"))    user = userService.getKakaoUser(token);
+        if(from.equals("kakao")){
+            user = userService.getKakaoUser(token);
+        }    
         else {
             String userId = JwtTokenProvider.getUserIdFromJWT(token);
             user = userService.getUserInfo(userId);
@@ -144,8 +146,8 @@ public class UserController {
      * @return
      */
     @GetMapping("/check/{id}")
-    public ResponseEntity<?> idCheck(@PathVariable("id") String id) {
-        userService.idCheck(id);
+    public ResponseEntity<?> checkId(@PathVariable("id") String id) {
+        userService.checkId(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -183,7 +185,9 @@ public class UserController {
     public ResponseEntity<?> modifyPwd(@RequestBody Map<String, String> passwords, HttpServletRequest request){
         String token = request.getHeader("Authorization");
         String userId = null;
-        if(token.length() > 0)  userId = JwtTokenProvider.getUserIdFromJWT(token);
+        if(token.length() > 0)  {
+            userId = JwtTokenProvider.getUserIdFromJWT(token);
+        }
 
         userService.modifyPwd(userId, passwords);
         return ResponseEntity.ok(HttpStatus.OK);

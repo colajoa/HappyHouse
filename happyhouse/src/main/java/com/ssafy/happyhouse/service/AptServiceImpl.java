@@ -20,28 +20,36 @@ public class AptServiceImpl implements AptService{
 	@Override
 	public ArrayList<CodeDto> getSido(CodeDto area) throws Exception {
 		ArrayList<CodeDto> sido = aptDao.getSido(area);
-		if(sido.size() == 0)	throw new CustomException(ErrorCode.NULL_VALUE);
+		if(sido.size() == 0)	{
+			throw new CustomException(ErrorCode.NULL_VALUE);
+		}
 		return sido;
 	}
 
 	@Override
 	public ArrayList<CodeDto> getGugun(CodeDto area) throws Exception {
 		ArrayList<CodeDto> gugun = aptDao.getGugun(area);
-		if(gugun.size() == 0)	throw new CustomException(ErrorCode.NULL_VALUE);
+		if(gugun.size() == 0)	{
+			throw new CustomException(ErrorCode.NULL_VALUE);
+		}
 		return gugun;
 	}
 
 	@Override
 	public ArrayList<CodeDto> getDong(CodeDto area) throws Exception {
 		ArrayList<CodeDto> dong = aptDao.getDong(area);
-		if(dong.size() == 0)	throw new CustomException(ErrorCode.NULL_VALUE);
+		if(dong.size() == 0)	{
+			throw new CustomException(ErrorCode.NULL_VALUE);
+		}
 		return dong;
 	}
 
 	@Override
 	public ArrayList<AptDeal> getAptList(String code, int dealYear, int dealMonth) throws Exception {
 		ArrayList<AptDeal> apts = aptDao.getAptList(code, dealYear, dealMonth);
-		if(apts.size() == 0)	throw new CustomException(ErrorCode.NULL_VALUE);
+		if(apts.size() == 0)	{
+			throw new CustomException(ErrorCode.NULL_VALUE);
+		}
 		return apts;
 	}
 

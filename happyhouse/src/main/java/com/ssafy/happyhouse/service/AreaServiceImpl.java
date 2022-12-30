@@ -19,21 +19,27 @@ public class AreaServiceImpl implements AreaService{
 	@Override
 	public int registArea(AreaDto dto) {
 		int n = areaDao.registArea(dto);
-		if(n == 0)	throw new CustomException(ErrorCode.SERVER_ERROR);
+		if(n == 0)  {
+            throw new CustomException(ErrorCode.SERVER_ERROR);
+        }
 		return n;
 	}
 
 	@Override
 	public List<AreaDto> getList(String userId) {
 		List<AreaDto> list = areaDao.getList(userId);
-		if(list.size() == 0)	throw new CustomException(ErrorCode.NULL_VALUE);
+		if(list.size() == 0)	{
+			throw new CustomException(ErrorCode.NULL_VALUE);
+		}
 		return list;
 	}
 
 	@Override
 	public int removeArea(AreaDto dto) {
 		int n = areaDao.removeArea(dto);
-		if(n == 0)	throw new CustomException(ErrorCode.SERVER_ERROR);
+		if(n == 0)  {
+            throw new CustomException(ErrorCode.SERVER_ERROR);
+        }
 		return n;
 	}
 }

@@ -43,8 +43,8 @@ public class QnaController {
      * @return
      */
     @GetMapping("/list")
-    public ResponseEntity<?> listQnas(){
-        List<QnaDto> list = qnaService.listQna();
+    public ResponseEntity<?> getQnaList(){
+        List<QnaDto> list = qnaService.getQnaList();
         return ResponseEntity.ok(list);
     }
 
@@ -67,8 +67,8 @@ public class QnaController {
      * @return
      */
     @GetMapping("/detail/{id}")
-    public ResponseEntity<?> detailQna(@PathVariable("id") int id){
-        QnaDto qna = qnaService.detailQna(id);
+    public ResponseEntity<?> getQnaDetail(@PathVariable("id") int id){
+        QnaDto qna = qnaService.getQnaDetail(id);
         return ResponseEntity.ok(qna);
     }
 

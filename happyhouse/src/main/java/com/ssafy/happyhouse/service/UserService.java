@@ -39,7 +39,7 @@ public interface UserService {
 	int modifyPwd(String id, Map<String, String> passwords);
 
 	// 중복 아이디 확인
-	int idCheck(String id);
+	int checkId(String id);
 
 	// 카카오톡 로그인
 	int kakaoLogin(String code);

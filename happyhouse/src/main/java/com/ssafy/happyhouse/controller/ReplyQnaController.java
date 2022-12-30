@@ -42,8 +42,8 @@ public class ReplyQnaController {
      * @return
      */
     @GetMapping("/detail/{idx}")
-    public ResponseEntity<?> detailReply(@PathVariable("idx") int idx){
-        ReplyQnaDto reply = replyService.detailReply(idx);
+    public ResponseEntity<?> getReplyDetail(@PathVariable("idx") int idx){
+        ReplyQnaDto reply = replyService.getReplyDetail(idx);
         return ResponseEntity.ok(reply);
     }
 

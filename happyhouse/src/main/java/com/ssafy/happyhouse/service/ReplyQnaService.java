@@ -5,7 +5,7 @@ import com.ssafy.happyhouse.dto.ReplyQnaDto;
 public interface ReplyQnaService {
     int replyQna(ReplyQnaDto reply);
 
-    ReplyQnaDto detailReply(int idx);
+    ReplyQnaDto getReplyDetail(int idx);
 
     int updateReply(ReplyQnaDto reply);
 

@@ -6,9 +6,9 @@ import com.ssafy.happyhouse.dto.BoardDto;
 
 public interface BoardService {
     int insertBoard(BoardDto board);
-	List<BoardDto> listBoard();
+	List<BoardDto> getBoardList();
 	int visitBoard(int id);
-	BoardDto detailBoard(int id);
+	BoardDto getBoardDetail(int id);
 	int updateBoard(BoardDto board);
 	int deleteBoard(int id);
 }
