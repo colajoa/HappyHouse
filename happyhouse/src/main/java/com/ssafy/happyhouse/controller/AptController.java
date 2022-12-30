@@ -7,6 +7,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import com.ssafy.happyhouse.exception.CustomException;
 import com.ssafy.happyhouse.exception.ErrorCode;
 import com.ssafy.happyhouse.service.AptServiceImpl;
 
+@Log4j2
 @RestController
 @RequestMapping("/apt")
 public class AptController {
@@ -71,8 +74,7 @@ public class AptController {
      * 아파트 매매가 정보 불러오기
      * 
      * @param code
-     * @param dealYear
-     * @param dealMonth
+     * @param date
      * @return 
      */
     @GetMapping("/aptlist/{code}/{date}")
@@ -89,7 +91,7 @@ public class AptController {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode());
+        log.info("Response code: "+conn.getResponseCode());
         BufferedReader rd;
 
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
@@ -110,7 +112,7 @@ public class AptController {
         if(!sb.toString().contains("200"))  throw new CustomException(ErrorCode.SERVER_ERROR);
 
         JSONObject json = XML.toJSONObject(sb.toString());
-        System.out.println(json);
+        log.debug(json);
         // return ResponseEntity.ok(list);
         return ResponseEntity.ok(json.toMap());
     }

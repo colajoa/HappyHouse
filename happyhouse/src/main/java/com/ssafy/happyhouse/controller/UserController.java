@@ -85,7 +85,7 @@ public class UserController {
     @GetMapping("/info/{from}")
     public ResponseEntity<?> getUserInfo(@PathVariable("from") String from, HttpServletRequest request){
         String token = request.getHeader("Authorization");
-        log.info(from);
+        log.debug(from);
         UserDto user = null;
         if(from.equals("kakao")){
             user = userService.getKakaoUser(token);
